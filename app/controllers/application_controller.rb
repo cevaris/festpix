@@ -3,10 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  private
-
-  def event_handler
-    @event_handler ||= RedisEvents.instance
-  end
+  def require_session
+    unless current_user
+      flash[:error] = 'You must be logged in to view this page.'  
+      redirect_to new_user_registration_path
+    end
+  end 
 
 end
