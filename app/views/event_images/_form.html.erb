@@ -1,0 +1,24 @@
+<%= form_tag(new_event_image_path, method: 'post') do %>
+
+  <% if @event_image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_image.errors.count, "error") %> prohibited this Event Image from being saved:</h2>
+
+      <ul>
+      <% @event_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag(:user_id, 'User#') %>
+    <%= text_field_tag(:user_id) %>
+  </div>
+  <div class="field">
+    <%= label_tag :image, 'Image' %><br />
+    <%= file_field_tag :image %>
+  </div>
+  <%= submit_tag 'Create', class: 'btn btn-primary' %>
+<% end %>

@@ -1,6 +1,7 @@
 Rq::Application.routes.draw do
 
   resources :events
+  resources :event_images
 
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users, :only => [:show]
