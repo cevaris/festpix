@@ -3,4 +3,6 @@ class PhotoSession < ActiveRecord::Base
   acts_as_taggable_on :emails
   acts_as_taggable_on :phones
   acts_as_taggable_on :attendees
+
+  has_many :photos
 end

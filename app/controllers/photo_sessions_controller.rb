@@ -22,6 +22,7 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/new
   def new
     @photo_session = PhotoSession.new
+    5.times { @photo_session.photos.build }
     # @photo_session.email_list = 'cevaris@gmail.com,chek@yahoo.com'
   end
 

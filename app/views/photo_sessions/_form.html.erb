@@ -19,6 +19,23 @@
     <%= f.hidden_field :emails, value: @photo_session.email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
   </div>
 
+  <%= f.fields_for :photos do |asset_fields| %>
+    <% if asset_fields.object.new_record? %>
+
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+        <span class="btn btn-file">
+          <span class="fileupload-new">Select file</span>
+          <span class="fileupload-exists">Change</span>
+          <%= asset_fields.file_field :image %>
+        </span>
+        <span class="fileupload-preview"></span>
+        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+      </div>
+
+
+    <% end %>
+  <% end %>
+
   <div class="actions"><br />
     <%= f.submit 'Submit', class:'btn btn-primary' %>
   </div>
