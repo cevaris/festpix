@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EventImagesControllerTest < ActionController::TestCase
+class PhotoSessionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

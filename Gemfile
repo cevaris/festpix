@@ -53,3 +53,4 @@ gem 'activerecord-session_store', '~> 0.1.0'
 gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk'
+gem "select2-rails"

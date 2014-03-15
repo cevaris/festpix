@@ -21,6 +21,7 @@ module Rq
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.scoped_views = true
 
     config.paperclip_defaults = {
       :storage => :s3,

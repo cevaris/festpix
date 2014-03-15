@@ -12,7 +12,21 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
+  <div><%= f.label :kind %><br />
+  <%= select_tag :kind, options_for_select(User::TYPES), {
+    placeholder:'User type'
+  } %>  
+  </div>
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 
 <%= render "users/shared/links" %>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#kind').select2();
+});
+</script>

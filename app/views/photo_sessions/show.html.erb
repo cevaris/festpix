@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @photo_session.name %>
+</p>
+
+<p>
+  <strong>Photo user:</strong>
+  <%= @photo_session.photo_user_id %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @photo_session.event_id %>
+</p>
+
+<%= link_to 'Edit', edit_photo_session_path(@photo_session) %> |
+<%= link_to 'Back', photo_sessions_path %>

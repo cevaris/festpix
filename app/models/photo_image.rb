@@ -1,5 +1,5 @@
-class EventImage < ActiveRecord::Base
-  belongs_to :event
+class Photo < ActiveRecord::Base
+  belongs_to :photo_session
 
   has_attached_file :image, :styles => {
     thumb: '100x100#', 

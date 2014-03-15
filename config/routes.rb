@@ -1,5 +1,7 @@
 Rq::Application.routes.draw do
 
+  resources :photo_sessions
+
   resources :events
   resources :event_images
 

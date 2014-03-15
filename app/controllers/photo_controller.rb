@@ -1,4 +1,4 @@
-class EventImagesController < ApplicationController
+class PhotoController < ApplicationController
   before_action :require_session, only: [:new, :edit, :create]
 
   # GET /event_image/new
