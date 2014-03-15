@@ -16,14 +16,11 @@
     <%= f.email_field :email, :autofocus => true %>
   </div>
 
-  <div><%= f.label :phone_number %> <i>(format: XXX-XXX-XXXX)</i><br />
-  <%= f.text_field :phone_number %></div>
-
-  <div><%= f.label :skype %>
-  <%= f.text_field :skype %></div>
-
-  <div><%= f.label :timezone %> <i>(based off your browser)</i><br />
-  <%= f.text_field :timezone %></div>
+  <div><%= f.label :kind %><br />
+  <%= select_tag :kind, options_for_select(User::TYPES), {
+    placeholder:'User type'
+  } %>  
+  </div>
 
   <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
   <%= f.password_field :password, :autocomplete => "off" %></div>
@@ -45,6 +42,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#user_timezone').val(jstz.determine().name());
+  $('#kind').select2();
 });
 </script>

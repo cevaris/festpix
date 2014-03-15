@@ -1,6 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
-  before_filter :user_params, if: :devise_controller?
+  before_action :user_new_params, only:[:create]
+  
 
   def update
     @user = User.find(current_user.id)
@@ -25,8 +26,10 @@ class RegistrationsController < Devise::RegistrationsController
   # # POST /events
   # # POST /events.json
   # def create
-  #   # @user = User.new(user_params)
-  #   Rails.logger.info "#{user_params.inspect}"
+  #   @user = User.new(user_new_params)
+  #   Rails.logger.info "After #{params[:user]}"
+  #   Rails.logger.info "Cleaned Params #{user_new_params.inspect}"
+  #   update_devise_parameter_sanitizer
 
   #   respond_to do |format|
   #     if @user.save
@@ -61,13 +64,13 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != params[:user][:email] || params[:user][:password].present?
   end
 
-  def user_params
-    # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:kind, :email, :password, :password_confirmation) }
-    devise_parameter_sanitizer.for(:sign_up).push(:kind)
-    devise_parameter_sanitizer.for(:account_update).push(:kind)
-    Rails.logger.info devise_parameter_sanitizer.for(:sign_up)
-    # devise_parameter_sanitizer.for(:sign_up)
-    # params.require(:user).permit(:email, :password, :password_confirmation, :kind)
+  def user_new_params
+    Rails.logger.info "Before #{params[:user]}"
+    params.require(:user).permit(:kind, :email, :password, :password_confirmation)
+    # params.require(:p).permit(:kind, :email, :password, :password_confirmation)
+    # params.require(:user).permit!
+    # params.require(:user).permit(:kind, :email, :password, :password_confirmation, :fake_ds)
+
   end
 
 
