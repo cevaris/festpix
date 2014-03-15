@@ -25,6 +25,29 @@
   <%= hidden_field_tag :email_list, @photo_session.email_list.join(',') %>  
 </p>
 
+<div>
+<% if !@photo_session.photos.empty? %>
+
+  <div class="text-center">
+  <label><b>Session Photos:</b></label>
+  </div>
+  
+  <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+    <ul class="wall" style="list-style-type: none; position:relative;">
+    <% @photo_session.photos.each do |photo| %>
+    <li class="item">
+      <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
+    </li>
+    <% end %>
+   </ul>
+  </div>
+
+
+<% else %>
+  No Images Found
+<% end %>
+</div>
+
 <%= link_to 'Edit', edit_photo_session_path(@photo_session) %> |
 <%= link_to 'Back', photo_sessions_path %>
 
