@@ -22,6 +22,7 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/new
   def new
     @photo_session = PhotoSession.new
+    # @photo_session.email_list = 'cevaris@gmail.com,chek@yahoo.com'
   end
 
   # GET /photo_sessions/1/edit

@@ -11,19 +11,38 @@
     </div>
   <% end %>
 
- <!--  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+
+  <div><%= f.label :phones %><br />
+    <%= f.hidden_field :phones, value: @photo_session.phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>  
   </div>
-  <div class="field">
-    <%= f.label :photo_user_id %><br>
-    <%= f.number_field :photo_user_id %>
+  <div><%= f.label :emails %><br />
+    <%= f.hidden_field :emails, value: @photo_session.email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
   </div>
-  <div class="field">
-    <%= f.label :event_id %><br>
-    <%= f.number_field :event_id %>
-  </div> -->
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="actions"><br />
+    <%= f.submit 'Submit', class:'btn btn-primary' %>
   </div>
 <% end %>
+
+
+
+<script>
+  $("#photo_session_phones").select2({ 
+    tags: [], 
+    placeholder: "Enter Phone Numbers",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+  $("#photo_session_emails").select2({ 
+    tags: [],
+    placeholder: "Enter Emails",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+</script>
+
+
+
+
+
+

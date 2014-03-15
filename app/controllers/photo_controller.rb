@@ -24,11 +24,11 @@ class PhotoController < ApplicationController
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
-    
+
   end
 
   private 
     def photo_params
-      params.require(:event_images_params).permit(:user_id, :image)
+      params.require(:photo_params).permit(:user_id, :image)
     end
 end
