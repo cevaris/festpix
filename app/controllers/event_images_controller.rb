@@ -15,21 +15,19 @@ class EventImagesController < ApplicationController
   def create
     @event_image = EventImage.new(event_images_params)
 
-    # respond_to do |format|
-    #   if @event_image.save
-    #     format.html { redirect_to @event_image, notice: 'Event was successfully created.' }
-    #     format.json { render action: 'show', status: :created, location: @event_image }
-    #   else
-    #     format.html { render action: 'new' }
-    #     format.json { render json: @event_image.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @event_image.save
+        format.html { redirect_to @event_image, notice: 'Event was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @event_image }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @event_image.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private 
     def event_params
       params.require(:event_images_params).permit(:user_id, :image)
     end
-
-  
 end
