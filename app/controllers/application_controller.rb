@@ -7,12 +7,8 @@ class ApplicationController < ActionController::Base
 
 
   def update_devise_parameter_sanitizer
-    # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:kind, :email, :password, :password_confirmation) }
     devise_parameter_sanitizer.for(:sign_up).push(:kind)
     devise_parameter_sanitizer.for(:account_update).push(:kind)
-    Rails.logger.info "Devise Params #{devise_parameter_sanitizer.for(:sign_up)}"
-    # devise_parameter_sanitizer.for(:sign_up)
-    # params.require(:user).permit(:email, :password, :password_confirmation, :kind) if params.has_key? :user
   end
 
   def require_session

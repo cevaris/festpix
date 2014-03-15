@@ -17,7 +17,7 @@
   </div>
 
   <div><%= f.label :kind %><br />
-  <%= select_tag :kind, options_for_select(User::TYPES), {
+  <%= f.select :kind, options_for_select(User::TYPES), {
     placeholder:'User type'
   } %>  
   </div>
