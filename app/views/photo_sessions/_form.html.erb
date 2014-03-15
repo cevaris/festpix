@@ -11,12 +11,14 @@
     </div>
   <% end %>
 
-
+  <div><%= f.label :name %><br />
+    <%= f.text_field :name, placeholder:'Enter Name', style:'width: 300px'%>  
+  </div>
   <div><%= f.label :phones %><br />
-    <%= f.hidden_field :phones, value: @photo_session.phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>  
+    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>  
   </div>
   <div><%= f.label :emails %><br />
-    <%= f.hidden_field :emails, value: @photo_session.email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
+    <%= f.hidden_field :email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
   </div>
 
   <%= f.fields_for :photos do |asset_fields| %>
@@ -44,13 +46,13 @@
 
 
 <script>
-  $("#photo_session_phones").select2({ 
+  $("#photo_session_phone_list").select2({ 
     tags: [], 
     placeholder: "Enter Phone Numbers",
     tokenSeparators: [",", " "],
     minimumInputLength: 1
   });
-  $("#photo_session_emails").select2({ 
+  $("#photo_session_email_list").select2({ 
     tags: [],
     placeholder: "Enter Emails",
     tokenSeparators: [",", " "],

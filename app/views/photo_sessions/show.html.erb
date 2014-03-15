@@ -10,10 +10,30 @@
   <%= @photo_session.photo_user_id %>
 </p>
 
-<p>
+<!-- <p>
   <strong>Event:</strong>
   <%= @photo_session.event_id %>
+</p> -->
+
+<p>
+  <strong>Phone Numbers</strong>
+  <%= hidden_field_tag :phone_list, @photo_session.phone_list.join(',') %>  
+</p>
+
+<p>
+  <strong>Emails</strong>
+  <%= hidden_field_tag :email_list, @photo_session.email_list.join(',') %>  
 </p>
 
 <%= link_to 'Edit', edit_photo_session_path(@photo_session) %> |
 <%= link_to 'Back', photo_sessions_path %>
+
+
+
+<script>
+  $("#phone_list").select2({ tags: [] });
+  $("#phone_list").select2('readonly', true);
+  $("#email_list").select2({ tags: [] });
+  $("#email_list").select2('readonly', true);
+
+</script>
