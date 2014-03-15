@@ -1,11 +1,12 @@
 <h1>Listing Photo Sessions</h1>
-<!-- 
-<table>
+
+<%= render 'search' %>
+
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Photo user</th>
-      <th>Event</th>
+      <th>Photographer Id</th>
       <th></th>
       <th></th>
       <th></th>
@@ -17,18 +18,14 @@
       <tr>
         <td><%= photo_session.name %></td>
         <td><%= photo_session.photo_user_id %></td>
-        <td><%= photo_session.event_id %></td>
         <td><%= link_to 'Show', photo_session %></td>
         <td><%= link_to 'Edit', edit_photo_session_path(photo_session) %></td>
-        <td><%= link_to 'Destroy', photo_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!-- <td><%= link_to 'Destroy', photo_session, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
- -->
-
-<%= render 'search' %>
 
 <%= link_to 'New Photo session', new_photo_session_path %>

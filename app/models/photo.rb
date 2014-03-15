@@ -7,6 +7,6 @@ class Photo < ActiveRecord::Base
     medium: '500x500>',
     large: '700x700>' }
 
-
+  validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
 
 end

@@ -1,5 +1,21 @@
-<%= form_tag search_sessions_path, :method => 'get' do %>
-  <%= text_field_tag :email, params[:email], placeholder: 'Search by Email' %>
-  <%= text_field_tag :phone, params[:phone], placeholder: 'Search by Phone Number' %>
+<%= form_tag photo_sessions_path, :method => 'get' do %>
+  <%= hidden_field_tag :email_list, params[:email_list], placeholder: 'Search by Email', style:'width: 300px'%>  
+  <%= hidden_field_tag :phone_list, params[:phone_list], placeholder: 'Search by Phone Number', style:'width: 300px'%>  
   <%= submit_tag 'Search', class: 'btn'  %>
 <% end %>
+
+
+<script>
+  $("#email_list").select2({ 
+    tags: [],
+    placeholder: "Enter Phone Numbers",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+  $("#phone_list").select2({ 
+    tags: [],
+    placeholder: "Enter Emails",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+</script>

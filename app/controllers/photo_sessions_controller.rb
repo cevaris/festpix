@@ -4,14 +4,21 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
-    @photo_sessions = PhotoSession.all
-  end
 
-  # GET /photo_sessions
-  # GET /photo_sessions.json
-  def search
+    emails = PhotoSession.tagged_with(["cevaris@gmail.com,jim.kobol@gmail.com"], :any => true)
+    if params[:email_list]
+      emails = PhotoSession.tagged_with(params[:email_list].split, :any => true)
+    else
+      emails = []
+    end
+    
+    if params[:phone_list]
+      phones = PhotoSession.tagged_with(params[:phone_list].split, :any => true)
+    else
+      phones = []
+    end
 
-    # @photo_sessions = PhotoSession.find_by 
+    @photo_sessions = emails | phones
   end
 
   # GET /photo_sessions/1

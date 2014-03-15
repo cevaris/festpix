@@ -1,6 +1,6 @@
 Rq::Application.routes.draw do
 
-  match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
+  # match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
 
   resources :photo_sessions
   resources :events
