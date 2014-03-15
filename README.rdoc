@@ -1,0 +1,9 @@
+== Rails Events
+Event collection backed by Redis.
+
+=== Getting started
+- Start your Redis server locally in a new console
+- Start your Rails server locally in a new console
+- Execute `rake events:tail['events:raw']` in a new console
+- Create new `.credentials.json` file using the `.example.credentials.json` template and fill in with your Twitter info
+- Execute `rake events:create` in a new console to start the event creation process
