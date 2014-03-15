@@ -7,6 +7,13 @@ class PhotoSessionsController < ApplicationController
     @photo_sessions = PhotoSession.all
   end
 
+  # GET /photo_sessions
+  # GET /photo_sessions.json
+  def search
+
+    # @photo_sessions = PhotoSession.find_by 
+  end
+
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show

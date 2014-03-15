@@ -1,0 +1,5 @@
+<%= form_tag search_sessions_path, :method => 'get' do %>
+  <%= text_field_tag :email, params[:email], placeholder: 'Search by Email' %>
+  <%= text_field_tag :phone, params[:phone], placeholder: 'Search by Phone Number' %>
+  <%= submit_tag 'Search', class: 'btn'  %>
+<% end %>

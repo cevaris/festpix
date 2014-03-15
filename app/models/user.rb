@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  TYPES = {:photographer =>'Photographer', :customer=>'Customer', :event=>'Event Coordinator', :admin =>'Admin' }
+  TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator', :admin =>'Admin' }
 
 
   # Include default devise modules. Others available are:

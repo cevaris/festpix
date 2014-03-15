@@ -6,7 +6,7 @@
     <tr>
       <th>Name</th>
       <th>User</th>
-      <th>#Photos</th>
+      <th>#Sessions</th>
       <th></th>
       <th></th>
     </tr>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= event.name %></td>
         <td><%= event.user_id %></td>
-        <td><%= event.event_images.count %></td>
+        <td><%= event.photo_sessions.count %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

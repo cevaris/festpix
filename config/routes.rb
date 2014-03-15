@@ -1,7 +1,6 @@
 Rq::Application.routes.draw do
 
   resources :photo_sessions
-
   resources :events
   resources :event_images
 
@@ -9,6 +8,8 @@ Rq::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users, :only => [:show]
   root :to => "home#index"
+
+  match '/sessions' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
 
 
   

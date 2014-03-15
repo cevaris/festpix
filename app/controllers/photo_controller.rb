@@ -3,7 +3,7 @@ class PhotoController < ApplicationController
 
   # GET /event_image/new
   def new
-    @event_image = EventImage.new
+    @photo = Photo.new
   end
 
   # GET /event_image/1/edit
@@ -13,21 +13,22 @@ class PhotoController < ApplicationController
   # POST /event_image
   # POST /event_image.json
   def create
-    @event_image = EventImage.new(event_images_params)
+    @photo = Photo.new(photo_params)
 
     respond_to do |format|
-      if @event_image.save
-        format.html { redirect_to @event_image, notice: 'Event was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @event_image }
+      if @photo.save
+        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @photo }
       else
         format.html { render action: 'new' }
-        format.json { render json: @event_image.errors, status: :unprocessable_entity }
+        format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   private 
-    def event_params
+    def photo_params
       params.require(:event_images_params).permit(:user_id, :image)
     end
 end
