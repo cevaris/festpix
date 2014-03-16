@@ -21,6 +21,7 @@ class PhotoSessionsController < ApplicationController
     # end
 
     # @photo_sessions = emails | phones
+    redirect_to action: "new"
   end
 
   # GET /photo_sessions/1/claim
@@ -89,7 +90,11 @@ class PhotoSessionsController < ApplicationController
     # end
 
     respond_to do |format|
-      if @photo_session.save and queue_sms(@photo_session) && PhotoSessionMailer.photo_session_email(@photo_session).deliver
+      if @photo_session.save
+        
+        queue_sms(@photo_session)
+        PhotoSessionMailer.photo_session_email(@photo_session).deliver
+
         format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
         format.json { render json: @photo_session, status: :created, location: @photo_session }
       else
