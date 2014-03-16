@@ -1,4 +1,6 @@
 class PhotoSessionsController < ApplicationController
+  include PhotoSessionsHelper
+
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
 
   # GET /photo_sessions
@@ -69,7 +71,7 @@ class PhotoSessionsController < ApplicationController
     # end
 
     respond_to do |format|
-      if @photo_session.save
+      if @photo_session.save and queue_sms(@photo_session)
         format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
         format.json { render json: @photo_session, status: :created, location: @photo_session }
       else

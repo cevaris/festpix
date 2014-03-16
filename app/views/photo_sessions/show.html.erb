@@ -20,11 +20,11 @@
   <%= hidden_field_tag :phone_list, @photo_session.phone_list.join(',') %>  
 </p>
 
-<p>
+<!-- <p>
   <strong>Emails</strong>
   <%= hidden_field_tag :email_list, @photo_session.email_list.join(',') %>  
 </p>
-
+ -->
 <div>
 <% if !@photo_session.photos.empty? %>
 
@@ -56,6 +56,6 @@
 <script>
   $("#phone_list").select2({ tags: [] });
   $("#phone_list").select2('readonly', true);
-  $("#email_list").select2({ tags: [] });
-  $("#email_list").select2('readonly', true);
+  // $("#email_list").select2({ tags: [] });
+  // $("#email_list").select2('readonly', true);
 </script>

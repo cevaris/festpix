@@ -44,6 +44,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'rails_12factor', group: :production
+
 
 gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'foreman' ,'~> 0.63.0'
@@ -56,8 +58,8 @@ gem 'aws-sdk', '~> 1.36.1'
 gem 'select2-rails', '~> 3.5.4'
 gem 'acts-as-taggable-on', '~> 3.0.2'
 gem 'twilio-ruby', '~> 3.11.5'
+gem 'delayed_job_active_record', '~> 4.0.0'
 
-gem 'rails_12factor', group: :production
 
 
 

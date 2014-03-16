@@ -31,6 +31,7 @@ module Rq
         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
       }
     }
+    puts config.paperclip_defaults.inspect
 
     config.TWILIO = {
       sid: ENV['TW_SID'],
