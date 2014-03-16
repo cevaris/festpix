@@ -22,6 +22,11 @@ module Rq
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.scoped_views = true
+    config.assets.precompile << Proc.new { |path|
+      if path =~ /\.(eot|svg|ttf|woff)\z/
+        true
+      end
+    }
 
     config.paperclip_defaults = {
       :storage => :s3,
@@ -38,5 +43,7 @@ module Rq
       auth: ENV['TW_AUTH'],
       phone: ENV['TW_PHONE']
     }
+
+
   end
 end

@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <ol class="breadcrumb col-md-12">
+    <li><a href="user.html">Sessions</a></li>
+    <li class="active"> | <%= @photo_session.name %></li>
+    </ol>
+</div>
 
 <p>
   <strong>Name:</strong>
@@ -31,17 +36,34 @@
   <div class="text-center">
   <label><b>Session Photos:</b></label>
   </div>
-  
-  <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-    <ul class="wall" style="list-style-type: none; position:relative;">
-    <% @photo_session.photos.each do |photo| %>
-    <li class="item">
-      <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
-    </li>
-    <% end %>
-   </ul>
-  </div>
 
+  
+  
+  <div class="container">
+
+    <div class="row">
+
+  <!--   <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+      <ul class="wall" style="list-style-type: none; position:relative;">
+      <% @photo_session.photos.each do |photo| %>
+      <li class="item">
+        <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
+      </li>
+      <% end %>
+     </ul>
+    </div> -->
+
+
+      <% @photo_session.photos.each do |photo| %>
+      <div class="col-xs-6 col-md-3">
+         <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
+      </div>
+      <% end %>
+      
+     
+    </div>
+  </div> <!-- /container -->  
+  
 
 <% else %>
   No Images Found

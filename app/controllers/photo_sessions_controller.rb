@@ -7,7 +7,6 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions.json
   def index
 
-    emails = PhotoSession.tagged_with(["cevaris@gmail.com,jim.kobol@gmail.com"], :any => true)
     if params[:email_list]
       emails = PhotoSession.tagged_with(params[:email_list].split, :any => true)
     else
@@ -63,9 +62,12 @@ class PhotoSessionsController < ApplicationController
     @photo_session = PhotoSession.new(photo_session_params)
     @photo_session.photographer = current_user
 
-    # if params.has_key?(:photo_session) and params[:photo_session].has_key?(:phones)
-    #   @photo_session.phone_list = params[:photo_session][:emails]
-    # end
+    if params[:photo_session].has_key?(:phone_list)
+      @photo_session.phone_list = params[:photo_session][:phone_list]
+    end
+    if params[:photo_session].has_key?(:email_list)
+      @photo_session.email_list = params[:photo_session][:email_list]
+    end
     # if params.has_key?(:photo_session) and params[:photo_session].has_key?(:emails)
     #   @photo_session.email_list = params[:photo_session][:emails]
     # end

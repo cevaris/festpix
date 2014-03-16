@@ -3,9 +3,12 @@ module PhotoSessionsHelper
   # include ActionView::Helpers::UrlHelper
 
   def queue_sms(photo_session)
-    phone_list = photo_session.phone_list.split
+    
+    phone_list = photo_session.phone_list
+    Rails.logger.info "Phone List #{phone_list.inspect}"
     # Return if no phone #'s are given/found
-    return unless phone_list
+    return true if phone_list.nil? or phone_list.count == 0
+    Rails.logger.info "Found phones #{phone_list.inspect}"
       
     data = {}
     phone_list.each do |phone|
