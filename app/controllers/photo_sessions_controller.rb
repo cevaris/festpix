@@ -34,14 +34,17 @@ class PhotoSessionsController < ApplicationController
     @photo_session = PhotoSession.find params[:photo_session_id]
 
     email_list = @photo_session.email_list
-    if email_list.include? @user.email
-      # Do it, do it!!!
-      @photo_session.attendee_list.add(@user.id.to_s)
-      @photo_session.save
-      return redirect_to current_user, notice: 'Photo Session was successfully claimed.'
-    else
-      return redirect_to current_user, error: 'You do not have permissions to claim'
-    end
+    phone_list = @photo_session.phone_list
+
+      if email_list.include? @user.email or phone_list.count > 0
+        # Do it, do it!!!
+        @photo_session.attendee_list.add(@user.id.to_s)
+        @photo_session.save
+        return redirect_to current_user, notice: 'Photo Session was successfully claimed.'
+      else
+        return redirect_to current_user, error: 'You do not have permissions to claim'
+      end
+
 
     
   end
