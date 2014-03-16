@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController  
 
-  # before_action :save_referer, only: [:new]
 
   def update
     @user = User.find(current_user.id)
@@ -28,8 +27,5 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != params[:user][:email] || params[:user][:password].present?
   end
 
-  # def save_referer
-  #   session[:return_to] = request.referer
-  # end
 
 end
