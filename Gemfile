@@ -57,7 +57,7 @@ gem 'select2-rails', '~> 3.5.4'
 gem 'acts-as-taggable-on', '~> 3.0.2'
 gem 'twilio-ruby', '~> 3.11.5'
 
-
+gem 'rails_12factor', '~> 0.0.2' group: :production
 
 
 
