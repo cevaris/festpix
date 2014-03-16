@@ -7,20 +7,12 @@ module PhotoSessionsHelper
     # Return if no phone #'s are given/found
     return unless phone_list
       
-
     data = {}
     phone_list.each do |phone|
       data[:to] = phone
-      # data[:link] = link_to(photo_session_path(photo_session), photo_session_path(photo_session))
-      # photo = photo_session.photos.last
-      # data[:media_url] = link_to(photo.image.url(:medium), photo.image.url(:medium))
-
-      # data[:link] = "<a href='#{photo_session_url(photo_session)}'>#{photo_session_url(photo_session)}</a>"
       data[:link] = photo_session_url(photo_session)
       # photo = photo_session.photos.last
       # data[:media_url] = photo.image.url(:medium)
-
-      # Rails.logger.info "Sending SMS #{data.inspect}"
       send_sms(data)
     end
 
@@ -41,8 +33,7 @@ module PhotoSessionsHelper
     message = @client.account.messages.create(
       body: "Your images are ready, click the link to see them. #{data[:link]}",
       to: data[:to],
-      from: twilio[:phone]#,
-      # media_url: data[:media_url]
+      from: twilio[:phone]
     )
     Rails.logger.info "Sent SMS #{@client.inspect}"
 

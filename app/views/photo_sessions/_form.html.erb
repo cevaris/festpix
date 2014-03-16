@@ -17,9 +17,9 @@
   <div><%= f.label :phones %><br />
     <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>  
   </div>
-<!--   <div><%= f.label :emails %><br />
+  <div><%= f.label :emails %><br />
     <%= f.hidden_field :email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
-  </div> -->
+  </div>
 
   <%= f.fields_for :photos do |asset_fields| %>
     <% if asset_fields.object.new_record? %>
@@ -52,12 +52,12 @@
     tokenSeparators: [",", " "],
     minimumInputLength: 1
   });
-  // $("#photo_session_email_list").select2({ 
-  //   tags: [],
-  //   placeholder: "Enter Emails",
-  //   tokenSeparators: [",", " "],
-  //   minimumInputLength: 1
-  // });
+  $("#photo_session_email_list").select2({ 
+    tags: [],
+    placeholder: "Enter Emails",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
 </script>
 
 
