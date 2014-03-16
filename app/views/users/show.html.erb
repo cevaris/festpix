@@ -16,13 +16,13 @@
         <div class="row">
 
           <% @sessions.first(8).each do |photo_session| %>
-          <% if photo_session.photos.first %>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="thumbnail">
-                <%= link_to image_tag(photo_session.photos.first.image.url(:square), width:'100%'), photo_session, title: photo_session.photos.first.image_file_name %>
+            <% if photo_session.photos.first %>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="thumbnail">
+                  <%= link_to image_tag(photo_session.photos.first.image.url(:square), width:'100%'), photo_session, title: photo_session.photos.first.image_file_name %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
           <% end %>
         
         </div>

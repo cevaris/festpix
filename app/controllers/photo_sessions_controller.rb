@@ -2,6 +2,7 @@ class PhotoSessionsController < ApplicationController
   include PhotoSessionsHelper
 
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
+  before_action :require_session, only: [:index]
 
   # GET /photo_sessions
   # GET /photo_sessions.json

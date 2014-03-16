@@ -1,35 +1,26 @@
 <h1>Listing Photo Sessions</h1>
 
-<%= render 'search' %>
+<div class="row">
+  <% @photo_sessions.each do |photo_session| %>
 
+    <% if photo_session.photos.first %>
 
-  <div class="row">
-    <ol class="breadcrumb col-md-12">
-      <li class="active">Sessions</li>
-    </ol>
-  </div>
-
-  <div class="row">
-    <% @photo_sessions.each do |photo_session| %>
-
-      <% if photo_session.photos.first %>
-
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '325x325'), photo_session, title: photo_session.photos.first.image_file_name %>
-            <div class="caption">
-              <div class="pull-right">
-                <h3><%= photo_session.name %><br/><small><%= l(photo_session.created_at, format: :reminder) %></small></h3>
-                <p>Photographer: <%= photo_session.photographer.email %> </p>
-              </div>
-              <p><%= link_to 'Claim', photo_session_claim_path(photo_session), class:'btn btn-primary' %>  <%= link_to 'Delete', photo_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %> <span class="badge"><%= photo_session.photos.count %></span></p>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '325x325'), photo_session, title: photo_session.photos.first.image_file_name %>
+          <div class="caption">
+            <div class="pull-right">
+              <h3><%= photo_session.name %><br/><small><%= l(photo_session.created_at, format: :reminder) %></small></h3>
+              <p>Photographer: <%= photo_session.photographer.email %> </p>
             </div>
+            <p><%= link_to 'Claim', photo_session_claim_path(photo_session), class:'btn btn-primary' %>  <%= link_to 'Delete', photo_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %> <span class="badge"><%= photo_session.photos.count %></span></p>
           </div>
         </div>
-
-      <% end %>
+      </div>
 
     <% end %>
-  </div>
+
+  <% end %>
+</div>
 
 

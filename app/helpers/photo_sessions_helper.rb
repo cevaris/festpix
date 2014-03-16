@@ -1,6 +1,4 @@
 module PhotoSessionsHelper
-  # include ActionView::Helpers::TextHelper
-  # include ActionView::Helpers::UrlHelper
 
   def queue_sms(photo_session)
     
@@ -34,7 +32,7 @@ module PhotoSessionsHelper
     @client     = Twilio::REST::Client.new account_sid, auth_token
      
     message = @client.account.messages.create(
-      body: "Your images are ready, click the link to see them. #{data[:link]}",
+      body: "FestPix! Your images are ready, click the link to see them. #{data[:link]}",
       to: data[:to],
       from: twilio[:phone]
     )

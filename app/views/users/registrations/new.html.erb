@@ -4,21 +4,21 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <%= f.email_field :email, :autofocus => true %></div><br />
 
   <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+  <%= f.password_field :password %></div><br />
 
   <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <%= f.password_field :password_confirmation %></div><br />
 
   <div><%= f.label :kind %><br />
   <%= f.select :kind, options_for_select(User::TYPES), {
     placeholder:'User type'
   } %>  
-  </div>
+  </div><br />
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "Sign up", class: 'btn btn-primary' %></div><br/>
 <% end %>
 
 <%= render "users/shared/links" %>
@@ -27,6 +27,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#kind').select2();
+  $('#user_kind').select2();
 });
 </script>
