@@ -42,14 +42,19 @@
     <%= f.fields_for :photos do |asset_fields| %>
       <% if asset_fields.object.new_record? %>
 
-        <%= asset_fields.file_field :image, html: {capture: 'camera'}%>
-        <div class="fileupload fileupload-new" data-provides="fileupload">
-          <div class="input-group">
-            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span></span>
-            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-            <br/><br/>
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+        <div class="input-group">
+          <div class="uneditable-input col-lg-3"><i class="icon-file fileupload-exists"></i> 
+            <span class="fileupload-preview"></span>
           </div>
+          <span class="btn btn-default btn-file">
+            <span class="fileupload-new">Select file</span>
+            <span class="fileupload-exists">Change</span>
+            <%= asset_fields.file_field :image, capture: 'camera' %>
+          </span>
         </div>
+      </div>
+        
 
       <% end %>
     <% end %>
@@ -70,6 +75,7 @@
 
 
 <script>
+
   $("#photo_session_phone_list").select2({ 
     tags: [], 
     placeholder: "Enter Phone Numbers",
