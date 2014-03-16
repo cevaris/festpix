@@ -27,6 +27,7 @@ en:
       short: "%m/%d"
   time:
     formats:
+      photo_session: "%m/%d/%y %I:%M %p" 
       reminder: "%A, %m/%d/%Y %I:%M %p" 
       default: "%m/%d/%Y %H:%M"
       short: "%H:%M"

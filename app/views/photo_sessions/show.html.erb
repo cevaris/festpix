@@ -1,41 +1,51 @@
 <div class="row">
   <ol class="breadcrumb col-md-12">
     <li><%= link_to 'Sessions', photo_sessions_path %></li>
-    <li class="active"><%= @photo_session.name %></li>
+    <li class="active"><%= @photo_session.id %></li>
   </ol>
 </div>
 
-<% if @claimed == false %>
+
+<div class="row">
+<h2>
+<%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
 <span class="pull-right">
   <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg' %>
 </span>
-<% end %>
+</h2>
 
-<p>
+
+<% if @claimed == false %>
+<% end %>
+</div>
+<hr/>
+
+
+<!-- <p>
   <strong>Name:</strong>
   <%= @photo_session.name %>
-</p>
+</p> -->
 
-<p>
+<!-- <p>
   <strong>Photo user:</strong>
   <%= @photo_session.photo_user_id %>
 </p>
-
+ -->
 <!-- <p>
   <strong>Event:</strong>
   <%= @photo_session.event_id %>
 </p> -->
-
+<!-- 
 <p>
   <strong>Phone Numbers:</strong>
   <%= label_tag :phone_list, @photo_session.phone_list.join(', ') %>  
-</p>
-
+</p> -->
+<!-- 
 <p>
   <strong>Emails:</strong>
   <%= label_tag :email_list, @photo_session.email_list.join(', ') %>  
 </p>
-
+ -->
 <div>
 <% if !@photo_session.photos.empty? %>
 
@@ -62,7 +72,7 @@
 <% end %>
 </div>
 
-<%= link_to 'Edit', edit_photo_session_path(@photo_session) %> |
-<%= link_to 'Back', photo_sessions_path %>
+<%#= link_to 'Edit', edit_photo_session_path(@photo_session) %>
+<%#= link_to 'Back', photo_sessions_path %>
 
 
