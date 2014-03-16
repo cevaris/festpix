@@ -32,18 +32,18 @@ body{
 }
 
 
-.thumbnail {
+/*.thumbnail {
     text-align: center;
     background: #ffffff;
-    float: none !important; /* to overwrite the default property on the bootstrap stylesheet */
+    float: none !important; 
     display: inline-block !important;
-    *display: inline; /* ie7 support */
+    *display: inline;
 }
 .thumbnail li {
     width: 150px;
     height: 100px;
-    float: none !important; /* to overwrite the default property on the bootstrap stylesheet */
+    float: none !important; 
     display: inline-block !important;
-    *display: inline; /* ie7 support */
+    *display: inline;
     zoom: 1;
-}
+}*/

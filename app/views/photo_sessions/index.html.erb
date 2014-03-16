@@ -14,17 +14,13 @@
 
       <% if photo_session.photos.first %>
 
-        <div class="col-xs-4 col-md-6 item">
+        <div class="col-sm-6 col-md-4">
           <div class="thumbnail">
-            <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '300x300'), photo_session, title: photo_session.photos.first.image_file_name %>
+            <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '325x325'), photo_session, title: photo_session.photos.first.image_file_name %>
             <div class="caption">
-              <h3><%= photo_session.name %><small class="pull-right"><%= l(photo_session.created_at, format: :reminder) %></small></h3>
-              <p class="pull-right">Photographer: <%= photo_session.photographer.email %> </p>
-              <p>
-                <%= link_to 'Claim', photo_session_claim_path(photo_session), class:'btn btn-primary' %> 
-                <%= link_to 'Delete', photo_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-                <span class="badge"><%= photo_session.photos.count %></span>
-              </p>
+              <h3><%= photo_session.name %><br/><small><%= l(photo_session.created_at, format: :reminder) %></small></h3>
+              <p>Photographer: <%= photo_session.photographer.email %> </p>
+              <p><%= link_to 'Claim', photo_session_claim_path(photo_session), class:'btn btn-primary' %>  <%= link_to 'Delete', photo_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %><span class="badge"><%= photo_session.photos.count %></span></p>
             </div>
           </div>
         </div>
