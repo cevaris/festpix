@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
 
   def require_session
     unless current_user
-      flash[:error] = 'You must be logged in to view this page.'  
-      redirect_to new_user_registration_path
+      flash[:error] = 'Please log in to claim these photos'  
+      redirect_to user_session_path
     end
   end 
 

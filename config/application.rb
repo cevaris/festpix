@@ -44,6 +44,15 @@ module Rq
       phone: ENV['TW_PHONE']
     }
 
+    config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :user_name            => 'festpixmedia@gmail.com',
+      :password             => 'fp2014sw',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true  
+    }
+
 
   end
 end
