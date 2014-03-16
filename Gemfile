@@ -47,7 +47,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'rails_12factor', group: :production
 
 
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
+# gem "twitter-bootstrap-rails"
 gem 'foreman' ,'~> 0.63.0'
 gem 'devise', '~> 3.2.2'
 gem "font-awesome-rails", '~> 4.0.3.1'

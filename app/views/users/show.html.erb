@@ -1,5 +1,45 @@
 <h1><%= @user.email %></h1>
 <%= @user.kind %>
 
-<br/>
 <%= link_to 'Settings', edit_user_registration_path %>
+
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      
+      <!--- Left col -->
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <%= image_tag 'vinny.jpg', class:'img-thumbnail' %>
+      </div>
+
+      <!-- Right col -->
+      <div class="col-xs-12 col-sm-8 col-md-8">
+        <h3>Sessions:</h3>
+        <div class="row">
+
+          <%= @sessions.each do |photo_session| %>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <a href="#" class="thumbnail">
+                <%= link_to image_tag(photo_session.photos.first.image.url(:square)), photo_session, title: photo_session.photos.first.image_file_name %>
+              </a>
+            </div>
+          <% end %>
+        
+        </div>
+<!-- 
+        <h3>Commonly seen with:</h3>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="#" class="thumbnail">
+              <img src="images/alex.jpg">
+            </a>
+          </div>
+        </div>   -->
+
+      </div>
+    </div>
+  </div>
+</div> <!-- /jumbotron -->
+
