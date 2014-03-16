@@ -2,6 +2,10 @@
   <%= hidden_field_tag :email_list, params[:email_list], placeholder: 'Search by Email', style:'width: 300px'%>  
   <%= hidden_field_tag :phone_list, params[:phone_list], placeholder: 'Search by Phone Number', style:'width: 300px'%>  
   <%= submit_tag 'Search', class: 'btn'  %>
+
+  <%= link_to new_photo_session_path, :class => "btn btn-default" do %>
+    <i class="fa fa-plus"> Session</i>
+  <% end %>
 <% end %>
 
 
