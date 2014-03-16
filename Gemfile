@@ -50,8 +50,21 @@ gem 'foreman' ,'~> 0.63.0'
 gem 'devise', '~> 3.2.2'
 gem "font-awesome-rails", '~> 4.0.3.1'
 gem 'activerecord-session_store', '~> 0.1.0'
-gem 'pg'
-gem 'paperclip'
-gem 'aws-sdk'
-gem "select2-rails"
-gem 'acts-as-taggable-on'
+gem 'pg', '~> 0.17.1'
+gem 'paperclip', '~> 4.1.1'
+gem 'aws-sdk', '~> 1.36.1'
+gem 'select2-rails', '~> 3.5.4'
+gem 'acts-as-taggable-on', '~> 3.0.2'
+gem 'twilio-ruby', '~> 3.11.5'
+
+
+
+
+
+
+
+
+
+
+
+
