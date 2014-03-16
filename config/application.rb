@@ -31,5 +31,11 @@ module Rq
         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
       }
     }
+
+    config.TWILIO = {
+      sid:   'AC81c89a5e48e374426cda01507e7fea51',
+      auth:  '2a25747856ce98d25cd93bc88832dcc7',
+      phone: '+13039004104'
+    }
   end
 end
