@@ -44,8 +44,6 @@ class PhotoSessionsController < ApplicationController
       else
         return redirect_to current_user, error: 'You do not have permissions to claim'
       end
-
-
     
   end
 
