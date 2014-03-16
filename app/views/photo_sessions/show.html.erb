@@ -5,10 +5,11 @@
   </ol>
 </div>
 
-
+<% if @claimed == false %>
 <span class="pull-right">
   <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg' %>
 </span>
+<% end %>
 
 <p>
   <strong>Name:</strong>
@@ -39,9 +40,6 @@
 <% if !@photo_session.photos.empty? %>
 
   
-
-
-      
   
 <div class="container">
 
@@ -55,7 +53,6 @@
     </div>
   <% end %>
 
-  
   </div>
 
 </div> <!-- /container -->  

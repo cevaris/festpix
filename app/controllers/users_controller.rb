@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @sessions = PhotoSession.tagged_with(@user.email, :any => true)
+    @sessions = PhotoSession.tagged_with(@user.id.to_s, :any => true)
     
     begin
       friend_emails = @sessions.collect {|p| p.email_list }.flatten.uniq.select {|email| email if email != @user.email}

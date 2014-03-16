@@ -25,12 +25,37 @@ class PhotoSessionsController < ApplicationController
 
   # GET /photo_sessions/1/claim
   def claim
-    redirect_to current_user, notice: 'Photo Session was successfully claimed.'
+
+    # check if emails match
+    # user is already logged in if here
+    # 
+
+    @user = current_user
+    @photo_session = PhotoSession.find params[:photo_session_id]
+
+    email_list = @photo_session.email_list
+    if email_list.include? @user.email
+      # Do it, do it!!!
+      @photo_session.attendee_list.add(@user.id.to_s)
+      @photo_session.save
+      return redirect_to current_user, notice: 'Photo Session was successfully claimed.'
+    else
+      return redirect_to current_user, error: 'You do not have permissions to claim'
+    end
+
+    
   end
 
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show
+
+    if current_user
+      @claimed = @photo_session.attendee_list.include? current_user.id.to_s
+    else
+      @claimed = false
+    end    
+    
   end
 
   # GET /photo_sessions/new
