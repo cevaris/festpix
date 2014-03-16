@@ -6,6 +6,10 @@
 </div>
 
 
+<span class="pull-right">
+  <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg' %>
+</span>
+
 <p>
   <strong>Name:</strong>
   <%= @photo_session.name %>

@@ -2,25 +2,30 @@ class PhotoSessionsController < ApplicationController
   include PhotoSessionsHelper
 
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
-  before_action :require_session, only: [:index]
+  before_action :require_session, only: [:index, :claim]
 
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
 
-    if params[:email_list]
-      emails = PhotoSession.tagged_with(params[:email_list].split, :match_all => true)
-    else
-      emails = []
-    end
+    # if params[:email_list]
+    #   emails = PhotoSession.tagged_with(params[:email_list].split, :match_all => true)
+    # else
+    #   emails = []
+    # end
     
-    if params[:phone_list]
-      phones = PhotoSession.tagged_with(params[:phone_list].split, :match_all => true)
-    else
-      phones = []
-    end
+    # if params[:phone_list]
+    #   phones = PhotoSession.tagged_with(params[:phone_list].split, :match_all => true)
+    # else
+    #   phones = []
+    # end
 
-    @photo_sessions = emails | phones
+    # @photo_sessions = emails | phones
+  end
+
+  # GET /photo_sessions/1/claim
+  def claim
+    redirect_to current_user, notice: 'Photo Session was successfully claimed.'
   end
 
   # GET /photo_sessions/1
@@ -38,22 +43,6 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/1/edit
   def edit
   end
-
-  # # POST /photo_sessions
-  # # POST /photo_sessions.json
-  # def create
-  #   @photo_session = PhotoSession.new(photo_session_params)
-
-  #   respond_to do |format|
-  #     if @photo_session.save
-  #       format.html { redirect_to @photo_session, notice: 'Photo session was successfully created.' }
-  #       format.json { render action: 'show', status: :created, location: @photo_session }
-  #     else
-  #       format.html { render action: 'new' }
-  #       format.json { render json: @photo_session.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
 
   # POST /activities
