@@ -21,6 +21,9 @@ body{
   color: #428bca;
 }
 
+h1, h2, h3 {
+  font-family: 'agency_fbbold';
+}
 .navbar-inverse .navbar-brand{
   font-family: 'agency_fbbold';
   font-size: 3em;
