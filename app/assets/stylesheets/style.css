@@ -30,20 +30,3 @@ body{
 .jumbotron{
   color: #000;
 }
-
-
-/*.thumbnail {
-    text-align: center;
-    background: #ffffff;
-    float: none !important; 
-    display: inline-block !important;
-    *display: inline;
-}
-.thumbnail li {
-    width: 150px;
-    height: 100px;
-    float: none !important; 
-    display: inline-block !important;
-    *display: inline;
-    zoom: 1;
-}*/

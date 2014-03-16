@@ -1,7 +1,4 @@
-<h1><%= @user.email %></h1>
-<%= @user.kind %>
-
-<%= link_to 'Settings', edit_user_registration_path %>
+<h1><%= @user.email %> <small><%= @user.kind %></small></h1>
 
 
 <div class="jumbotron">
@@ -18,25 +15,25 @@
         <h3>Sessions:</h3>
         <div class="row">
 
-          <%= @sessions.each do |photo_session| %>
+          <% @sessions.each do |photo_session| %>
+          <% if photo_session.photos.first %>
             <div class="col-xs-12 col-sm-6 col-md-3">
-              <a href="#" class="thumbnail">
-                <%= link_to image_tag(photo_session.photos.first.image.url(:square)), photo_session, title: photo_session.photos.first.image_file_name %>
-              </a>
+              <div class="thumbnail">
+                <%= link_to image_tag(photo_session.photos.first.image.url(:square), width:'100%'), photo_session, title: photo_session.photos.first.image_file_name %>
+              </div>
             </div>
+          <% end %>
           <% end %>
         
         </div>
-<!-- 
+
         <h3>Commonly seen with:</h3>
 
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-3">
-            <a href="#" class="thumbnail">
-              <img src="images/alex.jpg">
-            </a>
+            <%= image_tag 'alex.jpg', class:'img-thumbnail' %>
           </div>
-        </div>   -->
+        </div>  
 
       </div>
     </div>

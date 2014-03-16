@@ -1,8 +1,8 @@
 <div class="row">
   <ol class="breadcrumb col-md-12">
     <li><%= link_to 'Sessions', photo_sessions_path %></li>
-    <li class="active"> | <%= @photo_session.name %></li>
-    </ol>
+    <li class="active"><%= @photo_session.name %></li>
+  </ol>
 </div>
 
 
@@ -35,18 +35,22 @@
 <% if !@photo_session.photos.empty? %>
 
   
+
+
+      
   
 <div class="container">
 
   <div class="row">
   
-  <ul>
   <% @photo_session.photos.each do |photo| %>
-    <li class="thumbnail">
-     <%= link_to image_tag(photo.image.url(:square), size: '200x200'), photo.image.url(:large), title: photo.image_file_name %>
-    </li>
+    <div class="col-sm-6 col-md-4">
+       <div class="thumbnail">
+        <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:large), title: photo.image_file_name %>
+       </div>
+    </div>
   <% end %>
-  </ul>
+
   
   </div>
 
