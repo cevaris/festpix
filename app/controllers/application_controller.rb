@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
 
   def update_devise_parameter_sanitizer
-    devise_parameter_sanitizer.for(:sign_up).push(:kind)
-    devise_parameter_sanitizer.for(:account_update).push(:kind)
+    devise_parameter_sanitizer.for(:sign_up).push(:kind,:avatar)
+    devise_parameter_sanitizer.for(:account_update).push(:kind,:avatar)
   end
 
   def require_session

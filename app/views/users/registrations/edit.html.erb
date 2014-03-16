@@ -31,6 +31,11 @@
   <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></div>
 
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+
   <div>
     <%= link_to "Cancel", current_user, data: { confirm: "Cancel update?" }, class: 'btn btn-danger' %>
     <%= f.submit "Update", class: 'btn' %>
