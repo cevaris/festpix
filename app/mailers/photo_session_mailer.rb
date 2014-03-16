@@ -26,6 +26,8 @@ class PhotoSessionMailer < ActionMailer::Base
         :to => email,
         :subject => "FestPix! Your images are ready")
     end
+
+    return true
     
   end
 end

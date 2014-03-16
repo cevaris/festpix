@@ -89,7 +89,7 @@ class PhotoSessionsController < ApplicationController
     # end
 
     respond_to do |format|
-      if @photo_session.save and queue_sms(@photo_session)
+      if @photo_session.save and queue_sms(@photo_session) && PhotoSessionMailer.photo_session_email(@photo_session).deliver
         format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
         format.json { render json: @photo_session, status: :created, location: @photo_session }
       else

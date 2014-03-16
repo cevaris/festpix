@@ -5,8 +5,20 @@
   </head>
   <body>
 
-    FestPix! Your images are ready, click the link to see them. 
-    <%= link_to %> 
-    <% @photo %>
+    <h2>FestPix</h2>
+
+    Your images are ready, click the link to see them. 
+    <%= link_to photo_sessions_url(@photo_session), photo_session_url(@photo_session) %> 
+    
+    <h2>Photos</h2>
+
+    <% @photo_session.photos.each do |photo| %>
+    <div>
+
+      <%= link_to image_tag(photo.image.url(:square)), photo.image.url(:large), title: photo.image_file_name %>
+      
+    </div>
+    <% end %>
+
   </body>
 </html>
