@@ -22,49 +22,29 @@
 </p> -->
 
 <p>
-  <strong>Phone Numbers</strong>
-  <%= hidden_field_tag :phone_list, @photo_session.phone_list.join(',') %>  
+  <strong>Phone Numbers:</strong>
+  <%= label_tag :phone_list, @photo_session.phone_list.join(', ') %>  
 </p>
 
 <p>
-  <strong>Emails</strong>
-  <%= hidden_field_tag :email_list, @photo_session.email_list.join(',') %>  
+  <strong>Emails:</strong>
+  <%= label_tag :email_list, @photo_session.email_list.join(', ') %>  
 </p>
 
 <div>
 <% if !@photo_session.photos.empty? %>
 
-  <div class="text-center">
-  <label><b>Session Photos:</b></label>
+  
+  
+<div class="container">
+
+  <div class="row">
+  <% @photo_session.photos.each do |photo| %>
+     <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name %>
+  <% end %>
   </div>
 
-  
-  
-  <div class="container">
-
-    <div class="row">
-
-  <!--   <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
-      <ul class="wall" style="list-style-type: none; position:relative;">
-      <% @photo_session.photos.each do |photo| %>
-      <li class="item">
-        <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
-      </li>
-      <% end %>
-     </ul>
-    </div> -->
-
-
-      <% @photo_session.photos.each do |photo| %>
-      <div class="col-xs-6 col-md-3">
-         <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name, 'data-gallery' => 'gallery' %>
-      </div>
-      <% end %>
-      
-     
-    </div>
-  </div> <!-- /container -->  
-  
+</div> <!-- /container -->  
 
 <% else %>
   No Images Found
@@ -75,10 +55,3 @@
 <%= link_to 'Back', photo_sessions_path %>
 
 
-
-<script>
-  $("#phone_list").select2({ tags: [] });
-  $("#phone_list").select2('readonly', true);
-  $("#email_list").select2({ tags: [] });
-  $("#email_list").select2('readonly', true);
-</script>
