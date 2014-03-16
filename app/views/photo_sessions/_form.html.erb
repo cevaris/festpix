@@ -48,13 +48,10 @@
             <span class="fileupload-preview"></span>
           </div>
           <span class="btn btn-default btn-file">
-            <span class="fileupload-new">Select file</span>
-            <span class="fileupload-exists">Change</span>
-            <%= asset_fields.file_field :image, capture: 'camera' %>
+            <%= asset_fields.file_field :image, capture: 'camera', class: 'file-input' %>
           </span>
         </div>
       </div>
-        
 
       <% end %>
     <% end %>
