@@ -17,7 +17,7 @@
 
 body{
   /*background: #111111;*/
-  /*background: #1b1b24;*/
+  background: #1b1b24;
   color: #428bca;
 }
 
@@ -29,4 +29,21 @@ body{
 
 .jumbotron{
   color: #000;
+}
+
+
+.thumbnail {
+    text-align: center;
+    background: #ffffff;
+    float: none !important; /* to overwrite the default property on the bootstrap stylesheet */
+    display: inline-block !important;
+    *display: inline; /* ie7 support */
+}
+.thumbnail li {
+    width: 150px;
+    height: 100px;
+    float: none !important; /* to overwrite the default property on the bootstrap stylesheet */
+    display: inline-block !important;
+    *display: inline; /* ie7 support */
+    zoom: 1;
 }

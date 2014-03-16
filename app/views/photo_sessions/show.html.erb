@@ -39,9 +39,15 @@
 <div class="container">
 
   <div class="row">
+  
+  <ul>
   <% @photo_session.photos.each do |photo| %>
-     <%= link_to image_tag(photo.image.url(:square), size: '175x175'), photo.image.url(:large), title: photo.image_file_name %>
+    <li class="thumbnail">
+     <%= link_to image_tag(photo.image.url(:square), size: '200x200'), photo.image.url(:large), title: photo.image_file_name %>
+    </li>
   <% end %>
+  </ul>
+  
   </div>
 
 </div> <!-- /container -->  
