@@ -57,25 +57,9 @@ class PhotoSessionsController < ApplicationController
   # POST /activities
   # POST /activities.json
   def create
-    Rails.logger.info "Before: #{params}"
-
-    # if params.has_key?(:photo_session) and params[:photo_session].has_key?(:phones)
-    #   params[:photo_session][:emails] = params[:photo_session][:emails].split
-    # end
-    # if params[:photo_session].has_key?(:emails) and params[:photo_session][:emails].empty?
-    #   params[:photo_session][:emails] = ""
-    # end
-    # if params[:photo_session].has_key?(:phones) and params[:photo_session][:phones].empty?
-    #   params[:photo_session][:phones] = ""
-    #   # params[:photo_session][:phones] = params[:photo_session][:phones].split
-    # end
-
-    Rails.logger.info "After: #{params}"
 
     @photo_session = PhotoSession.new(photo_session_params)
     @photo_session.photographer = current_user
-    # @photo_session.phone_list = params[:photo_session][:phones]
-    # @photo_session.email_list = params[:photo_session][:emails]
 
     # if params.has_key?(:photo_session) and params[:photo_session].has_key?(:phones)
     #   @photo_session.phone_list = params[:photo_session][:emails]
