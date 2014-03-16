@@ -5,6 +5,16 @@ class ApplicationController < ActionController::Base
   before_filter :update_devise_parameter_sanitizer, if: :devise_controller?
 
 
+  after_filter :store_location
+
+  def store_location
+    # store last url as long as it isn't a /users path
+    session[:referer] = request.referer #request.fullpath unless request.fullpath =~ /\/users/
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:referer] || root_path
+  end
 
   def update_devise_parameter_sanitizer
     devise_parameter_sanitizer.for(:sign_up).push(:kind,:avatar)
