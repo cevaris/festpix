@@ -8,13 +8,13 @@ class PhotoSessionsController < ApplicationController
   def index
 
     if params[:email_list]
-      emails = PhotoSession.tagged_with(params[:email_list].split, :any => true)
+      emails = PhotoSession.tagged_with(params[:email_list].split, :match_all => true)
     else
       emails = []
     end
     
     if params[:phone_list]
-      phones = PhotoSession.tagged_with(params[:phone_list].split, :any => true)
+      phones = PhotoSession.tagged_with(params[:phone_list].split, :match_all => true)
     else
       phones = []
     end
