@@ -1,4 +1,8 @@
-<%= form_for(@photo_session) do |f| %>
+
+<div class="col-sm-3 col-md-3"></div>
+<div class="col-sm-6 col-md-6">
+  
+  <%= form_for(@photo_session, html: {:class => 'form-signin', role: 'form'}) do |f| %>
   <% if @photo_session.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@photo_session.errors.count, "error") %> prohibited this photo_session from being saved:</h2>
@@ -11,19 +15,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, placeholder:'Enter Name', style:'width: 300px'%>
+  <h2 class="form-signin-heading">Upload Photos</h2>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+    <%= f.text_field :name, placeholder:'Enter Name', style:'width: 300px', class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :phones %>
-    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>  
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>
   </div>
-  <div class="field">
-    <%= f.label :emails %>
+  <br>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
     <%= f.hidden_field :email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
-    <br />
   </div>
+  <br>
+
+  
+
+<!-- End Photo Upload -->
 
   <br/>
   <div class="field">
@@ -31,24 +42,30 @@
     <%= f.fields_for :photos do |asset_fields| %>
       <% if asset_fields.object.new_record? %>
 
+        <%= asset_fields.file_field :image, html: {capture: 'camera'}%>
         <div class="fileupload fileupload-new" data-provides="fileupload">
-          <span class="btn btn-file">
-            <span class="fileupload-new">Select file</span>
-            <span class="fileupload-exists">Change</span>
-            <%= asset_fields.file_field :image %>
-          </span>
-          <span class="fileupload-preview"></span>
-          <br/><br/>
+          <div class="input-group">
+            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span></span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+            <br/><br/>
+          </div>
         </div>
 
       <% end %>
     <% end %>
   </div>
 
+  <br>
+
   <div class="actions"><br />
-    <%= f.submit 'Submit', class:'btn btn-primary' %>
+    <%= f.submit 'Upload', class:'btn btn-lg btn-primary btn-block' %>
   </div>
 <% end %>
+
+
+
+</div>
+<div class="col-sm-3 col-md-3"></div>
 
 
 
