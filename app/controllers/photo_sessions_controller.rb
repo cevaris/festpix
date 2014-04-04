@@ -1,5 +1,6 @@
 class PhotoSessionsController < ApplicationController
   include PhotoSessionsHelper
+  include MailChimpHelper
 
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
   before_action :require_session, only: [:index, :claim]
@@ -48,6 +49,9 @@ class PhotoSessionsController < ApplicationController
     
   end
 
+  
+
+
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show
@@ -57,6 +61,10 @@ class PhotoSessionsController < ApplicationController
     else
       @claimed = false
     end    
+
+
+
+
     
   end
 
