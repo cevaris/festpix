@@ -65,7 +65,7 @@ class PhotoSessionsController < ApplicationController
 
     list_id = get_mailing_list()
 
-    if list_id and subscribe_to_list( ist_id, params[:email] )
+    if list_id and subscribe_to_list( list_id, params[:email] )
       return render nothing: true
     else
       return render nothing: true, status: 500
