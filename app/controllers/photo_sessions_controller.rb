@@ -63,13 +63,13 @@ class PhotoSessionsController < ApplicationController
 
     Rails.logger.info params
 
-    # list_id = get_mailing_list()
+    list_id = get_mailing_list()
 
-    # if list_id and subscribe_to_list( ist_id, params[:email] )
-    #   return render nothing: true
-    # else
-    #   return render nothing: true, status: 500
-    # end    
+    if list_id and subscribe_to_list( ist_id, params[:email] )
+      return render nothing: true
+    else
+      return render nothing: true, status: 500
+    end    
 
     redirect_to @photo_session
 
