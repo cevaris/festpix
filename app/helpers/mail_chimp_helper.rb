@@ -31,12 +31,17 @@ module MailChimpHelper
     Rails.logger.info "Subscribing #{email_address} to mailing list #{list_id}"
     # @gb = Gibbon.new
     @gb = Gibbon::API.new()
-    @result = @gb.list_subscribe({
-        id: list_id, 
-        email_address: email_address,
-        update_existing: true, 
-        double_optin: false,
-        merge_vars: {}
+    # @result = @gb.list_subscribe({
+    #     id: list_id, 
+    #     email_address: email_address,
+    #     update_existing: true, 
+    #     double_optin: false,
+    #     merge_vars: {}
+    # })
+    @result = @gb.lists.subscribe({
+      id: list_id, 
+      email: {email: email_address},
+      double_optin: false,
     })
     Rails.logger.info "Completed Subscription #{@result.inspect}"
     @result
