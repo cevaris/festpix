@@ -5,7 +5,7 @@ Rq::Application.routes.draw do
   resources :photo_sessions do
     match 'claim', to: 'photo_sessions#claim', via: [:get]
     
-    match 'pics/:id', to: 'photo_sessions#email_new', via: [:get]
+    match 'pics/new', to: 'photo_sessions#email_new', via: [:get]
     match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
 

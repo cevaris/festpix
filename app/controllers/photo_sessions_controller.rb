@@ -50,12 +50,13 @@ class PhotoSessionsController < ApplicationController
   end
 
   def email_new
-
+    render 'email/new'
   end
 
-  # GET /email/1/email
+  # GET /photo_session/1/email
   def email_create
 
+    @photo_session = PhotoSession.find params[:photo_session_id]
     Rails.logger.info params
 
     return render nothing: true, status: 500 unless params.has_key? 'email'
@@ -68,8 +69,11 @@ class PhotoSessionsController < ApplicationController
     #   return render nothing: true
     # else
     #   return render nothing: true, status: 500
-    # end       
-    
+    # end    
+
+    redirect_to @photo_session
+
+
   end
 
 

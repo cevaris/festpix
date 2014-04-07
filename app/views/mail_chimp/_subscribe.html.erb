@@ -6,7 +6,8 @@
   }
 </style>
 <div id="mc_embed_signup">
-  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= new_email_path %>" method="POST">
+  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= photo_session_pics_path %>" method="POST">
+    <%= hidden_field_tag request_forgery_protection_token.to_s, form_authenticity_token %>
     <input type="email" value="" name="email" class="email" id="mc-email" placeholder="Email Address" required>
     <br/><br/>
     <div class="clear">
