@@ -12,7 +12,7 @@
 <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
 
 
-<% if @claimed == false %>
+<% if false #if @claimed == false %>
 <div class="col-xs-12 col-md-3 pull-right">
   <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg btn-block' %>
 </div>
