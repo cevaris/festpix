@@ -1,0 +1,25 @@
+<h1>Listing Photo Sessions</h1>
+
+<div class="row">
+  <% PhotoSession.all.each do |photo_session| %>
+
+    <% if photo_session.photos.first %>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '50x50'), photo_session, title: photo_session.photos.first.image_file_name %>
+          <div class="caption">
+            <div class="pull-right">
+              <h3>
+                <%= photo_session.email_list %>
+                <small><%= l(photo_session.created_at, format: :reminder) %></small>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+  <% end %>
+</div>

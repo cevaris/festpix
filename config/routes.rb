@@ -1,5 +1,8 @@
 Rq::Application.routes.draw do
 
+  match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
+
+
   # match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
   # resources :email, :path => "pics"
   resources :photo_sessions do

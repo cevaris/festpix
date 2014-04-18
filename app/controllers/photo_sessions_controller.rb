@@ -93,6 +93,10 @@ class PhotoSessionsController < ApplicationController
 
 
 
+  def admin_show
+    @photo_sessions = PhotoSession.all
+  end
+
 
     
   end
