@@ -66,6 +66,10 @@ class PhotoSessionsController < ApplicationController
     list_id = get_mailing_list()
 
     if list_id and subscribe_to_list( list_id, params[:email] )
+
+      @photo_session.email_list.add( params[:email] )
+      @photo_session.save
+
       redirect_to @photo_session
     else
       redirect_to photo_session_pics_url(@photo_session)
