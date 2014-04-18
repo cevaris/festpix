@@ -1,25 +1,51 @@
+
+
 <h1>Listing Photo Sessions</h1>
 
 <div class="row">
-  <% PhotoSession.all.each do |photo_session| %>
+  <table class="table table-hover">
+    <tr>
+      <th>Photo</th>
+      <th>Info</th>
+      <th>Emails</th>
+      <th>Photo</th>      
+    </tr>
+    <% PhotoSession.order('created_at DESC').all.each do |photo_session| %>
+      <% if photo_session.photos.first %>
+      <tr data-url="<%= photo_session_url(photo_session) %>" class="clickable" >
 
-    <% if photo_session.photos.first %>
+        <td>
+          <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
+        </td>
 
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '50x50'), photo_session, title: photo_session.photos.first.image_file_name %>
-          <div class="caption">
-            <div class="pull-right">
-              <h3>
-                <%= photo_session.email_list %>
-                <small><%= l(photo_session.created_at, format: :reminder) %></small>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
+        <td>
+          <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
+        </td>
 
+        <td>
+          <%= photo_session.email_list %>
+        </td>
+
+        <td>
+          <%= photo_session.phone_list %>
+        </td>
+
+      </tr>
+      <% end %>
     <% end %>
+  </div>
+</table>
 
-  <% end %>
-</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  
+  $('.clickable').click(function() {
+    window.location = $(this).attr('data-url');
+  });
+
+});
+</script>
