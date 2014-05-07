@@ -1,18 +1,25 @@
-<!-- Begin MailChimp Signup Form -->
-<style type="text/css">
-  
-  #mc-email {
-    width: 300px;
-  }
-</style>
-<div id="mc_embed_signup">
-  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= photo_session_pics_path %>" method="POST">
+<div class="col-md-4"></div>
+<div class="col-xs-12 col-md-4">
+
+  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= photo_session_pics_path %>" method="POST" role="form">
     <%= hidden_field_tag request_forgery_protection_token.to_s, form_authenticity_token %>
-    <input type="email" value="" name="email" class="email" id="mc-email" placeholder="Email Address" required>
-    <br/><br/>
-    <div class="clear">
-      <button id="mc-subscribe-button" class="btn btn-primary"> Submit </button>
+
+    <h3>Enter your email to view photos</h3>
+
+    <div class="input-group">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+      <input type="email" value="" name="email" class="email form-control" id="mc-email" placeholder="Email Address" required>
     </div>
+    
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" checked="checked" name="subscribe"> Subscribe to FestPix mailing list (we do not spam)
+      </label>
+    </div>
+
+    <button id="mc-subscribe-button" class="btn btn-primary btn-block"> Submit </button>
+
   </form>
 </div>
-<!--End mc_embed_signup-->
+<div class="col-md-4"></div>

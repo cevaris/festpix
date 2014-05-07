@@ -62,10 +62,9 @@ class PhotoSessionsController < ApplicationController
     return render nothing: true, status: 500 unless params.has_key? 'email'
 
     Rails.logger.info params
-
     list_id = get_mailing_list()
 
-    if list_id and subscribe_to_list( list_id, params[:email] )
+    if params[:subscribe] == 'on' and list_id and subscribe_to_list( list_id, params[:email] )
 
       @photo_session.email_list.add( params[:email] )
       @photo_session.save
@@ -73,9 +72,7 @@ class PhotoSessionsController < ApplicationController
       redirect_to @photo_session
     else
       redirect_to photo_session_pics_url(@photo_session)
-    end    
-
-    
+    end
 
 
   end
@@ -84,22 +81,17 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show
-
     if current_user
       @claimed = @photo_session.attendee_list.include? current_user.id.to_s
     else
       @claimed = false
-    end    
-
-
+    end       
+  end
 
   def admin_show
     @photo_sessions = PhotoSession.all
   end
 
-
-    
-  end
 
   # GET /photo_sessions/new
   def new
@@ -137,7 +129,7 @@ class PhotoSessionsController < ApplicationController
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
         format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
-        format.json { render json: @photo_session, status: :created, location: @photo_session }
+
       else
         # Delete images post invalidation
         @photo_session.photos.map(&:destroy)
