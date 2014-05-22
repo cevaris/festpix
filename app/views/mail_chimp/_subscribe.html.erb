@@ -1,7 +1,7 @@
 <div class="col-md-4"></div>
 <div class="col-xs-12 col-md-4">
 
-  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= photo_session_pics_path %>" method="POST" role="form">
+  <form id="mc-subscribe-form" name="mc-embedded-subscribe-form" action="<%= photo_session_path %>" method="POST" role="form">
     <%= hidden_field_tag request_forgery_protection_token.to_s, form_authenticity_token %>
 
     <h3>Enter your email to view photos</h3>

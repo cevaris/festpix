@@ -71,7 +71,7 @@ class PhotoSessionsController < ApplicationController
 
       redirect_to @photo_session
     else
-      redirect_to photo_session_pics_url(@photo_session)
+      redirect_to photo_session_url(@photo_session)
     end
 
 
