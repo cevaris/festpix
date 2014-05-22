@@ -47,8 +47,8 @@ module Rq
     config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :user_name            => 'festpixmedia@gmail.com',
-      :password             => 'fp2014sw',
+      :user_name            => 'photos@festpix.com',
+      :password             => '9l4V2DT7h!dB',
       :authentication       => 'plain',
       :enable_starttls_auto => true  
     }
