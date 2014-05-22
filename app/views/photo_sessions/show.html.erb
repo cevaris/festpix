@@ -13,21 +13,7 @@
 </div>
  -->
 
-<div class="row">
-<h2>
 
-<%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
-
-
-<% if false #if @claimed == false %>
-<div class="col-xs-12 col-md-3 pull-right">
-  <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg btn-block' %>
-</div>
-<% end %>
-</h2>
-
-</div>
-<hr/>
 
 
 <!-- <p>
@@ -55,7 +41,7 @@
   <%= label_tag :email_list, @photo_session.email_list.join(', ') %>  
 </p>
  -->
-<div>
+<!-- <div> -->
 <% if !@photo_session.photos.empty? %>
 
   
@@ -63,14 +49,38 @@
 <div class="container">
 
   <div class="row">
+    <h2>
+
+    <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
+
+
+    <% if false #if @claimed == false %>
+    <div class="col-xs-12 col-md-3 pull-right">
+      <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+    <% end %>
+    </h2>
+
+    </div>
+  <hr/>
+
+  <div class="row">
   
   <% @photo_session.photos.each do |photo| %>
     <div class="col-sm-6 col-md-4">
        <div class="thumbnail">
 
+
+
           <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:original), title: photo.image_file_name %>
-          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:original) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
-          <button type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> | Share to Facebook</button>
+          
+          <button style="margin-top:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
+          <button type="button" class="btn btn-twitter btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')" ><i class="fa fa-twitter"></i> Share to Twitter</button>
+          <a type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:original) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
+          
+
+          
+
        </div>
     </div>
   <% end %>
