@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    
     <title><%= content_for?(:title) ? yield(:title) : "Event Photos" %></title>
     <%= csrf_meta_tags %>
 
@@ -13,6 +15,8 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+
+
 
 
     <!-- For all other devices -->
