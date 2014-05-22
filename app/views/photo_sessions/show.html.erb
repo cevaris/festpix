@@ -68,7 +68,7 @@
     <div class="col-sm-6 col-md-4">
        <div class="thumbnail">
 
-          <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:large), title: photo.image_file_name %>
+          <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:original), title: photo.image_file_name %>
           <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:original) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           <button type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> | Share to Facebook</button>
        </div>
@@ -136,29 +136,30 @@
 /* Facebook SDK */
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '845404998806250',
+    // appId      : '845404998806250',
+    appId      : '1488469154715813',
     xfbml      : true,
     version    : 'v2.0'
   });
 };
 
 function shareToFacebook(reference){
-
+  console.log("Sharing "+ reference);
   FB.login(function(response){
     if (response.authResponse) {
       FB.api('/me/photos', 'post', {
         url: reference,
         privacy: {value: 'SELF'},
         message: "Shared via #FestPix"
-        }, function(response){
+      }, function(response){
           if(response.id){
-            alert('Photo posted to facebok! Thanks for using FestPix');
-            $.fancybox.close();
+            alert('Photo posted to facebook! Thanks for using FestPix');
+            // $.fancybox.close();
           }
           else{
             alert('Facebook share unsuccesful. Please try again later');
           }
-        })
+      })
     }
     else {
       alert('Could not connect to Facebook. Please try again later.');
