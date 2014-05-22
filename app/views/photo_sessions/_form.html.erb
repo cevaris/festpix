@@ -23,7 +23,7 @@
   <br>
   <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px'%>
+    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px' %>
   </div>
   <br>
   <div class="input-group">
@@ -85,6 +85,10 @@
     tokenSeparators: [",", " "],
     minimumInputLength: 1
   });
+
+
+  $('#s2id_autogen1').attr('type', 'tel');
+    
 </script>
 
 
