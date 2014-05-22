@@ -74,9 +74,9 @@
 
           <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:original), title: photo.image_file_name %>
           
-          <button style="margin-top:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
-          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo_size_url(:photo_id => photo.id, :size => 'xlarge') %> Shared%20via%20%40FestPix" title="Shared via @FestPix"><button type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
-          <a type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:xlarge) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
+          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
+          <a style="margin-top:5px;" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo_size_url(:photo_id => photo.id, :size => 'xlarge') %> Shared%20via%20%40FestPix" title="Shared via @FestPix"><button type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
+          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:xlarge) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           
 
        </div>
