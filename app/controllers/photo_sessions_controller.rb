@@ -49,6 +49,7 @@ class PhotoSessionsController < ApplicationController
     
   end
 
+
   def email_new
     render 'email/new'
   end

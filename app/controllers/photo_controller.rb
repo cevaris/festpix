@@ -10,6 +10,11 @@ class PhotoController < ApplicationController
   def edit
   end
 
+  def photo
+    @photo = Photo.find(params[:photo_id])
+    redirect_to @photo.image.url(params[:size])
+  end
+
   # POST /event_image
   # POST /event_image.json
   def create
