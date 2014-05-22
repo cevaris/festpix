@@ -7,7 +7,7 @@ class PhotoSessionMailer < ActionMailer::Base
     Rails.logger.info "Email List #{email_list.inspect}"
     # Return if no emails are given/found
     return true if email_list.nil? or email_list.count == 0
-    Rails.logger.info "Email phones #{email_list.inspect}"
+    Rails.logger.info "Email Valid #{email_list.inspect}"
       
     # data = {}
     # phone_list.each do |phone|
