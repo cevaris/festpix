@@ -5,13 +5,13 @@
 </style>
 
 
-<div class="row">
+<!-- <div class="row">
   <ol class="breadcrumb col-md-12">
     <li><%= link_to 'Sessions', photo_sessions_path %></li>
     <li class="active"><%= @photo_session.id %></li>
   </ol>
 </div>
-
+ -->
 
 <div class="row">
 <h2>
@@ -149,7 +149,7 @@ function shareToFacebook(reference){
     if (response.authResponse) {
       FB.api('/me/photos', 'post', {
         url: reference,
-        privacy: {value: 'SELF'},
+        // privacy: {value: 'SELF'},
         message: "Shared via #FestPix"
       }, function(response){
           if(response.id){
