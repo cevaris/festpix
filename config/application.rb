@@ -46,7 +46,7 @@ module Rq
 
     config.action_mailer.smtp_settings = {
       :address              => "host11.registrar-servers.com",
-      :port                 => 587,
+      :port                 => 465,
       :user_name            => 'photos@festpix.com',
       :password             => '9l4V2DT7h!dB',
       :authentication       => 'plain',
