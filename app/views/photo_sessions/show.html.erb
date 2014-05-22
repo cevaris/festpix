@@ -1,3 +1,10 @@
+<style>
+  a:visited {color:#FFF;}  /* visited link */
+  a:hover   {color:#FFF;}  /* mouse over link */
+  a:active  {color:#FFF;}  /* selected link */
+</style>
+
+
 <div class="row">
   <ol class="breadcrumb col-md-12">
     <li><%= link_to 'Sessions', photo_sessions_path %></li>
@@ -62,8 +69,7 @@
        <div class="thumbnail">
 
           <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:large), title: photo.image_file_name %>
-
-          <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick=""><i class="fa fa-cloud-download"></i> | Click to Download </button>
+          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:original) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           <button type="button" class="btn btn-facebook btn-lg btn-block" onclick=""><i class="fa fa-facebook"></i> | Share to Facebook</button>
        </div>
     </div>
