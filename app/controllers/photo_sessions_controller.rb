@@ -38,14 +38,14 @@ class PhotoSessionsController < ApplicationController
     email_list = @photo_session.email_list
     phone_list = @photo_session.phone_list
 
-      if email_list.include? @user.email or phone_list.count > 0
-        # Do it, do it!!!
-        @photo_session.attendee_list.add(@user.id.to_s)
-        @photo_session.save
-        return redirect_to current_user, notice: 'Photo Session was successfully claimed.'
-      else
-        return redirect_to current_user, error: 'You do not have permissions to claim'
-      end
+    if email_list.include? @user.email or phone_list.count > 0
+      # Do it, do it!!!
+      @photo_session.attendee_list.add(@user.id.to_s)
+      @photo_session.save
+      return redirect_to current_user, notice: 'Photo Session was successfully claimed.'
+    else
+      return redirect_to current_user, error: 'You do not have permissions to claim'
+    end
     
   end
 
@@ -97,7 +97,6 @@ class PhotoSessionsController < ApplicationController
   def new
     @photo_session = PhotoSession.new
     3.times { @photo_session.photos.build }
-    # @photo_session.email_list = 'cevaris@gmail.com,chek@yahoo.com'
   end
 
   # GET /photo_sessions/1/edit

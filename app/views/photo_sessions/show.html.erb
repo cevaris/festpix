@@ -60,12 +60,47 @@
   <% @photo_session.photos.each do |photo| %>
     <div class="col-sm-6 col-md-4">
        <div class="thumbnail">
-        <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:large), title: photo.image_file_name %>
+
+          <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:large), title: photo.image_file_name %>
+
+          <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick=""><i class="fa fa-cloud-download"></i> | Click to Download </button>
+          <button type="button" class="btn btn-facebook btn-lg btn-block" onclick=""><i class="fa fa-facebook"></i> | Share to Facebook</button>
        </div>
     </div>
   <% end %>
 
   </div>
+
+
+  <div>
+
+  
+
+<!--   
+  <hr/>
+  <div class="col-md-12 well">
+    <h3>Thanks so much for your support!</h3>
+    <h4>In the mean time, subscribe to our email list if you'd like to stay up to date:</h4>
+    <form action="http://festpix.us8.list-manage.com/subscribe/post?u=793783d1eb67229d5b27248ac&amp;id=2f2c08dbaa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+        
+      <div class="mc-field-group">
+        <input value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL" type="email">
+        <input value="Subscribe for Updates" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary" type="submit">
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>    
+
+        <div style="position: absolute; left: -5000px;"><input name="b_793783d1eb67229d5b27248ac_2f2c08dbaa" value="" type="text"></div>
+      
+        <h5 class="pull-right">Inquiries: <a href="mailto:info@festpix.com">info@FestPix.com</a></h5><br>
+      </div>
+    </form>
+  </div> 
+-->
+
+
+
 
 </div> <!-- /container -->  
 
