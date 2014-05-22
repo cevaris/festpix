@@ -155,18 +155,29 @@ function shareToFacebook(reference){
   console.log("Sharing "+ reference);
   FB.login(function(response){
     if (response.authResponse) {
-      FB.api('/me/photos', 'post', {
-        url: reference,
-        // privacy: {value: 'SELF'},
-        message: "Shared via #FestPix"
-      }, function(response){
-          if(response.id){
-            alert('Photo posted to facebook! Thanks for using FestPix');
+      // FB.api('/me/photos', 'post', {
+      //   url: reference,
+      //   // privacy: {value: 'SELF'},
+      //   message: "Shared via #FestPix"
+      // }, function(response){
+      //     if(response.id){
+      //       alert('Photo posted to facebook! Thanks for using FestPix');
+      //     }
+      //     else{
+      //       alert('Facebook share unsuccesful. Please try again later');
+      //     }
+      // })
+        var wallPost = {
+            message : "Shared via #FestPix",
+            picture: reference
+        };
+        FB.api('/me/feed', 'post', wallPost , function(response) {
+          if (!response || response.error) {
+            alert('Facebook post currently not available.');
+          } else {
+            alert('Posted Photo Successfully to Facebook!!);
           }
-          else{
-            alert('Facebook share unsuccesful. Please try again later');
-          }
-      })
+        });
     }
     else {
       alert('Could not connect to Facebook. Please try again later.');
