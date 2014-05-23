@@ -20,4 +20,8 @@ class Photo < ActiveRecord::Base
     self.slug ||= SecureRandom.hex[0..10]
   end
 
+  def to_param
+    self.slug
+  end 
+
 end
