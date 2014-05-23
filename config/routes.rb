@@ -1,6 +1,7 @@
 Rq::Application.routes.draw do
 
   match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
+  match '/photo/:photo_id' => 'photo#photo', via: [:get], as: 'photo'
   match '/photo/:photo_id/:size' => 'photo#photo', via: [:get], as: 'photo_size'
 
   

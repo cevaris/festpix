@@ -72,10 +72,9 @@
 
 
 
-          <%= link_to image_tag(photo.image.url(:square), :width => '100%'), photo.image.url(:original), title: photo.image_file_name %>
-          
-          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
-          <a style="margin-top:5px;" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo_size_url(:photo_id => photo.id, :size => 'xlarge') %> Shared%20via%20%40FestPix" title="Shared via @FestPix"><button type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
+          <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
+          <!-- <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button> -->
+          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo_url(photo) %> Shared%20via%20%40FestPix" title="Shared via @FestPix"><button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
           <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.image.url(:xlarge) %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           
 
@@ -131,59 +130,59 @@
 
 <script>
 
-(function(d, s, id){
- var js, fjs = d.getElementsByTagName(s)[0];
- if (d.getElementById(id)) {return;}
- js = d.createElement(s); js.id = id;
- js.src = "//connect.facebook.net/en_US/sdk.js";
- fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-/* end Facebook SDK */
+// (function(d, s, id){
+//  var js, fjs = d.getElementsByTagName(s)[0];
+//  if (d.getElementById(id)) {return;}
+//  js = d.createElement(s); js.id = id;
+//  js.src = "//connect.facebook.net/en_US/sdk.js";
+//  fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));
+// /* end Facebook SDK */
 
 
-/* Facebook SDK */
-window.fbAsyncInit = function() {
-  FB.init({
-    // appId      : '845404998806250',
-    appId      : '1488469154715813',
-    xfbml      : true,
-    version    : 'v2.0'
-  });
-};
+// /* Facebook SDK */
+// window.fbAsyncInit = function() {
+//   FB.init({
+//     // appId      : '845404998806250',
+//     appId      : '1488469154715813',
+//     xfbml      : true,
+//     version    : 'v2.0'
+//   });
+// };
 
-function shareToFacebook(reference){
-  console.log("Sharing "+ reference);
-  FB.login(function(response){
-    if (response.authResponse) {
-      // FB.api('/me/photos', 'post', {
-      //   url: reference,
-      //   // privacy: {value: 'SELF'},
-      //   message: "Shared via #FestPix"
-      // }, function(response){
-      //     if(response.id){
-      //       alert('Photo posted to facebook! Thanks for using FestPix');
-      //     }
-      //     else{
-      //       alert('Facebook share unsuccesful. Please try again later');
-      //     }
-      // })
-        var wallPost = {
-            message : "Shared via #FestPix",
-            picture: reference
-        };
-        FB.api('/me/feed', 'post', wallPost , function(response) {
-          if (!response || response.error) {
-            alert('Facebook post currently not available.');
-          } else {
-            alert('Posted Photo Successfully to Facebook!!');
-          }
-        });
-    }
-    else {
-      alert('Could not connect to Facebook. Please try again later.');
-    }
-  }, {scope: 'publish_actions'});
-};
+// function shareToFacebook(reference){
+//   console.log("Sharing "+ reference);
+//   FB.login(function(response){
+//     if (response.authResponse) {
+//       // FB.api('/me/photos', 'post', {
+//       //   url: reference,
+//       //   // privacy: {value: 'SELF'},
+//       //   message: "Shared via #FestPix"
+//       // }, function(response){
+//       //     if(response.id){
+//       //       alert('Photo posted to facebook! Thanks for using FestPix');
+//       //     }
+//       //     else{
+//       //       alert('Facebook share unsuccesful. Please try again later');
+//       //     }
+//       // })
+//         var wallPost = {
+//             message : "Shared via #FestPix",
+//             picture: reference
+//         };
+//         FB.api('/me/feed', 'post', wallPost , function(response) {
+//           if (!response || response.error) {
+//             alert('Facebook post currently not available.');
+//           } else {
+//             alert('Posted Photo Successfully to Facebook!!');
+//           }
+//         });
+//     }
+//     else {
+//       alert('Could not connect to Facebook. Please try again later.');
+//     }
+//   }, {scope: 'publish_actions'});
+// };
 </script>
 
 
