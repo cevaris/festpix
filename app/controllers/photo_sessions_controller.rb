@@ -54,29 +54,29 @@ class PhotoSessionsController < ApplicationController
     render 'email/new'
   end
 
-  # GET /photo_session/1/email
-  def email_create
+  # # GET /photo_session/1/email
+  # def email_create
 
-    @photo_session = PhotoSession.find params[:photo_session_id]
-    Rails.logger.info params
+  #   @photo_session = PhotoSession.find params[:photo_session_id]
+  #   Rails.logger.info params
 
-    return render nothing: true, status: 500 unless params.has_key? 'email'
+  #   return render nothing: true, status: 500 unless params.has_key? 'email'
 
-    Rails.logger.info params
-    list_id = get_mailing_list()
+  #   Rails.logger.info params
+  #   list_id = get_mailing_list()
 
-    if params[:subscribe] == 'on' and list_id and subscribe_to_list( list_id, params[:email] )
+  #   if params[:subscribe] == 'on' and list_id and subscribe_to_list( list_id, params[:email] )
 
-      @photo_session.email_list.add( params[:email] )
-      @photo_session.save
+  #     @photo_session.email_list.add( params[:email] )
+  #     @photo_session.save
 
-      redirect_to @photo_session
-    else
-      redirect_to photo_session_url(@photo_session)
-    end
+  #     redirect_to @photo_session
+  #   else
+  #     redirect_to photo_session_url(@photo_session)
+  #   end
 
 
-  end
+  # end
 
 
   # GET /photo_sessions/1
@@ -128,7 +128,8 @@ class PhotoSessionsController < ApplicationController
         queue_sms(@photo_session)
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-        format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
+        # format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
+        format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
 
       else
         # Delete images post invalidation
@@ -169,7 +170,13 @@ class PhotoSessionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo_session
-      @photo_session = PhotoSession.find_by_slug(params[:id])
+      begin
+        !!Integer(params[:id])
+        @photo_session = PhotoSession.find(params[:id])
+        redirect_to @photo_session
+      rescue ArgumentError, TypeError
+        @photo_session = PhotoSession.find_by_slug(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

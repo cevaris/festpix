@@ -1,4 +1,6 @@
 class PhotoSession < ActiveRecord::Base
+  include ActionView::Helpers::UrlHelper
+
   acts_as_taggable_on :emails
   acts_as_taggable_on :phones
   acts_as_taggable_on :attendees
@@ -13,5 +15,9 @@ class PhotoSession < ActiveRecord::Base
   def default_values
     self.slug ||= SecureRandom.hex[0..10]
   end
-  
+
+  def to_param
+    self.slug
+  end 
+
 end

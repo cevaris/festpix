@@ -9,10 +9,8 @@ Rq::Application.routes.draw do
   # match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
   # resources :email, :path => "pics"
 
-  # match '/photo_sessions/:slug' => 'photo#photo', via: [:get], as: 'photo'
   resources :photo_sessions do
     match 'claim', to: 'photo_sessions#claim', via: [:get]
-    # match '/:slug', to: 'photo_sessions#show',  via: [:get], as: 'photo_sessions_slug'
     
     # match 'pics', to: 'photo_sessions#email_new', via: [:get]
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
