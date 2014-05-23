@@ -11,8 +11,8 @@ class PhotoController < ApplicationController
   end
 
   def photo
-    @photo = Photo.find(params[:photo_id])
-    redirect_to @photo.image.url(params[:size])
+    @photo = Photo.find_by_slug(params[:photo_slug])
+    redirect_to @photo.image.url(:xlarge)
   end
 
   # POST /event_image
