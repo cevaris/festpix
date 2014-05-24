@@ -13,17 +13,31 @@ namespace :pc do
       # path_arr[5]
       # puts photo.image.path
 
-      photo.image.options[:styles].each do |sytle, resolution|
+      id_partition = "%03d" % photo.id
 
-        id_partition = "%03d" % photo.id
-        source = "photos/images/000/000/#{id_partition}/#{sytle}/#{photo.image_file_name}"
-        # print "\rChecking #{source}...."
-        puts "Checking #{source}...."
-        if bucket.objects[source].exists?
-          puts "Found #{source}"
+      styles = photo.image.options[:styles].keys << :original
+
+      styles.each do |sytle|
+
+        source_path = "photos/images/000/000/#{id_partition}/#{sytle}/#{photo.image_file_name}"
+        print "\rChecking #{source_path}...."
+        # puts "Checking #{source_path}...."
+        if bucket.objects[source_path].exists?
+          # puts "\nCopying #{source_path} to #{photo.image.path}"
+
+          source_object = bucket.objects[source_path]
+          target_object = bucket.objects[photo.image.path]
+
+          target_object.delete()
+
+          puts "\nDeleted #{target_object.key}"
+          source_object.copy_to(target_object.key)
+          # bucket.objects[photo.image.path].copy_from(source_object)
         end
 
       end
+
+
     end
 
     puts "...done."
