@@ -60,7 +60,7 @@ gem 'acts-as-taggable-on', '~> 3.0.2'
 gem 'twilio-ruby', '~> 3.11.5'
 gem 'delayed_job_active_record', '~> 4.0.0'
 gem 'gibbon'
-
+gem 'paperclip-watermark'
 
 
 
