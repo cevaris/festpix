@@ -8,7 +8,7 @@ namespace :pc do
     #   puts obj.key
     # end
 
-    Photo.all.each do |photo|
+    Photo.all.order('created_at DESC').each do |photo|
       id_partition = "%03d" % photo.id
       styles = photo.image.options[:styles].keys << :original
 
@@ -20,8 +20,12 @@ namespace :pc do
         if bucket.objects[source_path].exists?
           source_object = bucket.objects[source_path]
           target_object = bucket.objects[target_path]
+
           puts "\n    Found #{source_object.key}"
-          source_object.copy_to(target_object.key)
+          
+          target_object.delete()
+          source_object.copy_to(target_object.key, :acl => :public_read)
+          
           puts "    Successful copy to #{target_path}?...#{bucket.objects[target_path].exists?}"
         end
 
