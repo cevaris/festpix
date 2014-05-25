@@ -24,8 +24,7 @@ namespace :pc do
           puts "\n    Found #{source_object.key}"
           
           target_object.delete()
-          source_object.copy_to(target_object.key, :acl => :public_read)
-          
+          source_object.copy_to(target_object.key, acl: :public_read)
           puts "    Successful copy to #{target_path}?...#{bucket.objects[target_path].exists?}"
         end
 
