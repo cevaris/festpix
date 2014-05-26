@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/cevaris/Documents/workspace/paperclip-watermark
+GIT
+  remote: git://github.com/cevaris/paperclip-watermark.git
+  revision: 490937c699b7a2e6f57d0f332009d50cd3291b80
   specs:
     paperclip-watermark (1.0.0)
       minitest
