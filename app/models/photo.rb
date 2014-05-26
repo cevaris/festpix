@@ -6,12 +6,20 @@ class Photo < ActiveRecord::Base
 
   has_attached_file :image, 
     :processors => [:watermark],
+    # :convert_options => {
+    #   :xlarge => {
+    #     :transparancy => '15'
+    #   }
+    # },
     :styles => {
       thumb: '100x100#', 
       square: '200x200#', 
       medium: '500x500>',
       large: '800x800>',
-      xlarge: { :geometry => '1600x1400>', :watermark_path => "#{Rails.root}/public/watermarks/festpix.png" } 
+      xlarge: { 
+        :geometry => '1600x1400>', 
+        :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"},
+        :transparancy => '30'
     }
 
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
