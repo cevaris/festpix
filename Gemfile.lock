@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cevaris/paperclip-watermark.git
-  revision: 490937c699b7a2e6f57d0f332009d50cd3291b80
+  revision: 400d2cb5e386e77f06f046713c40b33e14a343c6
   specs:
     paperclip-watermark (1.0.0)
       minitest
