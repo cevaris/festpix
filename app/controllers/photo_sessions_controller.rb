@@ -126,6 +126,7 @@ class PhotoSessionsController < ApplicationController
       if @photo_session.save
         
         queue_sms(@photo_session)
+        # Notifier.delay(run_at: 5.minutes.from_now).signup(@user)
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
         # format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
