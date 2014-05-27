@@ -129,7 +129,8 @@ class PhotoSessionsController < ApplicationController
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
         # format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
-        format.html { redirect_to @photo_session, notice: 'Photo Session was successfully created.' }
+        flash.notice = 'Photo Session was successfully created.'
+        format.html { redirect_to action: "new" }#, notice: 'Photo Session was successfully created.' }
 
       else
         # Delete images post invalidation
