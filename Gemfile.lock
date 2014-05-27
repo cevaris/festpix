@@ -61,11 +61,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    delayed_job (4.0.0)
-      activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0)
-      activerecord (>= 3.0, < 4.1)
-      delayed_job (>= 3.0, < 4.1)
     devise (3.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -204,7 +199,6 @@ DEPENDENCIES
   aws-sdk (~> 1.36.1)
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 4.0.0)
-  delayed_job_active_record (~> 4.0.0)
   devise (~> 3.2.2)
   font-awesome-rails (~> 4.0.3.1)
   foreman (~> 0.63.0)
