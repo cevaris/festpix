@@ -12,10 +12,10 @@ class Photo < ActiveRecord::Base
     #   }
     # },
     :styles => {
-      # thumb: '100x100#', 
+      thumb: '100x100#', 
       square: '200x200#', 
-      # medium: '500x500>',
-      # large: '800x800>',
+      medium: '500x500>',
+      large: '800x800>',
       xlarge: { 
         :geometry => '1600x1400>', 
         :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"},
@@ -25,7 +25,7 @@ class Photo < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
 
   # process_in_background :image
-  # process_in_background :image, :only_process => [:thumb, :medium, :large]
+  process_in_background :image, :only_process => [:thumb, :medium, :large]
 
 
   before_save :default_values
