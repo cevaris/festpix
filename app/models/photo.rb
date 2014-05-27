@@ -24,6 +24,8 @@ class Photo < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
 
+  process_in_background :image
+
 
   before_save :default_values
   def default_values
