@@ -65,8 +65,8 @@ gem 'gibbon'
 gem 'paperclip-watermark', :github => 'cevaris/paperclip-watermark'
 gem 'delayed_paperclip'
 # gem 'paperclip-watermark', :path => "/Users/cevaris/Documents/workspace/paperclip-watermark"
-
-
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 
 

@@ -90,7 +90,8 @@ class PhotoSessionsController < ApplicationController
   end
 
   def admin_show
-    @photo_sessions = PhotoSession.all
+    @photo_sessions = PhotoSession.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+    # @photo_sessions = PhotoSession.all
   end
 
 

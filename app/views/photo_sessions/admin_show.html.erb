@@ -6,11 +6,10 @@
   <table class="table table-hover">
     <tr>
       <th>Photo</th>
-      <th>Info</th>
-      <th>Emails</th>
-      <th>Photo</th>      
+      <th>Date</th>
+      <th>Tagging</th>
     </tr>
-    <% PhotoSession.order('created_at DESC').all.each do |photo_session| %>
+    <% @photo_sessions.each do |photo_session| %>
       <% if photo_session.photos.first %>
       <tr data-url="<%= photo_session_url(photo_session) %>" class="clickable" >
 
@@ -23,11 +22,7 @@
         </td>
 
         <td>
-          <%= photo_session.email_list %>
-        </td>
-
-        <td>
-          <%= photo_session.phone_list %>
+          <%= photo_session.email_list %> <%= photo_session.phone_list %>
         </td>
 
       </tr>
@@ -37,6 +32,7 @@
 </table>
 
 
+<%= will_paginate @photo_sessions %>
 
 
 
