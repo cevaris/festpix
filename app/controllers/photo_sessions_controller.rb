@@ -111,7 +111,7 @@ class PhotoSessionsController < ApplicationController
   def create
 
     @photo_session = PhotoSession.new(photo_session_params)
-    @photo_session.photographer = current_user
+    # @photo_session.photographer = current_user
 
     if params[:photo_session].has_key?(:phone_list)
       @photo_session.phone_list = params[:photo_session][:phone_list]
@@ -127,12 +127,10 @@ class PhotoSessionsController < ApplicationController
       if @photo_session.save
         
         queue_sms(@photo_session)
-        # Notifier.delay(run_at: 5.minutes.from_now).signup(@user)
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-        # format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
         flash.notice = 'Photo Session was successfully created.'
-        format.html { redirect_to action: "new" }#, notice: 'Photo Session was successfully created.' }
+        format.html { redirect_to action: "new" }
 
       else
         # Delete images post invalidation

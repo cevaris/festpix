@@ -13,7 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session[:referer] || root_path
+    user_path(resource) || session[:referer] || root_path
+  end
+  def after_sign_up_path_for(resource)
+    user_path(resource) || session[:referer] || root_path
   end
 
   def update_devise_parameter_sanitizer
