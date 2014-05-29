@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+   # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
+
   has_many :events
 
   has_attached_file :avatar, styles: {
@@ -18,4 +20,16 @@ class User < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/jpg image/png)
+
+
+  before_save :default_values
+  def default_values
+    self.slug ||= SecureRandom.hex[0..10]
+  end
+
+  def to_param
+    self.slug
+  end 
+
+
 end

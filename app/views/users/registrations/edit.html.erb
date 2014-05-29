@@ -16,12 +16,6 @@
     <%= f.email_field :email, :autofocus => true %>
   </div>
 
-  <div><%= f.label :kind %><br />
-  <%= f.select :kind, options_for_select(User::TYPES, selected: resource.kind ), {
-    placeholder:'User type'
-  } %>  
-  </div>
-
   <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
   <%= f.password_field :password, :autocomplete => "off" %></div>
 
@@ -41,12 +35,3 @@
     <%= f.submit "Update", class: 'btn' %>
   </div>
 <% end %>
-
-
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#users_kind').select2();
-});
-</script>

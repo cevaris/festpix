@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_slug(params[:id])
     @sessions = PhotoSession.tagged_with(@user.id.to_s, :any => true)
     
     begin

@@ -1,6 +1,6 @@
 class AddSlugToPhotoSession < ActiveRecord::Migration
   def change
-     add_column :photo_sessions, :slug, :string
+    add_column :photo_sessions, :slug, :string
     
     # Create slug for previous photos
     PhotoSession.all.each do |photo|
