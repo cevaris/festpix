@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   # Validate the attached image is image/jpg, image/png, etc
   # validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_format_of :phone_number, with: /\A[0-9]{10}\z/, message: "has an invalid format."
 
 
   before_save :default_values
