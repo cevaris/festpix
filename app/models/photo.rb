@@ -20,12 +20,12 @@ class Photo < ActiveRecord::Base
         :geometry => '1600x1400>', 
         :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"},
         :transparancy => '30'
-    }#, :only_process => [:square, :xlarge]
+    }, :only_process => [:square, :xlarge]
 
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
 
   # process_in_background :image
-  #process_in_background :image, :only_process => [:thumb, :medium, :large]
+  process_in_background :image, :only_process => [:thumb, :medium, :large]
 
 
   before_save :default_values
