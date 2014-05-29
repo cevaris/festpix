@@ -7,8 +7,8 @@
       
       <!--- Left col -->
       <div class="col-xs-12 col-sm-4 col-md-4">
-        <% if @user.avatar.url.empty? %>
-          <%= image_tag @user.avatar.url(:square) , class:'img-thumbnail' %>
+        <% unless @user.avatar.url.empty? %>
+          <%= image_tag @user.avatar.url(:square) , class:'img-thumbnail', width: '100%' %>
         <% else %>
           <%= image_tag 'default.png' , class:'img-thumbnail' %>
         
