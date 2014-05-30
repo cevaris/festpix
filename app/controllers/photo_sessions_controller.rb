@@ -88,6 +88,15 @@ class PhotoSessionsController < ApplicationController
     else
       @claimed = false
     end       
+
+    Rails.logger.info "#{@photo_session.slug} is opened yet? #{@photo_session.opened_at}"
+    unless @photo_session.opened_at
+      @photo_session.opened_at = DateTime.now
+      @photo_session.save!
+    end
+    Rails.logger.info "Errors #{@photo_session.errors.inspect}"
+
+    
   end
 
   def admin_show

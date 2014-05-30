@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529191435) do
+ActiveRecord::Schema.define(version: 20140530175857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140529191435) do
     t.datetime "updated_at"
     t.boolean  "claimed",       default: false
     t.string   "slug"
+    t.datetime "opened_at"
   end
 
   add_index "photo_sessions", ["slug"], name: "index_photo_sessions_on_slug", using: :btree
