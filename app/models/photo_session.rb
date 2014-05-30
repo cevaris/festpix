@@ -54,7 +54,23 @@ class PhotoSession < ActiveRecord::Base
       days       =  difference % 7
       weeks      = (difference - days)    /  7
       
-      "#{hours} Hours, #{minutes} Mins, #{seconds} Secs"
+      result = []
+      if weeks != 0
+        result << "#{weeks} weeks"
+      end
+      if days != 0
+        result << "#{days} days"
+      end
+      if hours != 0
+        result << "#{hours} hours"
+      end
+      if minutes != 0
+        result << "#{minutes} mins"
+      end
+      if seconds != 0
+        result << "#{seconds} secs"
+      end
+      result.join(", ")
     end
   end
 
