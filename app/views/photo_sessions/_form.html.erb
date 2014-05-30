@@ -18,17 +18,17 @@
   <h2 class="form-signin-heading">Upload Photos</h2>
   <!-- <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
-    <%= f.hidden_field :name, placeholder:'Enter Name', style:'width: 300px', class: 'form-control' %>
+    <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
   <!-- </div> -->
   <br>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px' %>
-  </div>
+
+    <%= f.label :phone_list %>
+    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'col-xs-12 col-md-12 form-control' %>
+
   <br>
   <!-- <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-    <%= f.hidden_field :email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
+    <%= f.hidden_field :email_list, placeholder:'Enter Emails' %>  
   </div>
   <br> -->
 
@@ -37,24 +37,26 @@
 <!-- End Photo Upload -->
 
   <br/>
-  <div class="field">
+  <br/>
+
+  <div>
     <%= f.label :photos %>
     <%= f.fields_for :photos do |asset_fields| %>
-      <% if asset_fields.object.new_record? %>
+    <% if asset_fields.object.new_record? %>
 
-      <div class="fileupload fileupload-new" data-provides="fileupload">
-        <div class="input-group">
-          <div class="uneditable-input col-lg-3"><i class="icon-file fileupload-exists"></i> 
-            <span class="fileupload-preview"></span>
-          </div>
-          <span class="btn btn-default btn-file">
-            <%= asset_fields.file_field :image, capture: 'camera', class: 'file-input' %>
-          </span>
+    <div class="fileupload fileupload-new" data-provides="fileupload">
+      <div class="input-group">
+        <div class="uneditable-input"><i class="icon-file fileupload-exists"></i> 
+          <span class="fileupload-preview"></span>
         </div>
+        <span class="btn btn-default btn-file">
+          <%= asset_fields.file_field :image, capture: 'camera', class: 'file-input' %>
+        </span>
       </div>
+    </div>
 
-      <% end %>
     <% end %>
+  <% end %>
   </div>
 
   <br>
