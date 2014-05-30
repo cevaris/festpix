@@ -10,14 +10,16 @@ class PhotoSession < ActiveRecord::Base
   belongs_to :photographer, class_name: 'User', foreign_key: 'photo_user_id'
   accepts_nested_attributes_for :photos, :allow_destroy => true
 
-
   validate :phone_list_format
 
   def phone_list_format
-    if self.phone_list
-      Rails.logger.info "Phones #{self.phone_list.inspect}"
+    Rails.logger.info "Phones #{self.phone_list.inspect}"
+
+    if self.phone_list.empty? or self.phone_list == ['']
+      errors.add(:phone_list, "is missing.")
+    elsif self.phone_list
       phone_list.each do |phone_number|
-        errors.add(:phone_list, "hast invalid phone format") unless phone_number =~ User::PHONE_FORMAT
+        errors.add(:phone_list, "has invalid phone format.") unless phone_number =~ User::PHONE_FORMAT
       end
     end
   end
