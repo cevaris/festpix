@@ -37,6 +37,11 @@ class PhotoSession < ActiveRecord::Base
     end
   end
 
+
+  def is_opened?
+    self.opened_at ? true : false
+  end
+
   def time_to_open
     if self.opened_at
       difference = self.opened_at.to_i - self.created_at.to_i

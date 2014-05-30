@@ -28,7 +28,7 @@
         </td>
 
         <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
-          <% if photo_session.opened_at %>
+          <% if photo_session.is_opened? %>
             <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
           <% else %>
             Not Opened
@@ -36,7 +36,7 @@
         </td>
 
         <td>
-          <%= link_to "Delete", photo_session, :confirm => "Are you sure you want to delete Photo Session #{photo_session.slug}?", :method => :delete, class: 'btn btn-danger' %>
+          <%= link_to "Delete", photo_session,  data: {confirm: "Are you sure you want to delete Photo Session #{photo_session.slug}?"}, :method => :delete, class: 'btn btn-danger' %>
         </td>
 
       </tr>
