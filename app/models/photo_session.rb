@@ -11,6 +11,18 @@ class PhotoSession < ActiveRecord::Base
   accepts_nested_attributes_for :photos, :allow_destroy => true
 
 
+  validate :phone_list_format
+
+  def phone_list_format
+    if self.phone_list
+      Rails.logger.info "Phones #{self.phone_list.inspect}"
+      phone_list.each do |phone_number|
+        errors.add(:phone_list, "hast invalid phone format") unless phone_number =~ User::PHONE_FORMAT
+      end
+    end
+  end
+
+
   before_save :default_values
   def default_values
     self.slug ||= SecureRandom.hex[0..10]

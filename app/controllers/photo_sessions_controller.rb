@@ -5,6 +5,7 @@ class PhotoSessionsController < ApplicationController
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
   before_action :require_session, only: [:index, :claim]
 
+
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
@@ -104,7 +105,6 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/1/edit
   def edit
   end
-
 
   # POST /activities
   # POST /activities.json
