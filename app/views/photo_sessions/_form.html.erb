@@ -20,7 +20,7 @@
 
   <div class="row">
     
-    <div class="col-xs-12">
+    <div class="col-md-12">
       <!-- <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
         <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
@@ -28,7 +28,7 @@
       <br>
 
         <%= f.label :phone_list %>
-        <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'col-xs-12 col-md-12 form-control' %>
+        <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
 
       <br>
       <!-- <div class="input-group">
@@ -45,40 +45,31 @@
 <!-- End Photo Upload -->
 
   <br/>
-  <br/>
 
-  <div class="row">
+  <%= f.label :photos %>
+  
+    
+    <%= f.fields_for :photos do |asset_fields| %>
+    <% if asset_fields.object.new_record? %>
 
-    <div class="col-xs-12 col-sm-6 col-md-3">
-      <%= f.label :photos %>
-      <%= f.fields_for :photos do |asset_fields| %>
-      <% if asset_fields.object.new_record? %>
+    <div class="row">
 
-      <!-- <div class="fileupload fileupload-new" data-provides="fileupload">
-        <div class="input-group">
-          <div class="uneditable-input"><i class="icon-file fileupload-exists"></i> 
-            <span class="fileupload-preview"></span>
+        <div class="fileinput fileinput-new col-xs-3 col-sm-3 col-md-3" data-provides="fileinput">
+
+          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="max-width:300px;max-height:300px;">
+            <%= image_tag 'default.png', width: '100%' %>
           </div>
-          <span class="btn btn-default btn-file">
-            <%= asset_fields.file_field :image, capture: 'camera', class: 'file-input' %>
-          </span>
-        </div>
-      </div> -->
+          <div>
+            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
+            <br/>
+            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+          </div>
 
-      <div class="fileinput fileinput-new" data-provides="fileinput">
-      
-        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 100px; height: 100px;"></div>
-        <div>
-          <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
-          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
         </div>
       </div>
-
-
-      <% end %>
     <% end %>
-    </div>
-  </div>
+  <% end %>
+
 
   <br>
 
