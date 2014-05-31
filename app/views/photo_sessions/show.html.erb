@@ -71,12 +71,12 @@
 
 
 
-          <a href="<%= photo.short_url %>" target="_blank" title="<%= photo.image_file_name %>">
+          <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>">
             <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
           </a>
           <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:original) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
           <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo.short_url %> Shared%20via%20%40FestPix" target="_blank" title="Shared via @FestPix"><button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
-          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.short_url %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
+          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.url %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           
 
        </div>

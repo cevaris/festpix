@@ -37,6 +37,10 @@ class PhotoSession < ActiveRecord::Base
     end
   end
 
+
+  def url
+    Rails.application.routes.url_helpers.photo_session_short_url(self, host: ENV['SHORT_URL'])
+  end
   def short_url
     Rails.application.routes.url_helpers.photo_session_short_url(self, host: ENV['SHORT_URL'])[7..-1]
   end

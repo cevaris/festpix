@@ -27,6 +27,9 @@ class Photo < ActiveRecord::Base
   # process_in_background :image
   # process_in_background :image, :only_process => [:thumb, :medium, :large]
 
+  def url
+    Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])
+  end
   def short_url
     Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])[7..-1]
   end
