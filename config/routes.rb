@@ -1,7 +1,5 @@
 Rq::Application.routes.draw do
 
-
-  # resources :photo, :only => [:show]
   match '/p/:id' => 'photo#show', via: [:get], as: 'photo_short'
   match '/s/:id' => 'photo_sessions#show', via: [:get], as: 'photo_session_short'
 
