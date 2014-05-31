@@ -5,6 +5,7 @@ class PhotoSessionsController < ApplicationController
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
   before_action :require_session, only: [:index, :claim]
 
+
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
@@ -87,6 +88,15 @@ class PhotoSessionsController < ApplicationController
     else
       @claimed = false
     end       
+
+    Rails.logger.info "#{@photo_session.slug} is opened yet? #{@photo_session.opened_at}"
+    unless @photo_session.opened_at
+      @photo_session.opened_at = DateTime.now
+      @photo_session.save!
+    end
+    Rails.logger.info "Errors #{@photo_session.errors.inspect}"
+
+    
   end
 
   def admin_show
@@ -105,13 +115,12 @@ class PhotoSessionsController < ApplicationController
   def edit
   end
 
-
   # POST /activities
   # POST /activities.json
   def create
 
     @photo_session = PhotoSession.new(photo_session_params)
-    @photo_session.photographer = current_user
+    # @photo_session.photographer = current_user
 
     if params[:photo_session].has_key?(:phone_list)
       @photo_session.phone_list = params[:photo_session][:phone_list]
@@ -127,12 +136,10 @@ class PhotoSessionsController < ApplicationController
       if @photo_session.save
         
         queue_sms(@photo_session)
-        # Notifier.delay(run_at: 5.minutes.from_now).signup(@user)
         PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-        # format.html { redirect_to "/photo_sessions/#{@photo_session.slug}", notice: 'Photo Session was successfully created.' }
         flash.notice = 'Photo Session was successfully created.'
-        format.html { redirect_to action: "new" }#, notice: 'Photo Session was successfully created.' }
+        format.html { redirect_to action: "new" }
 
       else
         # Delete images post invalidation

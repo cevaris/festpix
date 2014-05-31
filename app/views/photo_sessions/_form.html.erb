@@ -16,46 +16,61 @@
   <% end %>
 
   <h2 class="form-signin-heading">Upload Photos</h2>
-  <!-- <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
-    <%= f.hidden_field :name, placeholder:'Enter Name', style:'width: 300px', class: 'form-control' %>
-  <!-- </div> -->
-  <br>
-  <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-    <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', style:'width: 300px' %>
+
+
+  <div class="row">
+    
+    <div class="col-md-12">
+      <!-- <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
+        <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
+      <!-- </div> -->
+      <br>
+
+        <%= f.label :phone_list %> (format should be '3031234567', not '303-123-4567')
+        <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
+
+      <br>
+      <!-- <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        <%= f.hidden_field :email_list, placeholder:'Enter Emails' %>  
+      </div>
+      <br> -->
+
+    </div>
   </div>
-  <br>
-  <!-- <div class="input-group">
-    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-    <%= f.hidden_field :email_list, placeholder:'Enter Emails', style:'width: 300px'%>  
-  </div>
-  <br> -->
 
   
 
 <!-- End Photo Upload -->
 
   <br/>
-  <div class="field">
-    <%= f.label :photos %>
+
+  <%= f.label :photos %>
+  
+    
+    <div class="row">
     <%= f.fields_for :photos do |asset_fields| %>
-      <% if asset_fields.object.new_record? %>
+    <% if asset_fields.object.new_record? %>
 
-      <div class="fileupload fileupload-new" data-provides="fileupload">
-        <div class="input-group">
-          <div class="uneditable-input col-lg-3"><i class="icon-file fileupload-exists"></i> 
-            <span class="fileupload-preview"></span>
+    
+
+        <div class="fileinput fileinput-new col-xs-12 col-sm-10 col-md-4" data-provides="fileinput">
+
+          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width:100%;height:100%;">
+            <%= image_tag 'default.png', width: '100%' %>
           </div>
-          <span class="btn btn-default btn-file">
-            <%= asset_fields.file_field :image, capture: 'camera', class: 'file-input' %>
-          </span>
-        </div>
-      </div>
+          <div>
+            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
+            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+          </div>
 
-      <% end %>
+        </div>
+      
     <% end %>
+  <% end %>
   </div>
+
 
   <br>
 

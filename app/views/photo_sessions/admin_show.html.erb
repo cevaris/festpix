@@ -8,21 +8,35 @@
       <th>Photo</th>
       <th>Date</th>
       <th>Tagging</th>
+      <th>Time To Open</th>
+      <th>Action</th>
     </tr>
     <% @photo_sessions.each do |photo_session| %>
       <% if photo_session.photos.first %>
-      <tr data-url="<%= photo_session_url(photo_session) %>" class="clickable" >
+      <tr>
 
-        <td>
+        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
           <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
         </td>
 
-        <td>
+        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
           <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
         </td>
 
-        <td>
+        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
           <%= photo_session.email_list %> <%= photo_session.phone_list %>
+        </td>
+
+        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+          <% if photo_session.is_opened? %>
+            <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
+          <% else %>
+            Not Opened
+          <% end %>          
+        </td>
+
+        <td>
+          <%= link_to "Delete", photo_session,  data: {confirm: "Are you sure you want to delete Photo Session #{photo_session.slug}?"}, :method => :delete, class: 'btn btn-danger' %>
         </td>
 
       </tr>
