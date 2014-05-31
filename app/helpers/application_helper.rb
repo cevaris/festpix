@@ -1,3 +1,8 @@
 module ApplicationHelper
   
+
+  def is_production?
+    ENV['HOST_URL'].include?('festpix.herokuapp.com') || ENV['HOST_URL'].include?('app.festpix.com')
+  end
+
 end
