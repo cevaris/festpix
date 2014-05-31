@@ -132,25 +132,24 @@ class PhotoSessionsController < ApplicationController
     #   @photo_session.email_list = params[:photo_session][:emails]
     # end
 
-    respond_to do |format|
-      if @photo_session.save
-        
-        queue_sms(@photo_session)
-        PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-        flash.notice = 'Photo Session was successfully created.'
-        format.html { redirect_to action: "new" }
+    if @photo_session.save
+      
+      queue_sms(@photo_session)
+      PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-      else
-        # Delete images post invalidation
-        @photo_session.photos.map(&:destroy)
-        @photo_session.photos = []
-        3.times { @photo_session.photos.build }
+      flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
+      redirect_to action: "new"
 
-        format.html { render action: "new" }
-        format.json { render json: @photo_session.errors, status: :unprocessable_entity }
-      end
+    else
+      # Delete images post invalidation
+      @photo_session.photos.map(&:destroy)
+      @photo_session.photos = []
+      3.times { @photo_session.photos.build }
+
+      render action: "new"
     end
+
   end
 
   # PATCH/PUT /photo_sessions/1
