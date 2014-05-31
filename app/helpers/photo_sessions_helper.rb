@@ -12,7 +12,8 @@ module PhotoSessionsHelper
     phone_list.each do |phone|
       data[:to] = phone
       # data[:link] = photo_session_url(photo_session)
-      data[:link] = photo_session_short_url(photo_session, host: ENV['SHORT_URL'])[7..-1]
+      # data[:link] = photo_session_short_url(photo_session, host: ENV['SHORT_URL'])[7..-1]
+      data[:link] = photo_session.short_url
       # photo = photo_session.photos.last
       # data[:media_url] = photo.image.url(:medium)
       send_sms(data)
