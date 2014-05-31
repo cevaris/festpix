@@ -15,6 +15,11 @@ class PhotoController < ApplicationController
     redirect_to @photo.image.url(:xlarge)
   end
 
+  def show
+    @photo = Photo.find_by_slug(params[:id])
+    redirect_to @photo.image.url(:xlarge)
+  end
+
   # POST /event_image
   # POST /event_image.json
   def create
