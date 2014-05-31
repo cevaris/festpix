@@ -95,8 +95,6 @@ class PhotoSessionsController < ApplicationController
       @photo_session.save!
     end
     Rails.logger.info "Errors #{@photo_session.errors.inspect}"
-
-    
   end
 
   def admin_show
