@@ -152,6 +152,17 @@ function shareToFacebook(reference){
   console.log("Sharing "+ reference);
 
   // FB.login(function(response){
+  //   FB.api('/me/photos', 'post', {url: reference,message: "Shared via #FestPix"}, function(response){
+  //     if(response.id){
+  //       alert('Photo posted to facebook! Thanks for using FestPix');
+  //     } else {
+  //       alert("Error");
+  //       console.log(response);
+  //     }
+  //   })
+  // }, {scope: 'publish_actions'});
+
+  // FB.login(function(response){
   //   if (response.authResponse) {
   //     var wallPost = {
   //       message: "Shared via #FestPix",
@@ -180,7 +191,7 @@ function shareToFacebook(reference){
   //   link: '<%= photo_session_url(@photo_session) %>',
   //   picture: reference,
   //   caption: 'Reference Documentation',
-  //   description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+  //   description: reference
   // },function(response) {
   //   if (response && response.post_id) {
   //     alert('Succeeded to post');
