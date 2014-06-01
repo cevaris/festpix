@@ -22,7 +22,7 @@ class Photo < ActiveRecord::Base
     :processors => [:watermark],
     :styles => STYLES, 
     :only_process => [:square, :xlarge]
-    
+
     self.process_in_background :image, :only_process => [:thumb, :medium, :large]
   else
     Rails.logger.info "Background Processing Disabled: #{ENV['BACKGROUND_PROCESSING']}"
@@ -47,6 +47,10 @@ class Photo < ActiveRecord::Base
 
   # process_in_background :image
   # process_in_background :image, :only_process => [:thumb, :medium, :large]
+
+  def url
+    Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])
+  end
 
   def short_url
     Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])[7..-1]
