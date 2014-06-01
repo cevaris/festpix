@@ -13,8 +13,7 @@ class Photo < ActiveRecord::Base
     large: '800x800>',
     xlarge: { 
       :geometry => '1600x1400>', 
-      :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"},
-      :transparancy => '30'
+      :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"}
   }
   
   if ENV['BACKGROUND_PROCESSING']=='true'
