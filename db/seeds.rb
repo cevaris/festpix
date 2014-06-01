@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.find_by_email('festpix@gmail.com').delete
 User.find_or_create_by_email!(
   email: 'festpix@gmail.com',
   password: ENV['ADMIN_PASS'],
