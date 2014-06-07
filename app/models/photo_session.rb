@@ -87,7 +87,7 @@ class PhotoSession < ActiveRecord::Base
     # self.slug ||= SecureRandom.hex[0..10]
     self.slug ||= loop do
       token = SecureRandom.hex[0..3]
-      break token unless Photo.exists?(slug: token)
+      break token unless PhotoSession.exists?(slug: token)
     end
   end
 
