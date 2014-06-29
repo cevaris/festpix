@@ -2,6 +2,7 @@ class PhotoSessionsController < ApplicationController
   include PhotoSessionsHelper
   include MailChimpHelper
 
+  protect_from_forgery :except => [:create]
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
   before_action :require_session, only: [:index, :claim]
 
@@ -117,6 +118,8 @@ class PhotoSessionsController < ApplicationController
   # POST /activities.json
   def create
 
+    Rails.logger.info params.inspect
+
     @photo_session = PhotoSession.new(photo_session_params)
     # @photo_session.photographer = current_user
 
@@ -131,22 +134,36 @@ class PhotoSessionsController < ApplicationController
     # end
 
 
-    if @photo_session.save
-      
-      queue_sms(@photo_session)
-      PhotoSessionMailer.photo_session_email(@photo_session).deliver
+    respond_to do |format|
+      if @photo_session.save
+        
+        # queue_sms(@photo_session)
+        # PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-      flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
-      redirect_to action: "new"
+        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
+        format.html { redirect_to action: "new" }
+        format.json { render json: { result: "Sucess", path: photo_session_url(@photo_session) } }
+      else
+        # Delete images post invalidation
+        @photo_session.photos.map(&:destroy)
+        @photo_session.photos = []
+        3.times { @photo_session.photos.build }
 
-    else
-      # Delete images post invalidation
-      @photo_session.photos.map(&:destroy)
-      @photo_session.photos = []
-      3.times { @photo_session.photos.build }
+        format.html { render action: "new" }
+        format.json { render json: @photo_session.errors, status: :unprocessable_entity }
+      end
 
-      render action: "new"
+      # if @photo_session.update(photo_session_params)
+      #   format.html { redirect_to @photo_session, notice: 'Photo session was successfully updated.' }
+      #   format.json { head :no_content }
+      # else
+      #   format.html { render action: 'edit' }
+      #   format.json { render json: @photo_session.errors, status: :unprocessable_entity }
+      # end
     end
+
+
+    
 
   end
 
@@ -179,9 +196,10 @@ class PhotoSessionsController < ApplicationController
     def set_photo_session
       begin
         !!Integer(params[:id])
+        # raise ArgumentError if Integer(params[:id])
         @photo_session = PhotoSession.find(params[:id])
         redirect_to @photo_session
-      rescue ArgumentError, TypeError
+      rescue ArgumentError, TypeError, ActiveRecord::RecordNotFound
         @photo_session = PhotoSession.find_by_slug(params[:id])
       end
     end
