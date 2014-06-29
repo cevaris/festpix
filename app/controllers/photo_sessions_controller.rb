@@ -137,12 +137,12 @@ class PhotoSessionsController < ApplicationController
     respond_to do |format|
       if @photo_session.save
         
-        # queue_sms(@photo_session)
-        # PhotoSessionMailer.photo_session_email(@photo_session).deliver
+        queue_sms(@photo_session)
+        PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
         flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
         format.html { redirect_to action: "new" }
-        format.json { render json: { result: "Sucess", path: photo_session_url(@photo_session) } }
+        format.json { render json: { result: "Sucess", path: @photo_session.short_url } }
       else
         # Delete images post invalidation
         @photo_session.photos.map(&:destroy)
@@ -152,14 +152,6 @@ class PhotoSessionsController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @photo_session.errors, status: :unprocessable_entity }
       end
-
-      # if @photo_session.update(photo_session_params)
-      #   format.html { redirect_to @photo_session, notice: 'Photo session was successfully updated.' }
-      #   format.json { head :no_content }
-      # else
-      #   format.html { render action: 'edit' }
-      #   format.json { render json: @photo_session.errors, status: :unprocessable_entity }
-      # end
     end
 
 
