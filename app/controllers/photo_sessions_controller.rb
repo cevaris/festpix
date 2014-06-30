@@ -142,7 +142,7 @@ class PhotoSessionsController < ApplicationController
 
         flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
         format.html { redirect_to action: "new" }
-        format.json { render json: { result: "Sucess", path: @photo_session.short_url } }
+        format.json { render json: { result: "sucess", path: @photo_session.short_url } }
       else
         # Delete images post invalidation
         @photo_session.photos.map(&:destroy)
