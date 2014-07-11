@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /photo_sessions/
+Disallow: /users/
+Disallow: /events/
+Disallow: /event_images/
+Disallow: /photos/

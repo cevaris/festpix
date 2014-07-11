@@ -1,0 +1,29 @@
+<meta name="format-detection" content="telephone=no">
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, :autofocus => true %></div><br />
+
+  <div><%= f.label :phone_number %> (format should be '3031234567', not '303-123-4567')<br/>
+  <%= f.text_field :phone_number, type: 'tel' %></div><br />
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div><br />
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div><br />
+
+  <div><%= f.submit "Sign up", class: 'btn btn-primary' %></div><br/>
+<% end %>
+
+<%= render "users/shared/links" %>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#user_kind').select2();
+});
+</script>

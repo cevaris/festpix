@@ -1,0 +1,242 @@
+<style>
+  a:visited {color:#FFF;}  /* visited link */
+  a:hover   {color:#FFF;}  /* mouse over link */
+  a:active  {color:#FFF;}  /* selected link */
+</style>
+
+<!-- <div class="row">
+  <ol class="breadcrumb col-md-12">
+    <li><%= link_to 'Sessions', photo_sessions_path %></li>
+    <li class="active"><%= @photo_session.id %></li>
+  </ol>
+</div>
+ -->
+
+
+
+
+<!-- <p>
+  <strong>Name:</strong>
+  <%= @photo_session.name %>
+</p> -->
+
+<!-- <p>
+  <strong>Photo user:</strong>
+  <%= @photo_session.photo_user_id %>
+</p>
+ -->
+<!-- <p>
+  <strong>Event:</strong>
+  <%= @photo_session.event_id %>
+</p> -->
+<!-- 
+<p>
+  <strong>Phone Numbers:</strong>
+  <%= label_tag :phone_list, @photo_session.phone_list.join(', ') %>  
+</p> -->
+<!-- 
+<p>
+  <strong>Emails:</strong>
+  <%= label_tag :email_list, @photo_session.email_list.join(', ') %>  
+</p>
+ -->
+<!-- <div> -->
+<% if !@photo_session.photos.empty? %>
+
+  
+  
+<div class="container">
+
+  <div class="row">
+    <h2>
+
+    <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
+
+
+    <% if false #if @claimed == false %>
+    <div class="col-xs-12 col-md-3 pull-right">
+      <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg btn-block' %>
+    </div>
+    <% end %>
+    </h2>
+
+    </div>
+  <hr/>
+
+  <div class="row">
+  
+  <% @photo_session.photos.each do |photo| %>
+    <div class="col-sm-6 col-md-4">
+       <div class="thumbnail">
+
+
+
+          <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>">
+            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
+          </a>
+          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
+          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo.short_url %> Shared%20via%20%40FestPix" target="_blank" title="Shared via @FestPix"><button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
+          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.url %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
+          
+
+       </div>
+    </div>
+  <% end %>
+
+  </div>
+
+
+  <div>
+
+  
+
+<!--   
+  <hr/>
+  <div class="col-md-12 well">
+    <h3>Thanks so much for your support!</h3>
+    <h4>In the mean time, subscribe to our email list if you'd like to stay up to date:</h4>
+    <form action="http://festpix.us8.list-manage.com/subscribe/post?u=793783d1eb67229d5b27248ac&amp;id=2f2c08dbaa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+        
+      <div class="mc-field-group">
+        <input value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL" type="email">
+        <input value="Subscribe for Updates" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary" type="submit">
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>    
+
+        <div style="position: absolute; left: -5000px;"><input name="b_793783d1eb67229d5b27248ac_2f2c08dbaa" value="" type="text"></div>
+      
+        <h5 class="pull-right">Inquiries: <a href="mailto:info@festpix.com">info@FestPix.com</a></h5><br>
+      </div>
+    </form>
+  </div> 
+-->
+
+
+
+
+</div> <!-- /container -->  
+
+<% else %>
+  No Images Found
+<% end %>
+</div>
+
+<%#= link_to 'Edit', edit_photo_session_path(@photo_session) %>
+<%#= link_to 'Back', photo_sessions_path %>
+
+
+
+<div id="fb-root"></div>
+<script>
+
+// (function(d, s, id){
+//  var js, fjs = d.getElementsByTagName(s)[0];
+//  if (d.getElementById(id)) {return;}
+//  js = d.createElement(s); js.id = id;
+//  js.src = "//connect.facebook.net/en_US/sdk.js";
+//  fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function() {
+  FB.init({
+    // appId      : '845404998806250',
+    appId      : '1488469154715813',
+    // appId: '533513193419621',
+    xfbml      : true,
+    version    : 'v2.0'
+  });
+};
+
+function shareToFacebook(reference){
+  console.log("Sharing "+ reference);
+
+  FB.login(function(response){
+    FB.api('/me/photos', 'post', {url: reference,message: "Shared via #FestPix"}, function(response){
+      if(response.id){
+        alert('Photo posted to facebook! Thanks for using FestPix');
+      } else {
+        alert("Error");
+        console.log(response);
+      }
+    })
+  }, {scope: 'publish_actions'});
+
+
+  // FB.login(function(response){
+  //   if (response.authResponse) {
+  //     var wallPost = {
+  //       message: "Shared via #FestPix",
+  //       picture: reference
+  //     };
+  //     FB.api('/me/feed', 'post', wallPost , function(response) {
+  //       if (!response || response.error) {
+  //         alert('Failure! ' + response.status + ' You may logout once and try again');
+  //       } else {
+  //         alert('Success! Post ID: ' + response);
+  //       }
+  //     });
+  //   } else {
+  //     if (!response || response.error) {
+  //       alert('Failure! ' + response.error + ' You may logout once and try again');
+  //       console(response.error)
+  //     } else {
+  //       // alert('Success! Post ID: ' + response);
+  //       console(response);
+  //     }
+  //   }
+  // }, {scope: 'publish_actions'});
+   
+
+  //  FB.ui({
+  //   method: 'feed',
+  //   name: 'Facebook Dialogs',
+  //   link: '<%= photo_session_url(@photo_session) %>',
+  //   picture: reference,
+  //   caption: 'Reference Documentation',
+  //   description: reference
+  // },function(response) {
+  //   if (response && response.post_id) {
+  //     alert('Succeeded to post');
+  //   } else {
+  //     alert('Failed to post');
+  //   }
+  // });
+
+
+  // FB.login(function(){
+  //  FB.api('/me/feed', 'post', {url: reference,message: "Shared via #FestPix"});
+  // }, {scope: 'publish_actions'});
+
+
+  // FB.login(function(response){
+  //   if (response.authResponse) {
+  //     FB.api('/me/photos', 'post', {
+  //       url: reference,
+  //       message: "Shared via #FestPix"
+  //     }, function(response){
+  //         if(response.id){
+  //           alert('Photo posted to facebook! Thanks for using FestPix');
+  //         }
+  //         else{
+  //           alert("Error");
+  //           console.log(response.error);
+  //         }
+  //     });
+  //   }
+  //   else {
+  //     alert('Could not connect to Facebook. Please try again later.');
+  //   }
+  // }, {scope: 'publish_stream'});
+};
+
+
+(function(d, s, id){
+ var js, fjs = d.getElementsByTagName(s)[0];
+ if (d.getElementById(id)) {return;}
+ js = d.createElement(s); js.id = id;
+ js.src = "//connect.facebook.net/en_US/sdk.js";
+ fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

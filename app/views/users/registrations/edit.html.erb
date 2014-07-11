@@ -1,0 +1,41 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+
+  <div class="bs-callout bs-callout-danger">
+  <%= devise_error_messages! %>
+  </div>
+
+ <!--  <div><%= f.label :email %>
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% else %>
+    <span class="label label-success"><i class="icon-ok"></i> <%= t 'settings.email_confirmed' %></span>
+  <% end %>
+    <br/><br/>
+    <%= f.email_field :email, :autofocus => true %>
+  </div> -->
+
+  <meta name="format-detection" content="telephone=no">
+  <div><%= f.label :phone_number %> (format should be '3031234567', not '303-123-4567')<br/>
+  <%= f.text_field :phone_number %></div>
+
+  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%= f.password_field :password, :autocomplete => "off" %></div>
+
+  <div><%= f.label :password_confirmation %><br/>
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <%= f.password_field :current_password %></div>
+
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div>
+    <%= link_to "Cancel", current_user, data: { confirm: "Cancel update?" }, class: 'btn btn-danger' %>
+    <%= f.submit "Update", class: 'btn' %>
+  </div>
+<% end %>

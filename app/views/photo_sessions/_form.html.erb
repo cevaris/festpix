@@ -1,0 +1,113 @@
+
+<div class="col-sm-3 col-md-3"></div>
+<div class="col-sm-6 col-md-6">
+  
+  <%= form_for(@photo_session, html: {:class => 'form-signin', role: 'form'}) do |f| %>
+  <% if @photo_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@photo_session.errors.count, "error") %> prohibited this photo_session from being saved:</h2>
+
+      <ul>
+      <% @photo_session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2 class="form-signin-heading">Upload Photos</h2>
+
+
+  <div class="row">
+    
+    <div class="col-md-12">
+      <!-- <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
+        <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
+      <!-- </div> -->
+      <br>
+
+        <%= f.label :phone_list %> (format should be '3031234567', not '303-123-4567')
+        <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
+
+      <br>
+      <!-- <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        <%= f.hidden_field :email_list, placeholder:'Enter Emails' %>  
+      </div>
+      <br> -->
+
+    </div>
+  </div>
+
+  
+
+<!-- End Photo Upload -->
+
+  <br/>
+
+  <%= f.label :photos %>
+  
+    
+    <div class="row">
+    <%= f.fields_for :photos do |asset_fields| %>
+    <% if asset_fields.object.new_record? %>
+
+    
+
+        <div class="fileinput fileinput-new col-xs-12 col-sm-10 col-md-4" data-provides="fileinput">
+
+          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width:100%;height:100%;">
+            <%= image_tag 'default.png', width: '100%' %>
+          </div>
+          <div>
+            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
+            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+          </div>
+
+        </div>
+      
+    <% end %>
+  <% end %>
+  </div>
+
+
+  <br>
+
+  <div class="actions"><br />
+    <%= f.submit 'Upload', class:'btn btn-lg btn-primary btn-block' %>
+  </div>
+<% end %>
+
+
+
+</div>
+<div class="col-sm-3 col-md-3"></div>
+
+
+
+<script>
+
+  $("#photo_session_phone_list").select2({ 
+    tags: [], 
+    placeholder: "Enter Phone Numbers",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+  $("#photo_session_email_list").select2({ 
+    tags: [],
+    placeholder: "Enter Emails",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
+
+
+  $('#s2id_autogen1').attr('type', 'tel');
+    
+</script>
+
+
+
+
+
+
