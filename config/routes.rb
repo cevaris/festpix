@@ -1,5 +1,11 @@
 Rq::Application.routes.draw do
 
+  resources :customers do
+    collection do
+      get 'autocomplete'
+    end
+  end
+
   match '/p/:id' => 'photo#show', via: [:get], as: 'photo_short'
   match '/s/:id' => 'photo_sessions#show', via: [:get], as: 'photo_session_short'
 
@@ -13,13 +19,17 @@ Rq::Application.routes.draw do
   # resources :email, :path => "pics"
 
   resources :photo_sessions do
-    match 'claim', to: 'photo_sessions#claim', via: [:get]
-    
+    # match 'claim', to: 'photo_sessions#claim', via: [:get] 
     # match 'pics', to: 'photo_sessions#email_new', via: [:get]
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
 
-  resources :events
+  resources :events do
+    collection do
+      get 'autocomplete'
+    end
+  end
+  
   resources :event_images
 
   
@@ -27,6 +37,8 @@ Rq::Application.routes.draw do
   resources :users, :only => [:show, :index]
   root :to => "home#index"
 
+
+  match '/:event_url/:id' => 'photo_sessions#show', via: [:get], as: 'event_photo_session'
 
 
   

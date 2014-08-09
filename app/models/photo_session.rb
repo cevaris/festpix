@@ -18,12 +18,14 @@ class PhotoSession < ActiveRecord::Base
   acts_as_taggable_on :phones
   acts_as_taggable_on :attendees
 
-  has_many :photos
+  has_many :photos, inverse_of: :photo_session, :dependent => :destroy
   belongs_to :event
   belongs_to :photographer, class_name: 'User', foreign_key: 'photo_user_id'
+  
   accepts_nested_attributes_for :photos, :allow_destroy => true
 
   validate :phone_list_format
+  # validates :photos, presence: true
 
   def phone_list_format
     Rails.logger.info "Phones #{self.phone_list.inspect}"
@@ -37,14 +39,17 @@ class PhotoSession < ActiveRecord::Base
     end
   end
 
-
   def url
     Rails.application.routes.url_helpers.photo_session_short_url(self, host: ENV['SHORT_URL'])
   end
   def short_url
     Rails.application.routes.url_helpers.photo_session_short_url(self, host: ENV['SHORT_URL'])[7..-1]
   end
-
+  def customer_url
+    # Rails.application.routes.url_helpers.event_photo_session_url(self, host: ENV['SHORT_URL'])
+    Rails.application.routes.url_helpers.event_photo_session_url(self.event.slug, self.slug, host: ENV['SHORT_URL'])
+  end
+  
   def is_opened?
     self.opened_at ? true : false
   end
@@ -84,7 +89,6 @@ class PhotoSession < ActiveRecord::Base
 
   before_save :default_values
   def default_values
-    # self.slug ||= SecureRandom.hex[0..10]
     self.slug ||= loop do
       token = SecureRandom.hex[0..3]
       break token unless PhotoSession.exists?(slug: token)

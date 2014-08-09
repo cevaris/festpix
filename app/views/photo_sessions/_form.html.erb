@@ -21,39 +21,24 @@
   <div class="row">
     
     <div class="col-md-12">
-      <!-- <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-pencil"></i></span> -->
-        <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
-      <!-- </div> -->
-      <br>
+      <%= f.hidden_field :name, placeholder:'Enter Name', class: 'form-control' %>
+      <br/>
 
-        <%= f.label :phone_list %> (format should be '3031234567', not '303-123-4567')
-        <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
-
-      <br>
-      <!-- <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <%= f.hidden_field :email_list, placeholder:'Enter Emails' %>  
-      </div>
-      <br> -->
-
+      <%= f.label :phone_list %> (format should be '3031234567', not '303-123-4567')
+      <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
+      <br/>
     </div>
+
   </div>
-
-  
-
-<!-- End Photo Upload -->
 
   <br/>
 
   <%= f.label :photos %>
   
     
-    <div class="row">
+  <div class="row">
     <%= f.fields_for :photos do |asset_fields| %>
-    <% if asset_fields.object.new_record? %>
-
-    
+      <% if asset_fields.object.new_record? %>
 
         <div class="fileinput fileinput-new col-xs-12 col-sm-10 col-md-4" data-provides="fileinput">
 
@@ -66,18 +51,27 @@
           </div>
 
         </div>
-      
+
+        
+      <% end %>
     <% end %>
+  </div>
+ 
+  <br/>
+
+  <div class="field">
+    <%= f.label :event_id, 'Event' %><br>
+    <%= f.select :event_id, Event.all.collect {|e| [ e.name, e.id ] }, {selected: @event.id}, {class: 'form-control'} %>
+    <%#= select(:photo_session, :event_id, Event.all.collect {|e| [ e.name, e.id ] }, { include_blank: false }, class: 'form-control', selected: @event.id ) %>
+    <%#= f.hidden_field :event_id, class: 'form-control select2 ajax', data: { source: autocomplete_events_path } %>
+  </div>
+
+  <div class="actions"><br/>
+    <%= f.submit class:'btn btn-lg btn-primary btn-block' %>
+  </div>
+
   <% end %>
-  </div>
-
-
-  <br>
-
-  <div class="actions"><br />
-    <%= f.submit 'Upload', class:'btn btn-lg btn-primary btn-block' %>
-  </div>
-<% end %>
+  <!-- End Photo Session Form -->
 
 
 
@@ -88,22 +82,89 @@
 
 <script>
 
+    function defaultTokenizer(input, selection, selectCallback, opts) {
+        var original = input, // store the original so we can compare and know if we need to tell the search to update its text
+            dupe = false, // check for whether a token we extracted represents a duplicate selected choice
+            token, // token
+            index, // position at which the separator was found
+            i, l, // looping variables
+            separator; // the matched separator
+
+        if (!opts.createSearchChoice || !opts.tokenSeparators || opts.tokenSeparators.length < 1) return undefined;
+
+        while (true) {
+            index = -1;
+
+            for (i = 0, l = opts.tokenSeparators.length; i < l; i++) {
+                separator = opts.tokenSeparators[i];
+                index = input.indexOf(separator);
+                if (index >= 0) break;
+            }
+
+            if (index < 0) break; // did not find any token separator in the input string, bail
+
+            token = input.substring(0, index);
+            input = input.substring(index + separator.length);
+
+            if (token.length > 0) {
+                token = opts.createSearchChoice.call(this, token, selection);
+                if (token !== undefined && token !== null && opts.id(token) !== undefined && opts.id(token) !== null) {
+                    dupe = false;
+                    for (i = 0, l = selection.length; i < l; i++) {
+                        if (equal(opts.id(token), opts.id(selection[i]))) {
+                            dupe = true; break;
+                        }
+                    }
+
+                    if (!dupe) selectCallback(token);
+                }
+            }
+        }
+
+        if (!dupe && input.length === 10) selectCallback(opts.createSearchChoice.call(this, input, selection));
+
+        if (original!==input) return input;
+  };
+
   $("#photo_session_phone_list").select2({ 
-    tags: [], 
+    tags: [''], 
     placeholder: "Enter Phone Numbers",
     tokenSeparators: [",", " "],
-    minimumInputLength: 1
+    minimumInputLength: 1,
+    maximumInputLength: 10,
+    tokenizer: defaultTokenizer,
   });
-  $("#photo_session_email_list").select2({ 
-    tags: [],
-    placeholder: "Enter Emails",
-    tokenSeparators: [",", " "],
-    minimumInputLength: 1
-  });
+
+  // $("#photo_session_email_list").select2({ 
+  //   tags: [],
+  //   placeholder: "Enter Emails",
+  //   tokenSeparators: [",", " "],
+  //   minimumInputLength: 1
+  // });
 
 
   $('#s2id_autogen1').attr('type', 'tel');
+
+  $("#photo_session_event_id").select2({ width: 'resolve' });
     
+</script>
+
+
+<script>
+
+// $('.select2').each(function(i, e){
+//   var select = $(e)
+//   options = {}
+//   if (select.hasClass('ajax')) {
+//     options.ajax = {
+//       url: select.data('source'),
+//       dataType: 'json',
+//       data: function(term, page) { return { q: term } },
+//       results: function(data, page) { return { results: data } }
+//     }
+//   }
+//   select.select2(options)
+// })
 </script>
 
 

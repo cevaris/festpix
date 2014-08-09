@@ -1,4 +1,13 @@
-<h1>Listing Photo Sessions</h1>
+<div class="pull-right">
+  <%= link_to new_photo_session_path, :class => "btn btn-default" do %>
+    <i class="fa fa-plus"> Event</i>
+  <% end %>
+</div>
+
+<div>
+  <h1>Photo Sessions</h1>
+</div>
+
 
 <div class="row">
   <% @photo_sessions.each do |photo_session| %>

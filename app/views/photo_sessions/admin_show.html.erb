@@ -1,48 +1,59 @@
+<div class="pull-right">
+  <%= link_to new_photo_session_path, :class => "btn btn-default" do %>
+    <i class="fa fa-plus"> Photo Session</i>
+  <% end %>
+</div>
 
+<div>
+  <h1>Photo Sessions</h1>
+</div>
 
-<h1>Listing Photo Sessions</h1>
-
-<div class="row">
-  <table class="table table-hover">
+<table class="table table-hover">
+  <thead>
     <tr>
       <th>Photo</th>
       <th>Date</th>
       <th>Tagging</th>
+      <th>Event</th>
       <th>Time To Open</th>
       <th>Action</th>
     </tr>
-    <% @photo_sessions.each do |photo_session| %>
-      <% if photo_session.photos.first %>
-      <tr>
+  </thead>
+  <% @photo_sessions.each do |photo_session| %>
+    <% if photo_session.photos.first %>
+    <tr>
 
-        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
-          <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
-        </td>
+      <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+        <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
+      </td>
 
-        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
-          <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
-        </td>
+      <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+        <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
+      </td>
 
-        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
-          <%= photo_session.email_list %> <%= photo_session.phone_list %>
-        </td>
+      <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+        <%= photo_session.email_list %> <%= photo_session.phone_list %>
+      </td>
 
-        <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
-          <% if photo_session.is_opened? %>
-            <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
-          <% else %>
-            Not Opened
-          <% end %>          
-        </td>
+      <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+        <%= photo_session.event %>
+      </td>
 
-        <td>
-          <%= link_to "Delete", photo_session,  data: {confirm: "Are you sure you want to delete Photo Session #{photo_session.slug}?"}, :method => :delete, class: 'btn btn-danger' %>
-        </td>
+      <td data-url="<%= photo_session_path(photo_session) %>" class="clickable">
+        <% if photo_session.is_opened? %>
+          <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
+        <% else %>
+          Not Opened
+        <% end %>          
+      </td>
 
-      </tr>
-      <% end %>
+      <td>
+        <%= link_to "Delete", photo_session,  data: {confirm: "Are you sure you want to delete Photo Session #{photo_session.slug}?"}, :method => :delete, class: 'btn btn-danger' %>
+      </td>
+
+    </tr>
     <% end %>
-  </div>
+  <% end %>
 </table>
 
 

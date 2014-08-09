@@ -33,3 +33,7 @@ h1, h2, h3 {
 .jumbotron{
   color: #000;
 }
+
+.color-one   {background-color: #1b1b24;} 
+.color-two   {background-color: #333333;} 
+.color-three {color: #428bca;} 

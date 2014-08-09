@@ -26,7 +26,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    @event.user = current_user
+    # @event.user = current_user
 
     respond_to do |format|
       if @event.save
@@ -63,15 +63,27 @@ class EventsController < ApplicationController
     end
   end
 
+  def autocomplete
+    @events = Event.order(:name).where("name ILIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.json { 
+        render json: @events.collect { |c| { id: c.id, text: c.name } } 
+      }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       require_session
-      @event = Event.find(params[:id])
+      @event = Event.find_by_slug(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :description, :user_id)
+      params.require(:event).permit(
+        :name, :slug, :description, :customer_id, :logo, :sms_text, 
+        :facebook_url, :facebook_text, 
+        :twitter_url, :twitter_text)
     end
 end

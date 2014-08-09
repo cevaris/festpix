@@ -4,16 +4,21 @@ require 'securerandom'
 class Photo < ActiveRecord::Base
 
 
-  belongs_to :photo_session
+  belongs_to :photo_session, inverse_of: :photos
 
-  STYLES={
-    thumb: '100x100#', 
-    square: '200x200#', 
-    medium: '500x500>',
-    large: '800x800>',
-    xlarge: { 
-      :geometry => '1600x1400>', 
-      :watermark_path => "#{Rails.root}/public/watermarks/festpix.png"}
+  ## Another hopeful
+  # http://stackoverflow.com/questions/14305018/ruby-on-rails-paperclip-and-dynamic-parameters?rq=1
+
+  STYLES = lambda { |attachment| {
+      thumb: '100x100#', 
+      square: '200x200#', 
+      medium: '500x500>',
+      large: '800x800>',
+      xlarge: {
+        :geometry => '1600x1400>',
+        :watermark_path => attachment.instance.watermark_path,
+      }
+    }
   }
   
   if ENV['BACKGROUND_PROCESSING']=='true'
@@ -31,7 +36,9 @@ class Photo < ActiveRecord::Base
     :styles => STYLES
   end
 
+  validates :photo_session, presence: true
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_presence :image
 
 
   def url
@@ -40,6 +47,16 @@ class Photo < ActiveRecord::Base
 
   def short_url
     Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])[7..-1]
+  end
+
+  # For Photo Session
+  def customer_url
+    Rails.application.routes.url_helpers.event_photo_session_url(self.photo_session.event.slug, self.photo_session.slug, host: ENV['SHORT_URL'])
+  end
+
+  def watermark_path
+    # self.photo_session.event.logo.url(:medium)
+    self.photo_session.event.logo.url(:large)
   end
 
   before_save :default_values

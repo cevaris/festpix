@@ -1,7 +1,19 @@
 <style>
-  a:visited {color:#FFF;}  /* visited link */
-  a:hover   {color:#FFF;}  /* mouse over link */
-  a:active  {color:#FFF;}  /* selected link */
+  /*a         {color:<%= @photo_session.event.customer.color_three %>;}  
+  a:visited {color:<%= @photo_session.event.customer.color_three %>;}  
+  a:hover   {color:<%= @photo_session.event.customer.color_three %>;}  
+  a:active  {color:<%= @photo_session.event.customer.color_three %>;} */
+
+  /*<% if @event %>*/
+  .color-one   {background-color: <%= @event.customer.color_one   %> !important;} 
+  .color-two   {background-color: <%= @event.customer.color_two   %> !important;} 
+  .color-three {color: <%= @event.customer.color_three %> !important;} 
+  /*<% else %>*/
+  .color-one   {background-color: <%= @photo_session.event.customer.color_one   %> !important;} 
+  .color-two   {background-color: <%= @photo_session.event.customer.color_two   %> !important;} 
+  .color-three {color: <%= @photo_session.event.customer.color_three %> !important;} 
+  /*<% end %>*/
+
 </style>
 
 <!-- <div class="row">
@@ -11,9 +23,6 @@
   </ol>
 </div>
  -->
-
-
-
 
 <!-- <p>
   <strong>Name:</strong>
@@ -45,50 +54,78 @@
 
   
   
-<div class="container">
+<div class="container color-three">
 
   <div class="row">
-    <h2>
-
-    <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
-
-
-    <% if false #if @claimed == false %>
-    <div class="col-xs-12 col-md-3 pull-right">
-      <%= link_to 'Claim', photo_session_claim_path(@photo_session), class: 'btn btn-primary btn-lg btn-block' %>
-    </div>
-    <% end %>
+    <h2> 
+      <%= @photo_session.event %> <br/>
+      <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
     </h2>
-
-    </div>
+  </div>
+  
   <hr/>
 
   <div class="row">
   
   <% @photo_session.photos.each do |photo| %>
     <div class="col-sm-6 col-md-4">
-       <div class="thumbnail">
+       
 
-
-
+       <div class="thumbnail color-two">
           <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>">
             <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
           </a>
-          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>')"><i class="fa fa-facebook"></i> Share to Facebook</button>
-          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=  photo.short_url %> Shared%20via%20%40FestPix" target="_blank" title="Shared via @FestPix"><button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>"><i class="fa fa-twitter"></i> | Share to Twitter</button></a>
-          <a style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block"  href="<%=  photo.url %>"> <i class="fa fa-cloud-download"></i> | Hi-Res Download</a> 
           
+          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>');">
+            <i class="fa fa-facebook"></i> Share to Facebook
+          </button>
 
+          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" target="_blank" title="Shared via @FestPix">
+            <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
+              <i class="fa fa-twitter"></i> Share to Twitter
+            </button>
+          </a>
+
+          <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location='<%= photo.image.url(:xlarge) %>';">
+            <i class="fa fa-cloud-download"></i> Hi-Res Download
+          </button>
        </div>
+
+
     </div>
   <% end %>
 
   </div>
 
 
-  <div>
+  <div class="row center">
+    <div class="col-sm-3 col-md-3"></div>
+    
+    <div class="col-sm-3 col-md-3">
+      <% unless @photo_session.event.facebook_url.empty? %>
+        <%= link_to  @photo_session.event.facebook_url, type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
+          <%= @photo_session.event.customer.name %> <i class="fa fa-facebook"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-sm-3 col-md-3">
+      <% unless @photo_session.event.twitter_url.empty? %>
+        <%= link_to  @photo_session.event.twitter_url, type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
+          <%= @photo_session.event.customer.name %> <i class="fa fa-twitter"></i>
+        <% end %>
+      <% end %>
+    </div>
 
-  
+    <div class="col-sm-3 col-md-3"></div>
+  </div>
+
+  <% unless @photo_session.event.festpix? %>
+    <div class="row center">
+      <%= link_to 'http://festpix.com/', type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
+        FestPix
+      <% end %>
+    </div>
+  <% end %>
 
 <!--   
   <hr/>
@@ -115,53 +152,177 @@
 
 
 
-
-</div> <!-- /container -->  
-
 <% else %>
   No Images Found
 <% end %>
+
+
 </div>
 
-<%#= link_to 'Edit', edit_photo_session_path(@photo_session) %>
+
+<%#= button_to 'Edit', edit_photo_session_path(@photo_session) %>
 <%#= link_to 'Back', photo_sessions_path %>
+
+<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sharing with Facebook</h4>
+      </div>
+      <%= image_tag 'loading.gif' , width: '100%' %>
+    </div>
+  </div>
+</div>
 
 
 
 <div id="fb-root"></div>
 <script>
 
-// (function(d, s, id){
-//  var js, fjs = d.getElementsByTagName(s)[0];
-//  if (d.getElementById(id)) {return;}
-//  js = d.createElement(s); js.id = id;
-//  js.src = "//connect.facebook.net/en_US/sdk.js";
-//  fjs.parentNode.insertBefore(js, fjs);
-// }(document, 'script', 'facebook-jssdk'));
+function alertFacebookPost(post_id){
+  setTimeout(function() { 
+    var post_data = post_id.split('_'); 
+    var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
+    pushFlash({message: 'Facebook share success. <a href="'+link+'"> View post here.', state:'success'});
+  } , 500);
 
-window.fbAsyncInit = function() {
-  FB.init({
-    // appId      : '845404998806250',
-    appId      : '1488469154715813',
-    // appId: '533513193419621',
-    xfbml      : true,
-    version    : 'v2.0'
-  });
-};
+}
 
 function shareToFacebook(reference){
   console.log("Sharing "+ reference);
 
+  
   FB.login(function(response){
-    FB.api('/me/photos', 'post', {url: reference,message: "Shared via #FestPix"}, function(response){
-      if(response.id){
-        alert('Photo posted to facebook! Thanks for using FestPix');
-      } else {
-        alert("Error");
+
+    <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v1' %>
+
+      $('#myModal').modal('show');
+    
+      //v1
+      FB.api( 
+        '/me/photos', 'post', 
+        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"}, 
+      function(response){
+        if(!response.id){
+          console.log("Error");
+        } 
         console.log(response);
-      }
-    })
+
+        $('#myModal').modal('hide');
+        alertFacebookPost(response.post_id);
+
+      });
+
+    <% end %>
+
+    <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v2' %>
+
+      //v2
+      FB.ui({
+        method: 'feed',
+        name: '<%= "#{@photo_session.event.customer} - #{@photo_session.event}" %>',
+        link: reference,
+        picture: reference,
+        caption: 'Shared via #FestPix',
+        description: '<%= "#{@photo_session.event.facebook_text} #FestPix" %>'
+      }, function(response){
+        if(response){
+          console.log('Photo posted to facebook! Thanks for using FestPix');
+          alertFacebookPost(response.post_id);
+        } else {
+          console.log('Error!!');
+        }
+        console.log(response);
+        
+      });
+
+    <% end %>
+
   }, {scope: 'publish_actions'});
+}
+//##################################################
+
+
+
+// function shareToFacebook(reference){
+
+//   // http://stackoverflow.com/questions/18831362/how-to-share-a-simple-image-on-facebook-with-callback
+//   console.log("Sharing " + reference);
+//   FB.login(function(response){
+
+//     FB.api( '/me/albums',
+//       function (response) {
+//         if (response && !response.error) {
+//           console.log(response);
+//         }
+//       }
+//     );
+
+    // FB.api( '/me/albums', "POST", {
+    //   name: 'FestPix',
+    //   // "message": "{album-description}",
+    //   // privacy: {enum: 'FRIENDS_OF_FRIENDS'},
+    // }, function (response) {
+        
+    //     // Return if album fetch fails
+    //     if(!response.id) {
+    //       console.log(response);
+    //       return false;
+    //     }
+
+    //     // FB.api('/album_id/photos', 'post', {
+    //     FB.api('/'+ response.id +'/photos', 'post', {
+    //       // message:'photo description',
+    //       url: reference        
+    //     }, function(response){
+    //       if (!response || response.error) {
+    //           console.log('Error occured');
+    //           console.log(response);
+    //       } else {
+    //           console.log('Post ID: ' + response.id);
+    //       }
+    //     });
+    // });
+
+
+    // FB.ui({
+    //   method: 'feed',
+    //   name: '<%= "#{@photo_session.event.customer} - #{@photo_session.event}" %>',
+    //   link: reference,
+    //   picture: reference,
+    //   caption: 'Shared via #FestPix',
+    //   description: '<%= "#{@photo_session.event.facebook_text} #FestPix" %>'
+    // }, function(response){
+    //   if(response){
+    //     console.log('Photo posted to facebook! Thanks for using FestPix');
+    //     console.log(response);
+    //   } else {
+    //     console.log('Error!!');
+    //   }
+      
+    // });
+
+  // }, {scope: ['publish_actions', 'user_photos']});
+
+
+  // FB.ui({
+  //   method: 'share',
+  //   href:   'reference'
+  // }, function(response){
+  //   // if(response.id){
+  //   //   console.log('Photo posted to facebook! Thanks for using FestPix');
+  //   // } else {
+  //   //   console.log('Error!!');
+  //   // }
+  //   console.log(response);
+  // });
+// }
+
+
+
+
+
 
 
   // FB.login(function(response){
@@ -229,7 +390,7 @@ function shareToFacebook(reference){
   //     alert('Could not connect to Facebook. Please try again later.');
   //   }
   // }, {scope: 'publish_stream'});
-};
+// };
 
 
 (function(d, s, id){
@@ -239,4 +400,12 @@ function shareToFacebook(reference){
  js.src = "//connect.facebook.net/en_US/sdk.js";
  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1488469154715813',
+    xfbml      : true,
+    version    : 'v2.0'
+  });
+};
 </script>

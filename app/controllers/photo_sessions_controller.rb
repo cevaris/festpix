@@ -3,6 +3,7 @@ class PhotoSessionsController < ApplicationController
   include MailChimpHelper
 
   protect_from_forgery :except => [:create]
+  before_action :set_event_cookie
   before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
   before_action :require_session, only: [:index, :claim]
 
@@ -10,7 +11,7 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
-
+    
     # if params[:email_list]
     #   emails = PhotoSession.tagged_with(params[:email_list].split, :match_all => true)
     # else
@@ -24,7 +25,13 @@ class PhotoSessionsController < ApplicationController
     # end
 
     # @photo_sessions = emails | phones
-    redirect_to action: "new"
+    if current_user
+      @photo_sessions = PhotoSession.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+      render 'admin_show'
+    else
+      redirect_to action: "new"
+    end
+    
   end
 
   # GET /photo_sessions/1/claim
@@ -90,12 +97,20 @@ class PhotoSessionsController < ApplicationController
       @claimed = false
     end       
 
-    Rails.logger.info "#{@photo_session.slug} is opened yet? #{@photo_session.opened_at}"
+    # Rails.logger.info "#{@photo_session.slug} is opened yet? #{@photo_session.opened_at}"
     unless @photo_session.opened_at
       @photo_session.opened_at = DateTime.now
       @photo_session.save!
     end
-    Rails.logger.info "Errors #{@photo_session.errors.inspect}"
+        
+    if params.include? :event_url
+      @event = Event.find_by_slug(params[:event_url])
+      Rails.logger.info "Loading Custom Event #{@event}"
+    else
+      Rails.logger.info "Loading Default Event"
+      @event = false
+    end
+
   end
 
   def admin_show
@@ -106,6 +121,10 @@ class PhotoSessionsController < ApplicationController
 
   # GET /photo_sessions/new
   def new
+    
+
+    Rails.logger.info "Cached Event #{@event}"
+
     @photo_session = PhotoSession.new
     3.times { @photo_session.photos.build }
   end
@@ -120,8 +139,23 @@ class PhotoSessionsController < ApplicationController
 
     Rails.logger.info params.inspect
 
-    @photo_session = PhotoSession.new(photo_session_params)
-    # @photo_session.photographer = current_user
+    ###############################################################
+    ## Hack to get working photo uploads
+    ps_params = photo_session_params
+    ## Extract photos to be saved later
+    defer_photos_params = ps_params['photos_attributes']
+    ## Remove the photos from rest of the params
+    ps_params.delete 'photos_attributes'
+    ## Create a photo session without the photos (to be saved later)
+    Rails.logger.info "PS params #{@ps_params.inspect}"
+    @photo_session = PhotoSession.new(ps_params)
+    Rails.logger.info "PS w/out Photos #{@photo_session.inspect}"
+    ###############################################################
+
+    # Drop cookie down to save event selection 
+    if params[:photo_session].has_key?(:event_id)
+      cookies[:event] = { value: @photo_session.event.id , :expires => 1.hour.from_now }
+    end
 
     if params[:photo_session].has_key?(:phone_list)
       @photo_session.phone_list = params[:photo_session][:phone_list]
@@ -133,14 +167,32 @@ class PhotoSessionsController < ApplicationController
     #   @photo_session.email_list = params[:photo_session][:emails]
     # end
 
+    save_status = @photo_session.save
+      
+    if save_status
+      if defer_photos_params.nil?
+        @photo_session.errors.add(:base, 'Need to upload at least one photo') 
+        save_status = false
+      else
+        ## For each deferred photo, assign a photo session id and save
+        defer_photos_params.each do |i, file|
+          photo = Photo.new
+          photo.photo_session_id = @photo_session.id
+          Rails.logger.info "Saveing Photo #{i} #{photo.inspect}"
+          photo.image = file['image']
+          save_status &= photo.save
+        end
+      end
+    end
 
     respond_to do |format|
-      if @photo_session.save
+
+      if save_status
         
         queue_sms(@photo_session)
-        PhotoSessionMailer.photo_session_email(@photo_session).deliver
+        # PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
-        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', photo_session_path(@photo_session) }".html_safe
+        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.customer_url }".html_safe
         format.html { redirect_to action: "new" }
         format.json { render json: { result: "sucess", path: @photo_session.short_url } }
       else
@@ -184,13 +236,22 @@ class PhotoSessionsController < ApplicationController
   end
 
   private
+
+    def set_event_cookie
+      if cookies[:event]
+        @event = Event.find(cookies[:event])
+      else
+        @event = Event.find_by_slug 'festpix'
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_photo_session
       begin
         !!Integer(params[:id])
         # raise ArgumentError if Integer(params[:id])
         @photo_session = PhotoSession.find(params[:id])
-        redirect_to @photo_session
+        @event = @photo_session.event
+        # redirect_to @photo_session
       rescue ArgumentError, TypeError, ActiveRecord::RecordNotFound
         @photo_session = PhotoSession.find_by_slug(params[:id])
       end

@@ -6,9 +6,35 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.find_by_email('festpix@gmail.com').delete
-User.find_or_create_by_email!(
-  email: 'festpix@gmail.com',
+user='festpix@gmail.com'
+User.find_or_initialize_by_email(user).update_attributes({
+  email: user,
   password: ENV['ADMIN_PASS'],
   phone_number: '5594516126'
-)
+})
+
+
+## Add default Festpix Event/Customer to all previous photo sessions
+fp_customer = 'Festpix'
+Customer.find_or_initialize_by_name(fp_customer).update_attributes({
+  slug:        'festpix',
+  color_one:   '#1b1b24',
+  color_two:   '#333333',
+  color_three: '#428bca',
+})
+
+Event.find_or_initialize_by_name(fp_customer).update_attributes({
+  slug:          'festpix',
+  logo:          File.new("#{Rails.root}/public/watermarks/festpix.png"),
+  sms_text:      'FestPix! Your images are ready, click the link to see them.',
+  facebook_url:  'https://www.facebook.com/festpix',
+  facebook_text: 'Shared via',
+  twitter_url:   'https://twitter.com/festpix',
+  twitter_text:  'Shared via',
+  customer_id:   Customer.find_by_name(fp_customer).id
+})
+
+PhotoSession.all.each do |ps|
+  ps.event = Event.find_by_name(fp_customer)
+  ps.save
+end

@@ -13,7 +13,9 @@ module PhotoSessionsHelper
       data[:to] = phone
       # data[:link] = photo_session_url(photo_session)
       # data[:link] = photo_session_short_url(photo_session, host: ENV['SHORT_URL'])[7..-1]
-      data[:link] = photo_session.short_url
+      # data[:link] = photo_session.short_url
+      # data[:link] = photo_session.event.customer_url
+      data[:body] = "#{photo_session.event.sms_text} #{photo_session.customer_url}"
       # photo = photo_session.photos.last
       # data[:media_url] = photo.image.url(:medium)
       send_sms(data)
@@ -31,14 +33,14 @@ module PhotoSessionsHelper
 
     account_sid = twilio[:sid]
     auth_token  = twilio[:auth]
-    @client     = Twilio::REST::Client.new account_sid, auth_token
+    client      = Twilio::REST::Client.new account_sid, auth_token
      
-    message = @client.account.messages.create(
-      body: "FestPix! Your images are ready, click the link to see them. #{data[:link]}",
+    message = client.account.messages.create(
+      body: data[:body],
       to: data[:to],
       from: twilio[:phone]
     )
-    Rails.logger.info "Sent SMS #{@client.inspect}"
+    Rails.logger.info "Sent SMS #{message.inspect}"
 
   end
 end

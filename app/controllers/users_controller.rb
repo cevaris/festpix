@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by_slug(params[:id])
-    @sessions = PhotoSession.tagged_with(@user.phone_number, :any => true).order('id DESC')
+    @sessions = PhotoSession.tagged_with(@user.phone_number, :any => true).limit(12).order('id DESC')
     
     # begin
     #   friend_emails = @sessions.collect {|p| p.email_list }.flatten.uniq.select {|email| email if email != @user.email}

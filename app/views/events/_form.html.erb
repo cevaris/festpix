@@ -1,3 +1,6 @@
+<div class="col-sm-3 col-md-3"></div>
+<div class="col-sm-6 col-md-6">
+
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
@@ -13,13 +16,90 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.label :slug, 'URL Route/Name' %> <br/>
+    <%= f.text_field :slug, class: 'form-control' %>
   </div>
+  <div class="field">
+    <%#= f.label :description %><!-- <br> -->
+    <%#= text_area(:event, :description, cols: 50, rows: 5, class: 'form-control') %>
+    <%= f.hidden_field :description, class: 'form-control' %>
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :sms_text %><br>
+    <%= text_area(:event, :sms_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :facebook_url %> <br/>
+    <%= f.text_field :facebook_url, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook_text %><br>
+    <%= text_area(:event, :facebook_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :twitter_url %> <br/>
+    <%= f.text_field :twitter_url, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter_text %><br>
+    <%= text_area(:event, :twitter_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
+
+  <br>
+
+  <div class="field">
+    <%= f.label :customer_id, 'Customer' %><br>
+    <% if @event and @event.customer %>
+    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
+    <% else %> 
+    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {}, {class: 'form-control'} %>
+    <% end %> 
+    <%#= f.hidden_field :customer_id, class: 'form-control select2 ajax', data: { source: autocomplete_customers_path } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :logo %><br />
+    <% unless @event.logo.url.include? 'missing' %>
+      <%= image_tag @event.logo.url(:original) , class:'img-thumbnail', width: '200px' %>
+    <% else %>
+      <%= image_tag 'default.png' , class:'img-thumbnail', width: '200px' %>
+    <% end %>
+    <%= f.file_field :logo %>
+  </div>
+
   <div class="actions">
-    <%= f.submit  'Submit', class: 'btn btn-primary' %>
+    <%= f.submit  class: 'btn btn-primary' %>
   </div>
+
+
 <% end %>
+
+</div>
+<div class="col-sm-3 col-md-3"></div>
+
+<script>
+$('#event_customer_id').select2();
+// $('.select2').each(function(i, e){
+//   var select = $(e)
+//   options = {}
+//   if (select.hasClass('ajax')) {
+//     options.ajax = {
+//       url: select.data('source'),
+//       dataType: 'json',
+//       data: function(term, page) { return { q: term } },
+//       results: function(data, page) { return { results: data } }
+//     }
+//   }
+//   select.select2(options)
+// })
+</script>

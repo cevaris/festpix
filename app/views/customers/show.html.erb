@@ -1,0 +1,26 @@
+<div class="pull-right">
+  <%= link_to 'Edit', edit_customer_path(@customer), class: 'btn btn-default' %>
+  <%= link_to 'Back', customers_path, class: 'btn btn-default'  %>
+</div>
+
+<div class="field">
+  <h1><%= @customer.name %></h1>
+</div>
+
+<div class="field">
+    <%= label_tag :color_one, "Background Color" %> </br>
+    <%= text_field(:customer, :color_one, style: "background-   : #{@customer.color_one}") %>
+</div>
+<div class="field">c
+    <%= label_tag :color_one, "Outline Color" %> </br>
+    <%= text_field(:customer, :color_two, style: "background-color: #{@customer.color_two}") %>
+</div>
+<div class="field">
+    <%= label_tag :color_one, "Text Color" %> </br>
+    <%= text_field(:customer, :color_three, style: "background-color: #{@customer.color_three}") %>
+</div>
+
+<div class="field">
+    <%= label_tag :created_at, "Created" %>: <%= @customer.created_at %> <br/>
+    <%= label_tag :updated_at, "Last Updated" %>: <%= @customer.updated_at %>
+</div>

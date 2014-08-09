@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530175857) do
+ActiveRecord::Schema.define(version: 20140810184508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.string   "color_one"
+    t.string   "color_two"
+    t.string   "color_three"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["slug"], name: "index_customers_on_slug", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -35,10 +47,22 @@ ActiveRecord::Schema.define(version: 20140530175857) do
   create_table "events", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customer_id"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "sms_text"
+    t.text     "facebook_url"
+    t.string   "facebook_text"
+    t.text     "twitter_url"
+    t.string   "twitter_text"
+    t.string   "slug"
   end
+
+  add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
 
   create_table "photo_sessions", force: true do |t|
     t.string   "name"

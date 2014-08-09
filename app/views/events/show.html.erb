@@ -1,23 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="pull-right">
+  <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-default' %> |
+  <%= link_to 'Back', events_path, class: 'btn btn-default' %>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
-<p>
-  <strong>User#:</strong>
-  <%= @event.id %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+<div class="field"></div>
+<h1><%= @event.name %></h1>
 
 
-<%= link_to new_event_image_path, :class => "btn btn-default" do %>
-  <i class="fa fa-plus"> Image</i>
-<% end %>
+<div class="field">
+    <%= label_tag :slug, "URL Route/Name" %>: <%= @event.slug %>
+</div>
+
+<div class="field">
+    <%= label_tag :customer_id, "Customer" %>: <%= @event.customer.name %>
+</div>
+
+<div class="field">
+    <%= label_tag :sms_text, "SMS Text" %>: <br/>
+    <%= text_area(:event, :sms_text, rows: 5, readonly: true, class: 'form-control') %>
+</div>
 
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+
+<h3>Facebook</h3>
+
+<div class="field">
+    <%= label_tag :facebook_url,  "URL" %>: <%= link_to @event.facebook_url, @event.facebook_url %><br/>
+    <%= label_tag :facebook_text, "Text" %>: <br/>
+    <%= text_area(:event, :facebook_text, rows: 5, readonly: true, class: 'form-control') %>
+</div>
+
+
+
+<h3>Twitter</h3>
+
+<div class="field">
+    <%= label_tag :twitter_url,  "URL" %>: <%= link_to @event.twitter_url, @event.twitter_url %><br/>
+    <%= label_tag :twitter_text, "Text" %>: <br/>
+    <%= text_area(:event, :twitter_text, rows: 5, readonly: true, class: 'form-control') %>
+</div>
+
+
+<div>
+    <%= label_tag :logo %> </br>
+    <% if @event.logo.url %>
+      <%= image_tag @event.logo.url(:original) , class:'img-thumbnail', width: '200px' %>
+    <% else %>
+      <%= image_tag 'default.png' , class:'img-thumbnail' %>
+    <% end %>
+</div>
