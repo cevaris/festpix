@@ -34,7 +34,7 @@ module PhotoSessionsHelper
     @client     = Twilio::REST::Client.new account_sid, auth_token
      
     message = @client.account.messages.create(
-      body: "FestPix! Your images are ready, click the link to see them. #{data[:link]}",
+      body: "Hope you're enjoying Bands on the Bricks! Click below for free photos brought to you by FestPix. #{data[:link]}",
       to: data[:to],
       from: twilio[:phone]
     )
