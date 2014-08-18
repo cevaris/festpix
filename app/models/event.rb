@@ -16,6 +16,17 @@ class Event < ActiveRecord::Base
   validates_uniqueness_of :slug
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_length_of :sms_text, :minimum => 0, :maximum => 100, :allow_blank => true
+  
+
+  #############################
+  ## Logic to disable change of slug
+  # attr_readonly :slug
+  # validate :validate_slug_change
+  # def validate_slug_change
+  #   self.errors.add(:base, "Url/Name Route '#{self.slug_was}' cannot be changed") if self.slug_changed?
+  # end
+  #############################
+
 
   before_save :default_values
   def default_values

@@ -28,7 +28,7 @@ class PhotoSession < ActiveRecord::Base
   # validates :photos, presence: true
 
   def phone_list_format
-    Rails.logger.info "Phones #{self.phone_list.inspect}"
+    # Rails.logger.info "Phones #{self.phone_list.inspect}"
 
     if self.phone_list.empty? or self.phone_list == ['']
       errors.add(:phone_list, "is missing.")

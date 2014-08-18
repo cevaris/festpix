@@ -19,8 +19,15 @@
     <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="field">
+    
+    <% if params[:action] == 'edit' %>
+      <%= f.label :slug, 'URL Route/Name (Read Only, cannot change)' %> <br/>
+      <%= f.text_field :slug, class: 'form-control', readonly: true%>
+    <% else %>
     <%= f.label :slug, 'URL Route/Name' %> <br/>
-    <%= f.text_field :slug, class: 'form-control' %>
+      <%= f.text_field :slug, class: 'form-control' %>
+    <% end %>
+
   </div>
   <div class="field">
     <%#= f.label :description %><!-- <br> -->
