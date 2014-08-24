@@ -56,10 +56,10 @@
   
 <div class="container color-three">
 
-  <div class="row">
+  <div class="row text-center">
     <h2> 
       <%= @photo_session.event %> <br/>
-      <%= l(@photo_session.created_at, format: :photo_session) %> - <%= @photo_session.photos.count %> Photo<%= 's' if @photo_session.photos.count > 1 %>
+      <!-- <%#= l(@photo_session.created_at, format: :photo_session) %> - <%#= @photo_session.photos.count %> Photo<%#= 's' if @photo_session.photos.count > 1 %> -->
     </h2>
   </div>
   
@@ -72,9 +72,9 @@
        
 
        <div class="thumbnail color-two">
-          <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>">
+          <!-- <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>"> -->
             <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
-          </a>
+          <!-- </a> -->
           
           <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>');">
             <i class="fa fa-facebook"></i> Share to Facebook
@@ -87,8 +87,14 @@
           </a>
 
           <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location='<%= photo.image.url(:xlarge) %>';">
-            <i class="fa fa-cloud-download"></i> Hi-Res Download
+            <i class="fa fa-instagram"></i> Download for Instagram
           </button>
+
+          <a href="http://www.popsockets.com/pages/designer" target="_blank" title="">
+            <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
+              PopSockets Store
+            </button>
+          </a>
        </div>
 
 
