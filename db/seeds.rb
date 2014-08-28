@@ -16,14 +16,14 @@ User.find_or_initialize_by_email(user).update_attributes({
 
 ## Add default Festpix Event/Customer to all previous photo sessions
 fp_customer = 'Festpix'
-Customer.find_or_initialize_by_name(fp_customer).update_attributes({
+puts Customer.find_or_initialize_by_name(fp_customer).update_attributes({
   slug:        'festpix',
   color_one:   '#1b1b24',
   color_two:   '#333333',
   color_three: '#428bca',
 })
 
-Event.find_or_initialize_by_name(fp_customer).update_attributes({
+puts Event.find_or_initialize_by_name(fp_customer).update_attributes({
   slug:          'festpix',
   logo:          File.new("#{Rails.root}/public/watermarks/festpix.png"),
   sms_text:      'FestPix! Your images are ready, click the link to see them.',

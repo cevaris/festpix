@@ -73,7 +73,7 @@
 
        <div class="thumbnail color-two">
           <!-- <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>"> -->
-            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name)  %>
+            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
           <!-- </a> -->
           
           <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>');">
