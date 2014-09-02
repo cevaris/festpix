@@ -5,8 +5,10 @@ class Customer < ActiveRecord::Base
     has_many :events, :dependent => :destroy
 
     validates_uniqueness_of :name
-    validates_uniqueness_of :slug
-    validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
+    validates_uniqueness_of :slug, message: 'URL Route/Name has already been taken.', multiline: false
+    
+    validates_length_of :slug, :minimum => 3, :maximum => 50, :allow_blank => false
+    validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
 
     before_save :default_values
     def default_values

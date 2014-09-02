@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810184508) do
+ActiveRecord::Schema.define(version: 20140902194631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(version: 20140810184508) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.string   "sms_text"
+    t.text     "sms_text"
     t.text     "facebook_url"
-    t.string   "facebook_text"
+    t.text     "facebook_text"
     t.text     "twitter_url"
-    t.string   "twitter_text"
+    t.text     "twitter_text"
     t.string   "slug"
   end
 
