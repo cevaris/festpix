@@ -14,8 +14,13 @@ class Event < ActiveRecord::Base
   
   validates_attachment_content_type :logo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_uniqueness_of :slug
+  
+  validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
+  validates_length_of :facebook_text, :minimum => 0, :maximum => 100, :allow_blank => true
+  validates_length_of :twitter_text,  :minimum => 0, :maximum => 100, :allow_blank => true
+
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
-  validates_length_of :sms_text, :minimum => 0, :maximum => 100, :allow_blank => true
+  validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
   
 
   #############################
@@ -30,6 +35,11 @@ class Event < ActiveRecord::Base
 
   before_save :default_values
   def default_values
+    # Remove any new lines
+    self.sms_text      = self.sms_text.squish      if self.sms_text
+    self.twitter_text  = self.twitter_text.squish  if self.twitter_text
+    self.facebook_text = self.facebook_text.squish if self.facebook_text
+
     self.logo ||= File.new("#{Rails.root}/public/watermarks/festpix.png")
   end
 
