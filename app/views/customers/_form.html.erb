@@ -8,10 +8,8 @@
       <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
 
       <ul>
-      <% @customer.errors.messages.values.each do |msg| %>
-        <% msg.each do  |m| %>
-          <li><%= m %></li>
-        <%end %>        
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
