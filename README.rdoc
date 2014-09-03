@@ -1,1 +1,3 @@
 == Event Photos
+
+Photo.find_each {|x| puts x.id; x.image.reprocess!(:medium) if x.photo_session and x.photo_session.event and x.photo_session.event.save }
