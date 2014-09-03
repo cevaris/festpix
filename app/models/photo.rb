@@ -12,7 +12,10 @@ class Photo < ActiveRecord::Base
   STYLES = lambda { |attachment| {
       thumb: '100x100#', 
       square: '200x200#', 
-      medium: '500x500>',
+      medium: {
+        :geometry => '640x640#',
+        :watermark_path => attachment.instance.watermark_path,
+      },
       large: '800x800>',
       xlarge: {
         :geometry => '1600x1400>',
