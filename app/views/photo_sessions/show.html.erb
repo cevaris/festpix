@@ -80,13 +80,13 @@
             <i class="fa fa-facebook"></i> Share to Facebook
           </button>
 
-          <a href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" target="_blank" title="Shared via @FestPix">
+          <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" target="_blank" title="Shared via @FestPix">
             <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
               <i class="fa fa-twitter"></i> Share to Twitter
             </button>
           </a>
 
-          <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location='<%= photo.image.url(:medium) %>';">
+          <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="share_instagram('<%= photo.image.url(:medium) %>');">
             <i class="fa fa-instagram"></i> Download for Instagram
           </button>
 
@@ -186,23 +186,44 @@
 <!-- ################ -->
 <script type="text/javascript">
 
+///////////////////////////////////////////////////////////////////////////
+// General sharing ajax
 function share_social(social_type){
-  .ajax({
+  $.ajax({
       url: "<%= photo_session_social_share_path(@photo_session) %>",
       type: "POST",
-      data: { social_type: social_type) },
+      data: { social_type: social_type },
       success: function(resp){ console.log('Successful share'); },
       error:   function(resp){ console.log(resp); }
   });
 }
 
+///////////////////////////////////////////////////////////////////////////
+// Twitter
+function share_twitter(){
+  share_social('twitter');
+}
+$('#share_twitter').click(function(e){
+    e.preventDefault();
+    var href = $(this).attr("href");
 
-function share_facebook(){
-  return share_social('facebook');
+    share_twitter();
+
+    window.location = href;
+});
+
+
+///////////////////////////////////////////////////////////////////////////
+// Instagram
+function share_instagram(redirect_to){
+  share_social('instagram');
+  if(redirect_to.length > 0) window.location = redirect_to;
 }
 
-function share_twitter(){
-  return share_social('twitter');
+///////////////////////////////////////////////////////////////////////////
+// Facebook
+function share_facebook(){
+  share_social('facebook');
 }
 
 

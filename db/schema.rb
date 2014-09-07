@@ -70,11 +70,12 @@ ActiveRecord::Schema.define(version: 20140907220213) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "claimed",         default: false
+    t.boolean  "claimed",          default: false
     t.string   "slug"
     t.datetime "opened_at"
-    t.integer  "twitter_shares",  default: 0
-    t.integer  "facebook_shares", default: 0
+    t.integer  "twitter_shares",   default: 0
+    t.integer  "facebook_shares",  default: 0
+    t.integer  "instagram_shares", default: 0
   end
 
   add_index "photo_sessions", ["slug"], name: "index_photo_sessions_on_slug", using: :btree

@@ -4,7 +4,7 @@ class PhotoSessionsController < ApplicationController
 
   protect_from_forgery :except => [:create]
   before_action :set_event_cookie
-  before_action :set_photo_session, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo_session, only: [:show, :edit, :update, :destroy, :social_share]
   before_action :require_session, only: [:index, :claim]
 
 
@@ -65,11 +65,13 @@ class PhotoSessionsController < ApplicationController
 
     case params[:social_type].strip.downcase
     when 'facebook'
-      @photo_session.facebook_shares = @photo_session.facebook_shares + 1
+      @photo_session.facebook_shares  = @photo_session.facebook_shares + 1
     when 'twitter'
-      @photo_session.twitter_shares  = @photo_session.twitter_shares  + 1
+      @photo_session.twitter_shares   = @photo_session.twitter_shares  + 1
+    when 'instagram'
+      @photo_session.instagram_shares = @photo_session.instagram_shares + 1
     else
-      # Do nothing
+      # Do nothing, did not match any social type
     end
 
     respond_to do |format|
