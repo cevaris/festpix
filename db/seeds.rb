@@ -33,8 +33,3 @@ puts Event.find_or_initialize_by_name(fp_customer).update_attributes({
   twitter_text:  'Shared via',
   customer_id:   Customer.find_by_name(fp_customer).id
 })
-
-PhotoSession.all.each do |ps|
-  ps.event ||= Event.find_by_name(fp_customer)
-  ps.save
-end
