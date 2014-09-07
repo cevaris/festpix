@@ -38,8 +38,3 @@ PhotoSession.all.each do |ps|
   ps.event ||= Event.find_by_name(fp_customer)
   ps.save
 end
-
-Photo.all.each do |ph|
-  ph.event ||= Event.find_by_name(fp_customer)
-  ph.save
-end
