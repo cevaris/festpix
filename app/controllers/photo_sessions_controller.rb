@@ -58,6 +58,29 @@ class PhotoSessionsController < ApplicationController
     
   end
 
+  def social_share
+
+    # Make sure this key exists
+    params[:social_type] ||= ''
+
+    case params[:social_type].strip.downcase
+    when 'facebook'
+      @photo_session.facebook_shares = @photo_session.facebook_shares + 1
+    when 'twitter'
+      @photo_session.twitter_shares  = @photo_session.twitter_shares  + 1
+    else
+      # Do nothing
+    end
+
+    respond_to do |format|
+      if @photo_session.save
+        format.json { head :ok }
+      else
+        format.json { render :json => @photo_session.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
 
   def email_new
     render 'email/new'

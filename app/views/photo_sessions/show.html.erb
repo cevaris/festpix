@@ -183,8 +183,38 @@
 
 
 
+<!-- ################ -->
+<script type="text/javascript">
+
+function share_social(social_type){
+  .ajax({
+      url: "<%= photo_session_social_share_path(@photo_session) %>",
+      type: "POST",
+      data: { social_type: social_type) },
+      success: function(resp){ console.log('Successful share'); },
+      error:   function(resp){ console.log(resp); }
+  });
+}
+
+
+function share_facebook(){
+  return share_social('facebook');
+}
+
+function share_twitter(){
+  return share_social('twitter');
+}
+
+
+</script>
+
+
+
+
+<!-- ################ -->
+
 <div id="fb-root"></div>
-<script>
+<script type="text/javascript">
 
 function alertFacebookPost(post_id){
   setTimeout(function() { 
@@ -217,6 +247,7 @@ function shareToFacebook(reference){
 
         $('#myModal').modal('hide');
         alertFacebookPost(response.post_id);
+        share_facebook();
 
       });
 
@@ -236,6 +267,7 @@ function shareToFacebook(reference){
         if(response){
           console.log('Photo posted to facebook! Thanks for using FestPix');
           alertFacebookPost(response.post_id);
+          share_facebook();
         } else {
           console.log('Error!!');
         }
