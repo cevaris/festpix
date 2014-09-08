@@ -7,6 +7,30 @@
 <h1><%= @event.name %></h1>
 
 
+<table class="table">
+  <thead>
+    <tr>
+      <th><i class="fa fa-twitter fa-2x"></i></th>
+      <th><i class="fa fa-facebook fa-2x"></i></th>
+      <th><i class="fa fa-instagram fa-2x"></i></th>
+      <th>Opened</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @event.shares[:twitter]   %></td>
+        <td><%= @event.shares[:facebook]  %></td>
+        <td><%= @event.shares[:instagram] %></td>
+
+        <td><%= @event.opened_sessions %></td>
+        <td><%= @event.total_sessions %></td>
+      </tr>
+  </tbody>
+</table>
+
+
 <div class="field">
     <%= label_tag :slug, "URL Route/Name" %>: <%= @event.slug %>
 </div>

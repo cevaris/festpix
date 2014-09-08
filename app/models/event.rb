@@ -44,8 +44,21 @@ class Event < ActiveRecord::Base
   end
 
   def shares
-    Rails.cache.fetch("customer_shares", expires_in: 10.minutes) do
-      PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares).transpose.map {|a| a.inject(:+)}
+    Rails.cache.fetch("event_shares", expires_in: 10.minutes) do
+      s = PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares).transpose.map {|a| a.inject(:+)}
+      {twitter: s[0], facebook: s[1], instagram: s[2]}
+    end
+  end
+
+  def total_sessions
+    Rails.cache.fetch("event_total_photo_session", expires_in: 10.minutes) do
+      PhotoSession.where(event_id: self.id).count
+    end
+  end
+
+  def opened_sessions
+    Rails.cache.fetch("event_total_opened", expires_in: 10.minutes) do
+      PhotoSession.where(event_id: self.id).map {|ps| ps.is_opened? ? 1 : 0 }.sum
     end
   end
 
