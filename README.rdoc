@@ -1,3 +1,19 @@
 == Event Photos
 
-Photo.find_each {|x| puts x.id; x.image.reprocess!(:medium) if x.photo_session and x.photo_session.event and x.photo_session.event.save }
+
+=== Reprocess a specific image style
+```Photo.find_each {|x| puts x.id; x.image.reprocess!(:medium) if x.photo_session and x.photo_session.event and x.photo_session.event.save }```
+
+
+
+== Metrics 
+
+=== Count all unique phone numbers
+```PhotoSession.all.map {|x| x.phone_list}.uniq```
+
+=== Count all opened photos
+```PhotoSession.where(event_id: (Event.all.ids - [1])).select {|x| x.is_opened?}.count```
+
+
+
+
