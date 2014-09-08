@@ -7,6 +7,30 @@
   <h1><%= @customer.name %></h1>
 </div>
 
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><i class="fa fa-twitter fa-2x"></i></th>
+      <th><i class="fa fa-facebook fa-2x"></i></th>
+      <th><i class="fa fa-instagram fa-2x"></i></th>
+      <th>Opened</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @customer.shares[:twitter]   %></td>
+        <td><%= @customer.shares[:facebook]  %></td>
+        <td><%= @customer.shares[:instagram] %></td>
+
+        <td><%= @customer.opened_sessions %></td>
+        <td><%= @customer.total_sessions %></td>
+      </tr>
+  </tbody>
+</table>
+
 <div class="field">
     <%= label_tag :color_one, "Background Color" %> </br>
     <%= text_field(:customer, :color_one, style: "background-   : #{@customer.color_one}") %>

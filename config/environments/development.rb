@@ -27,4 +27,8 @@ Rq::Application.configure do
   # number of complex assets.
   config.assets.debug = true
   config.action_mailer.default_url_options = { :host => ENV['HOST_URL'] }
+
+  # Adding In-Memory caching
+  # config.cache_store = :memory_store
+  config.cache_store = :null_store
 end

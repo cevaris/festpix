@@ -43,6 +43,12 @@ class Event < ActiveRecord::Base
     self.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless self.logo.exists?
   end
 
+  def shares
+    Rails.cache.fetch("customer_shares", expires_in: 10.minutes) do
+      PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares).transpose.map {|a| a.inject(:+)}
+    end
+  end
+
   def festpix?
     self.slug == 'festpix'
   end
