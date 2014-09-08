@@ -19,20 +19,20 @@ class Customer < ActiveRecord::Base
 
 
     def shares
-      Rails.cache.fetch("customer_shares", expires_in: 10.minutes) do
+      Rails.cache.fetch("customer_shares_#{self.id}", expires_in: 10.minutes) do
         s = PhotoSession.where(event_id: self.events.ids).pluck(:twitter_shares, :facebook_shares, :instagram_shares).transpose.map {|a| a.inject(:+)}
         {twitter: s[0], facebook: s[1], instagram: s[2]}
       end
     end
 
     def total_sessions
-      Rails.cache.fetch("customer_total_photo_session", expires_in: 10.minutes) do
+      Rails.cache.fetch("customer_total_photo_session_#{self.id}", expires_in: 10.minutes) do
         PhotoSession.where(event_id: self.events.ids).count
       end
     end
 
     def opened_sessions
-      Rails.cache.fetch("customer_total_opened", expires_in: 10.minutes) do
+      Rails.cache.fetch("customer_total_opened_#{self.id}", expires_in: 10.minutes) do
         PhotoSession.where(event_id: self.events.ids).map {|ps| ps.is_opened? ? 1 : 0 }.sum
       end
     end
