@@ -56,11 +56,16 @@
   
 <div class="container color-three">
 
-  <div class="row text-center">
-    <h2> 
-      <%= @photo_session.event %> <br/>
-      <!-- <%#= l(@photo_session.created_at, format: :photo_session) %> - <%#= @photo_session.photos.count %> Photo<%#= 's' if @photo_session.photos.count > 1 %> -->
-    </h2>
+  <div class=" text-center">
+    <% if @photo_session.event.festpix? %>
+      <h2><%= @photo_session.event %></h2>
+    <% else %>
+      <% unless @photo_session.event.logo(:medium).include? 'festpix.png' %>
+        <%= image_tag @photo_session.event.logo(:medium) %>  
+      <% else %>
+        <h2><%= @photo_session.event %></h2>
+      <% end %>
+    <% end %>
   </div>
   
   <hr/>
