@@ -39,8 +39,6 @@ class Event < ActiveRecord::Base
     self.sms_text      = self.sms_text.squish      if self.sms_text
     self.twitter_text  = self.twitter_text.squish  if self.twitter_text
     self.facebook_text = self.facebook_text.squish if self.facebook_text
-
-    self.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless self.logo.exists?
   end
 
   def shares

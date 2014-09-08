@@ -30,6 +30,11 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+
+        # Provide default watermark if not included
+        @event.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.logo.exists?
+        @event.save
+
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render action: 'show', status: :created, location: @event }
       else

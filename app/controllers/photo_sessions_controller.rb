@@ -203,7 +203,6 @@ class PhotoSessionsController < ApplicationController
         defer_photos_params.each do |i, file|
           photo = Photo.new
           photo.photo_session_id = @photo_session.id
-          Rails.logger.info "Saveing Photo #{i} #{photo.inspect}"
           photo.image = file['image']
           save_status &= photo.save
         end
