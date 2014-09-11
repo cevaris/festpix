@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :require_session, only: [:new, :show, :edit, :update, :destroy]
+  before_action :require_session, only: [:new, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
@@ -80,8 +80,7 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      require_session
-      @event = Event.find_by_slug(params[:id])
+      @event = Event.find_by_slug(params[:id]) || Event.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
