@@ -216,9 +216,15 @@ class PhotoSessionsController < ApplicationController
         queue_sms(@photo_session)
         # PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
+        response = {  result: "success", path: @photo_session.short_url,
+            id: @photo_session.id.to_s, slug: @photo_session.slug, 
+            event_id: @photo_session.event_id.to_s, event_slug: @photo_session.event.slug }
+
+        Rails.logger.info "Response Message: #{response.inspect}"
+
         flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.customer_url }".html_safe
         format.html { redirect_to action: "new" }
-        format.json { render json: { result: "sucess", path: @photo_session.short_url } }
+        format.json { render json: response }
       else
         # Delete images post invalidation
         @photo_session.photos.map(&:destroy)

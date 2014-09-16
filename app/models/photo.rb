@@ -59,7 +59,7 @@ class Photo < ActiveRecord::Base
 
   def watermark_path
     # self.photo_session.event.logo.url(:medium)
-    self.photo_session.event.logo.url(:large)
+    self.photo_session.event.logo.url(:medium)
   end
 
   before_save :default_values
