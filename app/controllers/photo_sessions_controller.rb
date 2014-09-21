@@ -277,14 +277,16 @@ class PhotoSessionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_photo_session
       begin
-        !!Integer(params[:id])
+        # !!Integer(params[:id])
         # raise ArgumentError if Integer(params[:id])
-        @photo_session = PhotoSession.find(params[:id])
-        @event = @photo_session.event
+        @photo_session = PhotoSession.find_by_slug(params[:id])
+        # @event = @photo_session.event
         # redirect_to @photo_session
       rescue ArgumentError, TypeError, ActiveRecord::RecordNotFound
-        @photo_session = PhotoSession.find_by_slug(params[:id])
+        # PhotoSession.find(params[:id])
+        @photo_session = PhotoSession.find(params[:id])
       end
+      @event = @photo_session.event
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
