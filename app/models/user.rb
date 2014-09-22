@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator'}#, :admin =>'Admin' }
+  ROLES = {admin: 'admin', customer: 'customer', banned: 'banned'}
+  # TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator'}#, :admin =>'Admin' }
   PHONE_FORMAT = /\A[0-9]{10}\z/
 
 
@@ -29,6 +30,7 @@ class User < ActiveRecord::Base
       token = SecureRandom.hex[0..3]
       break token unless User.exists?(slug: token)
     end
+    self.role ||= User::ROLES[:admin]
   end
 
   def to_param

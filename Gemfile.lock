@@ -54,6 +54,7 @@ GEM
     bootstrap-will_paginate (0.0.10)
       will_paginate
     builder (3.1.4)
+    cancan (1.6.10)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -211,6 +212,7 @@ DEPENDENCIES
   aws-sdk (~> 1.52)
   bcrypt-ruby (~> 3.0.0)
   bootstrap-will_paginate
+  cancan
   coffee-rails (~> 4.0.0)
   delayed_job_active_record (~> 4.0.0)
   delayed_paperclip

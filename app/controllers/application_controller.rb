@@ -20,13 +20,13 @@ class ApplicationController < ActionController::Base
   end
 
   def update_devise_parameter_sanitizer
-    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar)
-    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar)
+    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:role)
+    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar,:role)
   end
 
   def require_session
     unless current_user
-      flash[:error] = 'Please log in to claim these photos'  
+      flash[:error] = 'Please log in'
       redirect_to user_session_path
     end
   end 
