@@ -20,8 +20,14 @@ class ApplicationController < ActionController::Base
   end
 
   def update_devise_parameter_sanitizer
-    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:role)
-    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar,:role)
+    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:role,:customer)
+    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar,:role,:customer)
+  end
+
+  def redirect_to_back
+    redirect_to(session[:referer] || :back)
+  rescue ActionController::RedirectBackError
+    redirect_to root_path
   end
 
   def require_session
@@ -29,6 +35,11 @@ class ApplicationController < ActionController::Base
       flash[:error] = 'Please log in'
       redirect_to user_session_path
     end
+  end 
+
+  rescue_from CanCan::AccessDenied do |exception|  
+    flash[:error] = "Access denied!"  
+    redirect_to_back
   end 
 
 end
