@@ -11,7 +11,7 @@ Rq::Application.routes.draw do
 
   match '/photo_sessions/:id/share' => 'photo_sessions#social_share', via: [:post], as: 'photo_session_social_share'
 
-  match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
+  # match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
   match '/photos/:photo_slug' => 'photo#photo', via: [:get], as: 'photo'
   # match '/photo/:photo_id/:size' => 'photo#photo', via: [:get], as: 'photo_size'
 
