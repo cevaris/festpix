@@ -11,7 +11,7 @@ User.find_or_initialize_by_email(user).update_attributes({
   email: user,
   password: ENV['ADMIN_PASS'],
   phone_number: '5594516126',
-  role: User::ROLES[:admin]
+  role: User::ROLES[:super_admin]
 })
 
 
