@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  belongs_to :customer
 
    # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
 
@@ -40,6 +41,10 @@ class User < ActiveRecord::Base
 
   def admin?
     [User::ROLES[:admin], User::ROLES[:super_admin]].include? self.role
+  end
+
+  def customer?
+    [User::ROLES[:customer]].include? self.role and self.customer
   end
 
 

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  authorize_resource
 
   def index
     unless current_user

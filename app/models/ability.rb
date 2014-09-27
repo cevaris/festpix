@@ -5,6 +5,14 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, :all
+    elsif user.customer?
+        user.customer?
+      can :manage, Customer, :active => true, :customer_id => user.customer.id
+      can :manage, User, :active => true, :user_id => user.id
+      
+      # can :manage, Event, :active => true, :customer_id => user.id
+      # can :manage, PhotoSession, :active => true, :user_id => user.id
+      # can :manage, Photo, :active => true, :customer_id => user.id
     else
       can :read, :all
     end

@@ -23,10 +23,12 @@
         <% if user_signed_in? %>
           
           <% if current_user %>
-            <li><%= link_to 'New Photo Sessions', new_photo_session_path %></li>
+            <li><%= link_to 'New Photo Session', new_photo_session_path %></li>
             <li><%= link_to 'Photo Sessions', photo_sessions_path %></li>
             <li><%= link_to 'Events', events_path %></li>
-            <li><%= link_to 'Customers', customers_path %></li>
+            <% if can? :create, current_user %>
+              <li><%= link_to 'Customers', customers_path %></li>
+            <% end %>
           <% end %>
 
           <li><%= link_to current_user.email , current_user  %></li>
