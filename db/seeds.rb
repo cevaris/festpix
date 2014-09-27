@@ -6,22 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user='admin@festpix.com'
-User.find_or_initialize_by_email(user).update_attributes({
-  email: user,
-  password: ENV['ADMIN_PASS'],
-  phone_number: '5594516126',
-  role: User::ROLES[:super_admin]
-})
-
-
 ## Add default Festpix Event/Customer to all previous photo sessions
+user        = 'admin@festpix.com'
 fp_customer = 'Festpix'
+
 puts Customer.find_or_initialize_by_name(fp_customer).update_attributes({
   slug:        'festpix',
   color_one:   '#1b1b24',
   color_two:   '#333333',
   color_three: '#428bca',
+})
+
+puts User.find_or_initialize_by_email(user).update_attributes({
+  email: user,
+  password: ENV['ADMIN_PASS'],
+  phone_number: '5594516126',
+  role: User::ROLES[:super_admin],
+  customer_id: Customer.find_by_name(fp_customer).id,
 })
 
 puts Event.find_or_initialize_by_name(fp_customer).update_attributes({
@@ -32,5 +33,5 @@ puts Event.find_or_initialize_by_name(fp_customer).update_attributes({
   facebook_text: 'Shared via',
   twitter_url:   'https://twitter.com/festpix',
   twitter_text:  'Shared via',
-  customer_id:   Customer.find_by_name(fp_customer).id
+  customer_id:   Customer.find_by_name(fp_customer).id,
 })
