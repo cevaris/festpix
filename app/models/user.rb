@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ROLES = {admin: 'admin', customer: 'customer', banned: 'banned'}
+  ROLES = {super_admin: 'super admin', admin: 'admin', customer: 'customer', banned: 'banned'}
   # TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator'}#, :admin =>'Admin' }
   PHONE_FORMAT = /\A[0-9]{10}\z/
 
@@ -30,12 +30,17 @@ class User < ActiveRecord::Base
       token = SecureRandom.hex[0..3]
       break token unless User.exists?(slug: token)
     end
-    self.role ||= User::ROLES[:admin]
+    # self.role ||= User::ROLES[:admin]
+    self.role ||= User::ROLES[:customer]
   end
 
   def to_param
     self.slug
   end 
+
+  def admin?
+    [User::ROLES[:admin], User::ROLES[:super_admin]].include? self.role
+  end
 
 
 end
