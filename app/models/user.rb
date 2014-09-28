@@ -33,6 +33,23 @@ class User < ActiveRecord::Base
     end
     # self.role ||= User::ROLES[:admin]
     self.role ||= User::ROLES[:customer]
+
+
+    if self.customer?
+      unless self.customer
+        customer_slug ||= loop do
+          token = SecureRandom.hex[0..3]
+          break token unless Customer.exists?(slug: token)
+        end
+        Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
+          name: 'FestPix Customer',
+          color_one:   '#1b1b24',
+          color_two:   '#333333',
+          color_three: '#428bca',
+        })
+        self.customer = Customer.find_by_slug(customer_slug)
+      end
+    end
   end
 
   def to_param
@@ -44,7 +61,8 @@ class User < ActiveRecord::Base
   end
 
   def customer?
-    [User::ROLES[:customer]].include? self.role and self.customer
+    # [User::ROLES[:customer]].include? self.role and self.customer
+    [User::ROLES[:customer]].include? self.role
   end
 
 

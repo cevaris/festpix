@@ -1,11 +1,21 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :require_session, only: [:new, :edit, :update, :destroy]
+
+  load_and_authorize_resource :find_by => :slug
+  # # before_action :set_event, only: [:show, :edit, :update, :destroy]
+  # before_action :require_session, only: [:new, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+
+    if current_user
+      @events = Event.all if current_user.admin?
+      @events = Event.where(customer_id: current_user.customer.id) if current_user.customer?
+    else
+      @events = []
+    end
+    
+    # @events = Event.all
   end
 
   # GET /events/1
@@ -79,9 +89,9 @@ class EventsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find_by_slug(params[:id]) || Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find_by_slug(params[:id]) || Event.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
