@@ -7,8 +7,10 @@ class Ability
       can :manage, :all
     elsif user.customer?
       can [:read, :update], Customer, :id => user.customer.id
+      
       can [:create], Event
       can [:read, :update, :destroy], Event, :id => user.customer.events.pluck(:id)
+      
       can :manage, User, :id => user.id
       # can :manage, Customer, :active => true, :customer_id => user.customer.id
       # can :manage, User, :active => true, :user_id => user.id

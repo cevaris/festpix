@@ -7,15 +7,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-
-    if current_user
-      @events = Event.all if current_user.admin?
-      @events = Event.where(customer_id: current_user.customer.id) if current_user.customer?
-    else
-      @events = []
-    end
-    
-    # @events = Event.all
+    @events = Event.accessible_by(current_ability, :read)
   end
 
   # GET /events/1
