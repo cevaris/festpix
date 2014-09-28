@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  belongs_to :customer
+  belongs_to :customer, :dependent => :destroy
+  accepts_nested_attributes_for :customer
 
    # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
 

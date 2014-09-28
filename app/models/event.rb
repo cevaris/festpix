@@ -3,7 +3,6 @@ require 'securerandom'
 class Event < ActiveRecord::Base
 
   belongs_to :customer
-  has_many   :events
   has_many   :photo_sessions, :dependent => :destroy
 
   has_attached_file :logo, styles: { 
