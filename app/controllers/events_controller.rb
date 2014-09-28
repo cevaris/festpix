@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.accessible_by(current_ability, :read)
+    @events = Event.accessible_by(current_ability, :update)
   end
 
   # GET /events/1
