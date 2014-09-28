@@ -3,9 +3,29 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
+    #################################################
+    customer_saved = false
+    customer = Customer.new(
+      slug: params[:customer_slug],
+      name: params[:customer_name],
+      color_one:   '#1b1b24', color_two:   '#333333', color_three: '#428bca',
+    )
+    customer_saved = customer.save
+    resource.errors[:base] += customer.errors[:base]
+    resource.customer = Customer.find_by_slug(params[:customer_slug]) if customer_saved
+    #################################################
+
     resource_saved = resource.save
+
+    Rails.logger.info customer.inspect
+    Rails.logger.info customer.errors.inspect
+    Rails.logger.info customer_saved
+    Rails.logger.info resource.inspect
+    Rails.logger.info resource.errors.inspect
+    Rails.logger.info resource_saved
+
     yield resource if block_given?
-    if resource_saved
+    if customer_saved and resource_saved
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
@@ -16,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
-      clean_up_passwords resource
+      # clean_up_passwords resource
       respond_with resource
     end
 

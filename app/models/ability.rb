@@ -6,12 +6,13 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.customer?
+      can :manage, User, :id => user.id
       can [:read, :update], Customer, :id => user.customer.id
       
       can [:create], Event
       can [:read, :update, :destroy], Event, :id => user.customer.events.pluck(:id)
       
-      can :manage, User, :id => user.id
+      
       # can :manage, Customer, :active => true, :customer_id => user.customer.id
       # can :manage, User, :active => true, :user_id => user.id
       # can :read, :all
@@ -20,8 +21,8 @@ class Ability
       # can :manage, PhotoSession, :active => true, :user_id => user.id
       # can :manage, Photo, :active => true, :customer_id => user.id
     else
-      # Nothing...
-
+      can [:create, :read], User
+      can [:create, :read], Customer
     end
     # Define abilities for the passed in user here. For example:
     #

@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   end
 
   def update_devise_parameter_sanitizer
-    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:role,:customer)
-    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar,:role,:customer)
+    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:role,:customer,:customer_name,:customer_slug)
+    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar,:role,:customer,:customer_name,:customer_slug)
   end
 
   def redirect_to_back
@@ -43,8 +43,9 @@ class ApplicationController < ActionController::Base
     params[resource] &&= send(method) if respond_to?(method, true)
   end
   rescue_from CanCan::AccessDenied do |exception|  
-    flash[:error] = "Access denied!"  
-    redirect_to_back
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
+    # flash[:error] = "Access denied!"  
+    # redirect_to_back
   end 
 
 end

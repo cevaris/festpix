@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/jpg image/png)
-  validates_format_of :phone_number, with: PHONE_FORMAT, message: "has an invalid format."
+  validates_format_of :phone_number, with: PHONE_FORMAT, message: "has an invalid format.", :allow_blank => true
 
 
   before_save :default_values
@@ -33,23 +33,32 @@ class User < ActiveRecord::Base
     end
     # self.role ||= User::ROLES[:admin]
     self.role ||= User::ROLES[:customer]
+  end
 
-
-    if self.customer?
-      unless self.customer
-        customer_slug ||= loop do
-          token = SecureRandom.hex[0..3]
-          break token unless Customer.exists?(slug: token)
-        end
-        Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
-          name: 'FestPix Customer',
-          color_one:   '#1b1b24',
-          color_two:   '#333333',
-          color_three: '#428bca',
-        })
-        self.customer = Customer.find_by_slug(customer_slug)
-      end
+  def create_customer(name, slug)
+    success = true
+    unless self.customer
+      Customer.exists?(slug: slug)
+      # customer_slug ||= loop do
+      #   token = SecureRandom.hex[0..3]
+      #   break token unless Customer.exists?(slug: token)
+      # end
+      # Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
+      #   name: 'FestPix Customer',
+      #   color_one:   '#1b1b24',
+      #   color_two:   '#333333',
+      #   color_three: '#428bca',
+      # })
+      success = Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
+        name: 'name',
+        color_one:   '#1b1b24',
+        color_two:   '#333333',
+        color_three: '#428bca',
+      })
+      self.customer = Customer.find_by_slug(customer_slug) if success
     end
+
+    success
   end
 
   def to_param

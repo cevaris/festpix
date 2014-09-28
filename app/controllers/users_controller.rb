@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  authorize_resource
+  load_and_authorize_resource :find_by => :slug
 
   def index
     unless current_user
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   
   def show
     # @user = User.find_by_slug(params[:id])
-    @user = current_user
+    # @user = current_user
     # @sessions = PhotoSession.tagged_with(@user.phone_number, :any => true).limit(12).order('id DESC')
     # TODO: View users photo sessions or events
     @sessions = []     

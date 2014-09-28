@@ -7,6 +7,11 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email, :autofocus => true %></div><br />
 
+  <div><%= f.label :customer_name %><br />
+  <%= text_field_tag :customer_name, '', {required: true} %>
+  <div><%= f.label :customer_slug, 'Customer URL' %> (festpix.com/portal/&ltCUSTOMER_URL&gt) <br/>
+  <%= text_field_tag :customer_slug, '', {required: true} %>
+
   <div><%= f.label :phone_number %> (format should be '3031234567', not '303-123-4567')<br/>
   <%= f.text_field :phone_number, type: 'tel' %></div><br />
 

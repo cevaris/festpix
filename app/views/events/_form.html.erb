@@ -67,10 +67,10 @@
   <div class="field">
     <%= f.label :customer_id, 'Customer' %><br>
     <% if @event and @event.customer %>
-    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
+    <%= f.select :customer_id, Customer.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
     <% else %> 
-    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {}, {class: 'form-control'} %>
-    <% end %> 
+    <%= f.select :customer_id, Customer.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {}, {class: 'form-control'} %>
+    <% end %>
     <%#= f.hidden_field :customer_id, class: 'form-control select2 ajax', data: { source: autocomplete_customers_path } %>
   </div>
 
