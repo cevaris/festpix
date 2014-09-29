@@ -26,7 +26,7 @@ class PhotoSessionsController < ApplicationController
 
     # @photo_sessions = emails | phones
     if current_user
-      @photo_sessions = PhotoSession.accessible_by(current_ability, :update).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+      @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
       # @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
       render 'admin_show'
     else
