@@ -44,8 +44,8 @@ class ApplicationController < ActionController::Base
   end
   rescue_from CanCan::AccessDenied do |exception|  
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
-    # flash[:error] = "Access denied!"  
-    # redirect_to_back
+    flash[:error] = "Access denied!"  
+    redirect_to_back
   end 
 
 end

@@ -6,7 +6,8 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    # @customers = Customer.all
+    @customers = Customer.accessible_by(current_ability, :update)
   end
 
   # GET /customers/1

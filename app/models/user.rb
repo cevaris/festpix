@@ -36,32 +36,6 @@ class User < ActiveRecord::Base
     self.role ||= User::ROLES[:customer]
   end
 
-  def create_customer(name, slug)
-    success = true
-    unless self.customer
-      Customer.exists?(slug: slug)
-      # customer_slug ||= loop do
-      #   token = SecureRandom.hex[0..3]
-      #   break token unless Customer.exists?(slug: token)
-      # end
-      # Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
-      #   name: 'FestPix Customer',
-      #   color_one:   '#1b1b24',
-      #   color_two:   '#333333',
-      #   color_three: '#428bca',
-      # })
-      success = Customer.find_or_initialize_by_slug(customer_slug).update_attributes({
-        name: 'name',
-        color_one:   '#1b1b24',
-        color_two:   '#333333',
-        color_three: '#428bca',
-      })
-      self.customer = Customer.find_by_slug(customer_slug) if success
-    end
-
-    success
-  end
-
   def to_param
     self.slug
   end 
@@ -71,8 +45,8 @@ class User < ActiveRecord::Base
   end
 
   def customer?
-    # [User::ROLES[:customer]].include? self.role and self.customer
-    [User::ROLES[:customer]].include? self.role
+    [User::ROLES[:customer]].include? self.role and self.customer
+    # [User::ROLES[:customer]].include? self.role
   end
 
 
