@@ -4,7 +4,7 @@ class AddRoleToUsers < ActiveRecord::Migration
     add_column :users, :role, :string
 
     User.all.each do |user|
-      user.role = User::ROLES[:customer]
+      user.role ||= User::ROLES[:customer]
       user.save
     end
   end
