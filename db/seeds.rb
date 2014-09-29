@@ -34,7 +34,7 @@ puts Customer.find_or_initialize_by_slug(fp_customer_slug).update_attributes({
 
 puts super_admin_email, User.find_or_initialize_by_email(super_admin_email).update_attributes({
   email: super_admin_email,
-  password: ENV['ADMIN_PASS'],
+  password: ENV['SUPER_ADMIN_PASS'],
   phone_number: '5594516126',
   role: User::ROLES[:super_admin],
   customer_id: Customer.find_by_slug(fp_customer_slug).id,
