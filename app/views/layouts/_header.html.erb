@@ -9,13 +9,29 @@
         <span class="icon-bar"></span>
       </button>
       
-      <a class="navbar-brand" href="http://www.festpix.com/">
-      <% if is_production? %>
-        FestPix
-      <% else %>
-        FestPix Dev
+      <% if user_signed_in? %>
+        
+        <% if current_user.admin? %>
+          <a class="navbar-brand" href="http://www.festpix.com/">
+          <% if is_production? %>
+            FestPix
+          <% else %>
+            FestPix Dev
+          <% end %>
+          </a>
+        <% elsif current_user.customer? %>
+          <a class="navbar-brand" href="#">
+          <% if is_production? %>
+            <%= current_user.customer.name %>
+          <% else %>
+            <%= current_user.customer.name %> Dev
+          <% end %>
+          </a>
+        <% end %>
+        
       <% end %>
-      </a>
+
+      
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
