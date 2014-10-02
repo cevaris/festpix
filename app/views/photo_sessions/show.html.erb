@@ -220,6 +220,12 @@
 <script type="text/javascript">
 
 ///////////////////////////////////////////////////////////////////////////
+// Clickable links
+$( '.clickable' ).on( "click", function() {
+    window.location = $(this).attr('data-url');
+});
+
+///////////////////////////////////////////////////////////////////////////
 // General sharing ajax
 function share_social(social_type){
   $.ajax({
