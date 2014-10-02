@@ -1,57 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-  }
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    
+    <title>FestPix</title>
+    <link href="http://app.festpix.com/assets/application.css" media="all" rel="stylesheet">
+    <link href="http://app.festpix.com/assets/bootstrap-theme.css" media="all" rel="stylesheet">
+    <link href="http://app.festpix.com/assets/bootstrap.css" media="all" rel="stylesheet">
+    <link href="http://app.festpix.com/assets/jquery.css" media="all" rel="stylesheet">
 
-  div.dialog {
-    width: 25em;
-    margin: 4em auto 0 auto;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 4em 0 4em;
-  }
+    <link href="http://app.festpix.com/assets/scaffolds.css" media="all" rel="stylesheet">
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+    <link href="http://app.festpix.com/assets/style.css" media="all" rel="stylesheet">
+    <link href="http://app.festpix.com/assets/font-awesome.css" media="all" rel="stylesheet">
 
-  body > p {
-    width: 33em;
-    margin: 0 auto 1em;
-    padding: 1em 0;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow:0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-  </style>
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <link href="http://app.festpix.com/assets/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+    <script src="http://app.festpix.com/assets/sdk.js" id="facebook-jssdk"></script><script src="http://app.festpix.com/assets/jquery.js"></script>
+    <script src="http://app.festpix.com/assets/jquery_ujs.js"></script>
+    <script src="http://app.festpix.com/assets/alert.js"></script>
+    <script src="http://app.festpix.com/assets/bootstrap.js"></script>
+    <script src="http://app.festpix.com/assets/bootstrap_002.js"></script>
+    <script src="http://app.festpix.com/assets/jquery_002.js"></script>
+    <script src="http://app.festpix.com/assets/application.js"></script>
+
+
+    <style>
+      .container {
+
+        color: #2E2F30;
+        text-align: center;
+        font-family: arial, sans-serif;
+      }
+
+      div.dialog {
+        width: 33em;
+        margin: 4em auto 0 auto;
+        border: 1px solid #CCC;
+        border-right-color: #999;
+        border-left-color: #999;
+        border-bottom-color: #BBB;
+        border-top: #B00100 solid 4px;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+        background-color: white;
+        padding: 7px 4em 0 4em;
+      }
+
+      h1 {
+        font-size: 200%;
+        color: #730E15;
+        line-height: 1.5em;
+      }
+
+      p {
+        width: 33em;
+        margin: 0 auto 1em;
+        padding: 1em 0;
+        background-color: #F7F7F7;
+        border: 1px solid #CCC;
+        border-right-color: #999;
+        border-bottom-color: #999;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-top-color: #DADADA;
+        color: #666;
+        box-shadow:0 3px 8px rgba(50, 50, 50, 0.17);
+      }
+    </style>
 </head>
-
+  
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
+  <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container">
+
+
+    <!-- This file lives in public/500.html -->
+    <div class="dialog">
+      <h1>We're sorry, but something went wrong.</h1>
+    </div>
+    <p class="link"></p>
+
+    <script>
+
+    var parser = document.createElement('a');
+    parser.href = window.location.href;
+
+    var newLink = $("<a/>", {
+        href : "http://"+parser.host,
+        text : 'Click here to go back to festpix.com'
+    });
+
+    $('.link').append(newLink);
+    // var a = document.createElement('a');
+    // var linkText = document.createTextNode("Click here to go back to festpix.com");
+    // a.appendChild(linkText);
+    // a.title = "Click here to go back to festpix.com";
+    // a.href = window.location.href;
+    // document.querySelectorAll('.link').body.appendChild(a);
+    </script>
+    
+
+        
+    <!-- <img alt="Splashimage" src="http://app.festpix.com/assets/splashimage.jpg" style="max-width:100%;min-width:100%;"> -->
+
   </div>
-  <p>If you are the application owner check the logs for more information.</p>
+
 </body>
 </html>
