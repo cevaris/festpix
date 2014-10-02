@@ -90,6 +90,7 @@ class EventsController < ApplicationController
       params.require(:event).permit(
         :name, :slug, :description, :customer_id, :logo, :sms_text, 
         :facebook_url, :facebook_text, 
-        :twitter_url, :twitter_text)
+        :twitter_url, :twitter_text,
+        :button_url, :button_text)
     end
 end

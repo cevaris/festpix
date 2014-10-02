@@ -32,18 +32,33 @@
 
 
 <div class="field">
-    <%= label_tag :slug, "URL Route/Name" %>: <%= @event.slug %>
-</div>
-
-<div class="field">
     <%= label_tag :customer_id, "Customer" %>: <%= @event.customer.name %>
 </div>
 
+
 <div class="field">
-    <%= label_tag :sms_text, "SMS Text" %>: <br/>
-    <%= text_area(:event, :sms_text, rows: 5, readonly: true, class: 'form-control') %>
+    <%= label_tag :slug, "URL Route/Name" %>: <%= @event.slug %>
 </div>
 
+
+<h3>Custom Button</h3>
+
+<div class="field">
+    <%= label_tag :button_text %>: <%= @event.button_text.truncate 100 %>
+</div>
+
+<div class="field">
+    <%= label_tag :button_url %>: <%= @event.button_url.truncate 100 %>
+</div>
+
+
+<h3>SMS</h3>
+
+
+<div class="field">
+    <%= label_tag :sms_text, "Text" %>: <br/>
+    <%= text_area(:event, :sms_text, rows: 5, readonly: true, class: 'form-control') %>
+</div>
 
 
 <h3>Facebook</h3>
