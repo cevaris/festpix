@@ -48,7 +48,7 @@
 </div>
 
 <div class="field">
-    <%= label_tag :button_url %>: <%= @event.button_url.truncate 100 %>
+    <%= label_tag :button_url %>: <%= @event.button_url.truncate 100 if @event.button_url %>
 </div>
 
 
