@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 
   def render_500
     raise 'Awe shucks...'
-    render :status => 500, text: ''
   end
   def render_timeout
     sleep 50
