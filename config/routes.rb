@@ -39,9 +39,11 @@ Rq::Application.routes.draw do
   resources :users, :only => [:show, :index]
   root :to => "home#index"
 
+  match '/test/500' => 'home#render_500', via: [:get]
+  match '/test/timeout' => 'home#render_timeout', via: [:get]
+
 
   match '/:event_url/:id' => 'photo_sessions#show', via: [:get], as: 'event_photo_session'
-
 
   
   # The priority is based upon order of creation: first created -> highest priority.
