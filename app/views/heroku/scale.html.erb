@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="pull-right">
+        <div class="btn-group">
+            <%= button_to 'Scale up',   heroku_scale_path(state: 'up'),   class: 'btn btn-default', method: 'get', type: 'button' %>
+            <%= button_to 'Scale down', heroku_scale_path(state: 'down'), class: 'btn btn-default', method: 'get', type: 'button' %>
+        </div>
+    </div>
+  <h1>Current Heroku State</h1>
+</div>
+
+
+
+
+
+
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @scale.each do |dyno| %>
+        <tr>
+          <td><%= dyno.process.titleize  %></td>
+          <td><%= dyno.count %></td>
+          <td><%= dyno.size %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+

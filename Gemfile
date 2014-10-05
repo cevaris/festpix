@@ -68,6 +68,7 @@ gem 'delayed_paperclip', '~> 2.8.0'
 gem 'will_paginate', '~> 3.0.7'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'cancan', '~> 1.6.10'
+gem 'platform-api', :git => 'https://github.com/cevaris/platform-api.git'
 
 
 

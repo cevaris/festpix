@@ -16,6 +16,8 @@ Rq::Application.routes.draw do
   # match '/photo/:photo_id/:size' => 'photo#photo', via: [:get], as: 'photo_size'
 
 
+  match '/scale/:state' => 'heroku#scale', via: [:get], as: 'heroku_scale', defaults: { format: 'html' }
+
 
   # match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
   # resources :email, :path => "pics"
@@ -25,6 +27,7 @@ Rq::Application.routes.draw do
     # match 'pics', to: 'photo_sessions#email_new', via: [:get]
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
+
 
   resources :events do
     collection do

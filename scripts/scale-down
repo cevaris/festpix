@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -z "$1" ]; then
-  echo "Please provide an app"
-  exit 1
-fi
-heroku config:set BACKGROUND_PROCESSING=false --app=$1
-heroku ps:scale web=1:1X worker=0:1X --app=$1
