@@ -11,9 +11,9 @@ GIT
 
 GIT
   remote: https://github.com/cevaris/platform-api.git
-  revision: 04b9345dd9fd958732b130c8a69e02028485c5d5
+  revision: a8d81938f0590dbe0c5d834016e0b96a3bd5d00c
   specs:
-    platform-api (0.3.0.2)
+    platform-api (0.3.0.4)
       heroics (~> 0.0.10)
 
 GEM
