@@ -61,12 +61,14 @@ gem 'select2-rails', '~> 3.5.4'
 gem 'acts-as-taggable-on', '~> 3.0.2'
 gem 'twilio-ruby', '~> 3.11.5'
 gem 'delayed_job_active_record', '~> 4.0.0'
-gem 'gibbon'
+gem 'gibbon', '~> 1.1.3'
 gem 'paperclip-watermark', :github => 'cevaris/paperclip-watermark'
-gem 'delayed_paperclip'
+gem 'delayed_paperclip', '~> 2.8.0'
 # gem 'paperclip-watermark', :path => "/Users/cevaris/Documents/workspace/paperclip-watermark"
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
+gem 'will_paginate', '~> 3.0.7'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
+gem 'cancan', '~> 1.6.10'
+gem 'platform-api', :git => 'https://github.com/cevaris/platform-api.git'
 
 
 

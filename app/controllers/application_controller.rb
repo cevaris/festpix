@@ -20,15 +20,32 @@ class ApplicationController < ActionController::Base
   end
 
   def update_devise_parameter_sanitizer
-    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar)
-    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:avatar)
+    devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:slug,:role,:customer,:customer_name)
+    devise_parameter_sanitizer.for(:account_update).push(:phone_number,:slug,:avatar,:role,:customer,:customer_name)
+  end
+
+  def redirect_to_back
+    redirect_to(session[:referer] || :back)
+  rescue ActionController::RedirectBackError
+    redirect_to root_path
   end
 
   def require_session
     unless current_user
-      flash[:error] = 'Please log in to claim these photos'  
+      flash[:error] = 'Please log in'
       redirect_to user_session_path
     end
+  end 
+
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+  rescue_from CanCan::AccessDenied do |exception|  
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
+    flash[:error] = "Access denied!"  
+    redirect_to_back
   end 
 
 end

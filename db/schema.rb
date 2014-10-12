@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907220213) do
+ActiveRecord::Schema.define(version: 20141002203945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140907220213) do
     t.text     "twitter_url"
     t.text     "twitter_text"
     t.string   "slug"
+    t.string   "button_text"
+    t.text     "button_url"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", using: :btree
@@ -140,6 +142,8 @@ ActiveRecord::Schema.define(version: 20140907220213) do
     t.datetime "avatar_updated_at"
     t.string   "phone_number"
     t.string   "slug"
+    t.string   "role"
+    t.integer  "customer_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

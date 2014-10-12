@@ -1,8 +1,11 @@
+<% if can? :create, Customer and false%>
 <div class="pull-right">
   <%= link_to new_customer_path, :class => "btn btn-default" do %>
     <i class="fa fa-plus"> Customer</i>
   <% end %>
 </div>
+<% end %>
+
 <div>
   <h1>Customers</h1>
 </div>

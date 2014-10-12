@@ -11,10 +11,12 @@ Rq::Application.routes.draw do
 
   match '/photo_sessions/:id/share' => 'photo_sessions#social_share', via: [:post], as: 'photo_session_social_share'
 
-  match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
+  # match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
   match '/photos/:photo_slug' => 'photo#photo', via: [:get], as: 'photo'
   # match '/photo/:photo_id/:size' => 'photo#photo', via: [:get], as: 'photo_size'
 
+
+  match '/scale/:state' => 'heroku#scale', via: [:get], as: 'heroku_scale', defaults: { format: 'html' }
 
 
   # match '/photo_session/search' => 'photo_sessions#search', via: [:get], as: 'search_sessions'
@@ -25,6 +27,7 @@ Rq::Application.routes.draw do
     # match 'pics', to: 'photo_sessions#email_new', via: [:get]
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
+
 
   resources :events do
     collection do
@@ -39,9 +42,10 @@ Rq::Application.routes.draw do
   resources :users, :only => [:show, :index]
   root :to => "home#index"
 
+  match '/test/timeout' => 'home#render_timeout', via: [:get]
+
 
   match '/:event_url/:id' => 'photo_sessions#show', via: [:get], as: 'event_photo_session'
-
 
   
   # The priority is based upon order of creation: first created -> highest priority.

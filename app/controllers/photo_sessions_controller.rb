@@ -26,7 +26,8 @@ class PhotoSessionsController < ApplicationController
 
     # @photo_sessions = emails | phones
     if current_user
-      @photo_sessions = PhotoSession.paginate(:page => params[:page], :per_page => 20).order('id DESC')
+      @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
+      # @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
       render 'admin_show'
     else
       redirect_to action: "new"
@@ -146,10 +147,9 @@ class PhotoSessionsController < ApplicationController
 
   # GET /photo_sessions/new
   def new
-    
-
-    Rails.logger.info "Cached Event #{@event}"
-
+    if current_user and current_user.customer? and current_user.customer.events.empty?
+      flash.notice = "You first must need to create an event! #{view_context.link_to 'Click here to create an  Event.', new_event_path }".html_safe
+    end
     @photo_session = PhotoSession.new
     3.times { @photo_session.photos.build }
   end

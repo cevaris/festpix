@@ -9,13 +9,29 @@
         <span class="icon-bar"></span>
       </button>
       
-      <a class="navbar-brand" href="http://www.festpix.com/">
-      <% if is_production? %>
-        FestPix
-      <% else %>
-        FestPix Dev
+      <% if user_signed_in? %>
+        
+        <% if current_user.admin? %>
+          <a class="navbar-brand" href="http://www.festpix.com/">
+          <% if is_production? %>
+            FestPix
+          <% else %>
+            FestPix Dev
+          <% end %>
+          </a>
+        <% elsif current_user.customer? %>
+          <a class="navbar-brand" href="#">
+          <% if is_production? %>
+            <%= current_user.customer.name %>
+          <% else %>
+            <%= current_user.customer.name %> Dev
+          <% end %>
+          </a>
+        <% end %>
+        
       <% end %>
-      </a>
+
+      
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -23,19 +39,29 @@
         <% if user_signed_in? %>
           
           <% if current_user %>
-            <li><%= link_to 'New Photo Sessions', new_photo_session_path %></li>
+            <li><%= link_to 'New Photo Session', new_photo_session_path %></li>
             <li><%= link_to 'Photo Sessions', photo_sessions_path %></li>
             <li><%= link_to 'Events', events_path %></li>
-            <li><%= link_to 'Customers', customers_path %></li>
+            
+            <% if current_user.admin? %>
+              <li><%= link_to 'Customers', customers_path %></li>
+              <li><%= link_to 'Heroku', heroku_scale_path( state: 'current' ) %></li>
+            <% else %>
+              <li><%= link_to 'Settings', customer_path(current_user.customer) %></li>
+            <% end %>
+
           <% end %>
 
-          <li><%= link_to current_user.email , current_user  %></li>
-          <li><%= link_to 'Settings', edit_user_registration_path %></li>
+          <% if current_user.admin? %>
+            <!-- <li><%#= link_to current_user.email , current_user  %></li> -->
+            <li><%= link_to 'Settings', edit_user_registration_path %></li>
+          <% end %>
+
           <li class="divider"></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Sign in", new_user_session_path %></li>
-          <!-- <li><%= link_to "Sign up", new_user_registration_path %></li> -->
+          <li><%= link_to "Create Account", new_user_registration_path %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

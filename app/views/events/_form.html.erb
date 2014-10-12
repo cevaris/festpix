@@ -18,17 +18,38 @@
     <%= f.label :name %><br>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
-    
-    <% if params[:action] == 'edit' %>
-      <%= f.label :slug, 'URL Route/Name (Read Only, cannot change)' %> <br/>
-      <%= f.text_field :slug, class: 'form-control', readonly: true%>
-    <% else %>
-    <%= f.label :slug, 'URL Route/Name' %> <br/>
-      <%= f.text_field :slug, class: 'form-control' %>
-    <% end %>
 
+
+
+  <div class="field">
+    <%= f.label :customer_id, 'Customer' %><br>
+    <% if @event and @event.customer %>
+    <%= f.select :customer_id, Customer.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
+    <% else %> 
+    <%= f.select :customer_id, Customer.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {}, {class: 'form-control'} %>
+    <% end %>
+    <%#= f.hidden_field :customer_id, class: 'form-control select2 ajax', data: { source: autocomplete_customers_path } %>
   </div>
+
+  <% if params[:action] == 'edit' %>
+    <%= f.label :slug, 'URL Route/Name (Read Only, cannot change)' %> <br/>
+    <%= f.text_field :slug, class: 'form-control', readonly: true%>
+  <% else %>
+  <%= f.label :slug, 'URL Route/Name' %> <br/>
+    <%= f.text_field :slug, class: 'form-control' %>
+  <% end %>
+
+  <br> 
+  <h3>Custom Button</h3>
+  <div class="field">
+    <%= f.label :button_url %> <br/>
+    <%= f.text_field :button_url, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :button_text %><br>
+    <%= f.text_field :button_text, class: 'form-control' %>
+  </div>
+
   <div class="field">
     <%#= f.label :description %><!-- <br> -->
     <%#= text_area(:event, :description, cols: 50, rows: 5, class: 'form-control') %>
@@ -36,23 +57,14 @@
   </div>
 
   <br>
-
+  <h3>SMS</h3>
   <div class="field">
     <%= f.label :sms_text %><br>
     <%= text_area(:event, :sms_text, cols: 50, rows: 5, class: 'form-control') %>
   </div>
-  
-  <div class="field">
-    <%= f.label :facebook_url %> <br/>
-    <%= f.text_field :facebook_url, class: 'form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :facebook_text %><br>
-    <%= text_area(:event, :facebook_text, cols: 50, rows: 5, class: 'form-control') %>
-  </div>
 
   <br>
-
+  <h3>Twitter</h3>
   <div class="field">
     <%= f.label :twitter_url %> <br/>
     <%= f.text_field :twitter_url, class: 'form-control' %>
@@ -62,18 +74,21 @@
     <%= text_area(:event, :twitter_text, cols: 50, rows: 5, class: 'form-control') %>
   </div>
 
-  <br>
-
+  <br> 
+  <h3>Facebook</h3>
   <div class="field">
-    <%= f.label :customer_id, 'Customer' %><br>
-    <% if @event and @event.customer %>
-    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
-    <% else %> 
-    <%= f.select :customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, {}, {class: 'form-control'} %>
-    <% end %> 
-    <%#= f.hidden_field :customer_id, class: 'form-control select2 ajax', data: { source: autocomplete_customers_path } %>
+    <%= f.label :facebook_url %> <br/>
+    <%= f.text_field :facebook_url, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook_text %><br>
+    <%= text_area(:event, :facebook_text, cols: 50, rows: 5, class: 'form-control') %>
   </div>
 
+  
+
+  <br>
+  <h3>Watermark</h3>
   <div class="field">
     <%= f.label :logo %><br />
     <% unless @event.logo.url.include? 'missing' %>

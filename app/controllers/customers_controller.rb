@@ -1,10 +1,13 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  
+  load_and_authorize_resource :find_by => :slug
+  # before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    # @customers = Customer.all
+    @customers = Customer.accessible_by(current_ability, :update)
   end
 
   # GET /customers/1
@@ -72,10 +75,10 @@ class CustomersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find_by_slug(params[:id])
-    end
+    # # Use callbacks to share common setup or constraints between actions.
+    # def set_customer
+    #   @customer = Customer.find_by_slug(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     # def customer_params

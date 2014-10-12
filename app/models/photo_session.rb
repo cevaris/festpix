@@ -24,6 +24,7 @@ class PhotoSession < ActiveRecord::Base
   
   accepts_nested_attributes_for :photos, :allow_destroy => true
 
+  validates :event_id, presence: true
   validate :phone_list_format
   # validates :photos, presence: true
 

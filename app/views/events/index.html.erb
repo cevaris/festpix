@@ -8,6 +8,10 @@
   <h1>Events</h1>
 </div>
 
+<% if @events.empty? %> 
+<h3>No Events</h3>
+<%= link_to 'Click here to Create One', new_event_path, :class => "btn btn-default" %>
+<% else %>
 <table class="table">
   <thead>
     <tr>
@@ -44,6 +48,7 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
 
 <br>
 

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator'}#, :admin =>'Admin' }
+  ROLES = {super_admin: 'super admin', admin: 'admin', customer: 'customer', banned: 'banned'}
+  # TYPES = {:photographer =>'Photographer', :attendee=>'Attendee', :coordinator=>'Event Coordinator'}#, :admin =>'Admin' }
   PHONE_FORMAT = /\A[0-9]{10}\z/
 
 
@@ -7,6 +8,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  belongs_to :customer, :dependent => :destroy
+  accepts_nested_attributes_for :customer
 
    # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
 
@@ -20,7 +23,7 @@ class User < ActiveRecord::Base
 
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :avatar, :content_type => %w(image/jpeg image/jpg image/png)
-  validates_format_of :phone_number, with: PHONE_FORMAT, message: "has an invalid format."
+  validates_format_of :phone_number, with: PHONE_FORMAT, message: "has an invalid format.", :allow_blank => true
 
 
   before_save :default_values
@@ -29,11 +32,22 @@ class User < ActiveRecord::Base
       token = SecureRandom.hex[0..3]
       break token unless User.exists?(slug: token)
     end
+    # self.role ||= User::ROLES[:admin]
+    self.role ||= User::ROLES[:customer]
   end
 
   def to_param
     self.slug
   end 
+
+  def admin?
+    [User::ROLES[:admin], User::ROLES[:super_admin]].include? self.role
+  end
+
+  def customer?
+    [User::ROLES[:customer]].include? self.role and self.customer
+    # [User::ROLES[:customer]].include? self.role
+  end
 
 
 end

@@ -2,10 +2,38 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
+    Rails.logger.info params
 
-    resource_saved = resource.save
+    
+
+    #################################################
+    # customer = false
+    # if not Customer.exists?(slug: resource.slug)
+    #   customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
+    #   resource.customer = Customer.find_by_slug(params[:customer_slug]) if customer.save
+    #   resource_saved = resource.save
+    # else 
+    #   resource_saved = false
+    #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken"
+    # end
+    customer_saved = false
+    resource_saved = false
+    customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
+    if customer.valid? and resource.valid?
+      customer_saved = customer.save
+      resource.customer = Customer.find_by_slug(resource.slug)
+      resource_saved = resource.save
+    else 
+      resource.errors[:base] << "Customer URL '#{resource.slug}' already taken" unless customer.valid?
+    end
+    #################################################
+
+    Rails.logger.info resource.inspect
+    Rails.logger.info resource.errors.inspect
+    Rails.logger.info resource_saved
+
     yield resource if block_given?
-    if resource_saved
+    if customer and resource_saved
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)

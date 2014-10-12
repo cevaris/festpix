@@ -117,6 +117,22 @@
 
 
   <div class="row center">
+
+    <div class="col-sm-4 col-md-4"></div>
+    
+    <div class="col-sm-4 col-md-4">
+      <% unless @photo_session.event.button_url.nil? %>
+        <button type="button" class="btn btn-lg btn-block color-three clickable" data-url="<%=  @photo_session.event.button_url %>">
+            <%= @photo_session.event.button_text %>
+        </button>
+      <% end %>
+    </div>
+
+    <div class="col-sm-4 col-md-4"></div>
+  </div>
+  
+  <div class="row center">
+
     <div class="col-sm-3 col-md-3"></div>
     
     <div class="col-sm-3 col-md-3">
@@ -137,13 +153,24 @@
     <div class="col-sm-3 col-md-3"></div>
   </div>
 
-  <% unless @photo_session.event.festpix? %>
-    <div class="row center">
-      <%= link_to 'http://festpix.com/', type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
-        FestPix
+  <div class="row center">
+
+    <div class="col-sm-4 col-md-4"></div>
+    
+    <div class="col-sm-4 col-md-4">
+      <% unless @photo_session.event.festpix? %>
+        <div class="row center">
+          <%= link_to 'http://festpix.com/', type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
+            FestPix
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
+
+    <div class="col-sm-4 col-md-4"></div>
+  </div>
+
+  
 
 <!--   
   <hr/>
@@ -197,6 +224,12 @@
 
 <!-- ################ -->
 <script type="text/javascript">
+
+///////////////////////////////////////////////////////////////////////////
+// Clickable links
+$( '.clickable' ).on( "click", function() {
+    window.location = $(this).attr('data-url');
+});
 
 ///////////////////////////////////////////////////////////////////////////
 // General sharing ajax

@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :require_session, only: [:new, :edit, :update, :destroy]
+
+  load_and_authorize_resource :find_by => :slug
+  # # before_action :set_event, only: [:show, :edit, :update, :destroy]
+  # before_action :require_session, only: [:new, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.accessible_by(current_ability, :update)
   end
 
   # GET /events/1
@@ -79,15 +81,16 @@ class EventsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find_by_slug(params[:id]) || Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find_by_slug(params[:id]) || Event.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(
         :name, :slug, :description, :customer_id, :logo, :sms_text, 
         :facebook_url, :facebook_text, 
-        :twitter_url, :twitter_text)
+        :twitter_url, :twitter_text,
+        :button_url, :button_text)
     end
 end

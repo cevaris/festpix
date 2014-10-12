@@ -3,7 +3,6 @@ require 'securerandom'
 class Event < ActiveRecord::Base
 
   belongs_to :customer
-  has_many   :events
   has_many   :photo_sessions, :dependent => :destroy
 
   has_attached_file :logo, styles: { 
@@ -18,6 +17,7 @@ class Event < ActiveRecord::Base
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
   validates_length_of :facebook_text, :minimum => 0, :maximum => 150, :allow_blank => true
   validates_length_of :twitter_text,  :minimum => 0, :maximum => 100, :allow_blank => true
+  validates_length_of :button_text,   :minimum => 0, :maximum => 15,  :allow_blank => true
 
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
