@@ -7,13 +7,13 @@
   <h1><%= @customer.name %></h1>
 </div>
 
-
 <table class="table">
   <thead>
     <tr>
       <th><i class="fa fa-twitter fa-2x"></i></th>
       <th><i class="fa fa-facebook fa-2x"></i></th>
       <th><i class="fa fa-instagram fa-2x"></i></th>
+      <th><i class="fa fa-link fa-2x"></i></th>
       <th>Opened</th>
       <th>Total</th>
     </tr>
@@ -24,6 +24,7 @@
         <td><%= @customer.shares[:twitter]   %></td>
         <td><%= @customer.shares[:facebook]  %></td>
         <td><%= @customer.shares[:instagram] %></td>
+        <td><%= @customer.shares[:custom_button] %></td>
 
         <td><%= @customer.opened_sessions %></td>
         <td><%= @customer.total_sessions %></td>

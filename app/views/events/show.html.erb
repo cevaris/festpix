@@ -13,6 +13,7 @@
       <th><i class="fa fa-twitter fa-2x"></i></th>
       <th><i class="fa fa-facebook fa-2x"></i></th>
       <th><i class="fa fa-instagram fa-2x"></i></th>
+      <th><i class="fa fa-link fa-2x"></i></th>
       <th>Opened</th>
       <th>Total</th>
     </tr>
@@ -23,6 +24,7 @@
         <td><%= @event.shares[:twitter]   %></td>
         <td><%= @event.shares[:facebook]  %></td>
         <td><%= @event.shares[:instagram] %></td>
+        <td><%= @event.shares[:custom_button] %></td>
 
         <td><%= @event.opened_sessions %></td>
         <td><%= @event.total_sessions %></td>

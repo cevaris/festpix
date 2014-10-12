@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
   validates_length_of :facebook_text, :minimum => 0, :maximum => 150, :allow_blank => true
   validates_length_of :twitter_text,  :minimum => 0, :maximum => 100, :allow_blank => true
-  validates_length_of :button_text,   :minimum => 0, :maximum => 15,  :allow_blank => true
+  validates_length_of :button_text,   :minimum => 0, :maximum => 20,  :allow_blank => true
 
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
@@ -43,8 +43,8 @@ class Event < ActiveRecord::Base
 
   def shares
     Rails.cache.fetch("event_shares_#{self.id}", expires_in: 10.minutes) do
-      s = PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares).transpose.map {|a| a.inject(:+)}
-      {twitter: s[0], facebook: s[1], instagram: s[2]}
+      s = PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares, :custom_button_shares).transpose.map {|a| a.inject(:+)}
+      {twitter: s[0], facebook: s[1], instagram: s[2], custom_button: s[3]}
     end
   end
 

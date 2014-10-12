@@ -64,6 +64,8 @@ class PhotoSessionsController < ApplicationController
     # Make sure this key exists
     params[:social_type] ||= ''
 
+    Rails.logger.info "Social Share #{params[:social_type]}"
+
     case params[:social_type].strip.downcase
     when 'facebook'
       @photo_session.facebook_shares  = @photo_session.facebook_shares + 1
@@ -71,6 +73,8 @@ class PhotoSessionsController < ApplicationController
       @photo_session.twitter_shares   = @photo_session.twitter_shares  + 1
     when 'instagram'
       @photo_session.instagram_shares = @photo_session.instagram_shares + 1
+    when 'custom_button'
+      @photo_session.custom_button_shares = @photo_session.custom_button_shares + 1
     else
       # Do nothing, did not match any social type
     end

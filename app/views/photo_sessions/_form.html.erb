@@ -61,7 +61,7 @@
 
   <div class="field">
     <%= f.label :event_id, 'Event' %><br>
-    <%= f.select :event_id, Event.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {selected: @event.id}, {class: 'form-control'} %>
+    <%= f.select :event_id, Event.accessible_by(current_ability, :update).collect {|e| [ "#{e.customer.name}: #{e.name}", e.id ] }, {selected: @event.id}, {class: 'form-control'} %>
     <%#= f.select :event_id, Event.all.collect {|e| [ e.name, e.id ] }, {selected: @event.id}, {class: 'form-control'} %>
     <%#= select(:photo_session, :event_id, Event.all.collect {|e| [ e.name, e.id ] }, { include_blank: false }, class: 'form-control', selected: @event.id ) %>
     <%#= f.hidden_field :event_id, class: 'form-control select2 ajax', data: { source: autocomplete_events_path } %>
