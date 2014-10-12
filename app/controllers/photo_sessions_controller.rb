@@ -280,14 +280,14 @@ class PhotoSessionsController < ApplicationController
         # !!Integer(params[:id])
         # raise ArgumentError if Integer(params[:id])
         @photo_session = PhotoSession.find_by_slug(params[:id])
-        @event = @photo_session.event
         # @event = @photo_session.event
         # redirect_to @photo_session
       rescue ArgumentError, TypeError, ActiveRecord::RecordNotFound
         # PhotoSession.find(params[:id])
         @photo_session = PhotoSession.find(params[:id])
-        @event = @photo_session.event
       end
+
+      @event = @photo_session.event if @photo_session
 
     end
 
