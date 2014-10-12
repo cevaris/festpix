@@ -58,14 +58,10 @@
 <div class="container color-three">
 
   <div class=" text-center">
-    <% if @photo_session.event.festpix? %>
-      <h2><%= @photo_session.event %></h2>
+    <% if @photo_session.event.logo.file? %>
+      <%= image_tag @photo_session.event.logo(:medium) %>  
     <% else %>
-      <% unless @photo_session.event.logo(:medium).include? 'festpix.png' %>
-        <%= image_tag @photo_session.event.logo(:medium) %>  
-      <% else %>
-        <h2><%= @photo_session.event %></h2>
-      <% end %>
+      <h2><%= @photo_session.event %></h2>
     <% end %>
   </div>
   
@@ -121,7 +117,7 @@
     <div class="col-sm-4 col-md-4"></div>
     
     <div class="col-sm-4 col-md-4">
-      <% unless @photo_session.event.button_url.nil? %>
+      <% if not @photo_session.event.button_url.nil? and not @photo_session.event.button_url.empty? %>
         <button type="button" class="btn btn-lg btn-block color-three" onclick="share_custom_button('<%=  @photo_session.event.button_url %>');">
             <%= @photo_session.event.button_text %>
         </button>

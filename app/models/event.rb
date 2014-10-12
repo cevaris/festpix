@@ -10,8 +10,15 @@ class Event < ActiveRecord::Base
     medium: '250x250>',
     large:  '500x500>'
   }
+
+  has_attached_file :watermark, styles: { 
+    thumb:  '100x100#',
+    medium: '250x250>',
+    large:  '500x500>'
+  }
   
   validates_attachment_content_type :logo, :content_type => %w(image/jpeg image/jpg image/png)
+  validates_attachment_content_type :watermark, :content_type => %w(image/jpeg image/jpg image/png)
   validates_uniqueness_of :slug
   
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012214855) do
+ActiveRecord::Schema.define(version: 20141012223533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,10 @@ ActiveRecord::Schema.define(version: 20141012214855) do
     t.string   "slug"
     t.string   "button_text"
     t.text     "button_url"
+    t.string   "watermark_file_name"
+    t.string   "watermark_content_type"
+    t.integer  "watermark_file_size"
+    t.datetime "watermark_updated_at"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", using: :btree

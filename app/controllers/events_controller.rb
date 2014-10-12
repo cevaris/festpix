@@ -34,7 +34,8 @@ class EventsController < ApplicationController
       if @event.save
 
         # Provide default watermark if not included
-        @event.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.logo.exists?
+        # @event.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.logo.exists?
+        @event.watermark = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.watermark.exists?
         @event.save
 
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -88,7 +89,8 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(
-        :name, :slug, :description, :customer_id, :logo, :sms_text, 
+        :name, :slug, :description, :customer_id, :sms_text, 
+        :logo, :watermark, 
         :facebook_url, :facebook_text, 
         :twitter_url, :twitter_text,
         :button_url, :button_text)
