@@ -7,10 +7,10 @@
 
         <div class="row center">
           <div class="col-md-4">
-            <a class="btn btn-default" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span></i> Close</a>
+            <a class="btn btn-default pull-left" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span></i> Close</a>
           </div>
           <div class="col-md-4">
-            <h4 class="text-center" style="margin-bottom: 15px;">Facebook Preview</h4>
+            
           </div>
           <div class="col-md-4">
             <button type="button" class="btn btn-primary pull-right" onclick="shareToFacebook('<%=  @photo.image.url(:xlarge) %>');">
@@ -20,7 +20,7 @@
         </div>
           
         
-        <textarea class="form-control" rows="3" style="margin-bottom: 15px;" placeholder="Having a greate time at this event! #festpix" ><%= @photo.photo_session.event.facebook_text %></textarea>
+        <textarea class="form-control" rows="3" style="margin: 15px auto;" placeholder="Having a greate time at this event! #festpix" ><%= @photo.photo_session.event.facebook_text %></textarea>
         
         <div class="thumbnail color-two">
           <%= image_tag @photo.image.url(:xlarge), style: 'pointer-events:none;' %>  

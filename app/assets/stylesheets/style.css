@@ -37,3 +37,8 @@ h1, h2, h3 {
 .color-one   {background-color: #1b1b24;} 
 .color-two   {background-color: #333333;} 
 .color-three {color: #428bca;} 
+
+img.img-logo.img-thumbnail {
+  background: transparent !important;
+  border: none !important;
+}

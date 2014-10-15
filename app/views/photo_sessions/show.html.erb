@@ -307,8 +307,6 @@ function alertFacebookPost(post_id){
 function shareToFacebook(reference){
   console.log("Sharing "+ reference);
 
-  message = typeof message !== 'undefined' ? message : "<%= "#{@photo_session.event.facebook_text} #FestPix" %>";
-
   
   FB.login(function(response){
 
@@ -365,7 +363,7 @@ function shareToFacebook(reference){
       //v3
       FB.api( 
         '/me/photos', 'post', 
-        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"}, 
+        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"},
       function(response){
         if(!response.id){
           console.log("Error");
