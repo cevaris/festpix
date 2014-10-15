@@ -307,6 +307,8 @@ function alertFacebookPost(post_id){
 function shareToFacebook(reference){
   console.log("Sharing "+ reference);
 
+  message = typeof message !== 'undefined' ? message : "<%= "#{@photo_session.event.facebook_text} #FestPix" %>";
+
   
   FB.login(function(response){
 
@@ -357,6 +359,8 @@ function shareToFacebook(reference){
     <% end %>
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v3' %>
+
+      $('#facebookModal').modal('hide');
     
       //v3
       FB.api( 
@@ -368,7 +372,6 @@ function shareToFacebook(reference){
         } 
         console.log(response);
 
-        $('#facebookModal').modal('hide');
         alertFacebookPost(response.post_id);
         share_facebook();
 
