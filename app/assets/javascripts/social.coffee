@@ -32,4 +32,4 @@ initializeFacebookSDK = ->
   FB.init
     appId     : '1488469154715813'
     xfbml     : true
-    version   : 'v2.0'
+    version   : 'v2.1'
