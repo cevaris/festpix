@@ -78,7 +78,7 @@
             <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
           <!-- </a> -->
           
-          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="shareToFacebook('<%=  photo.image.url(:xlarge) %>');">
+          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
             <i class="fa fa-facebook"></i> Share to Facebook
           </button>
 
@@ -217,6 +217,9 @@
 </div>
 
 
+<div id="facebook_share"></div>
+
+
 
 <!-- ################ -->
 <script type="text/javascript">
@@ -284,13 +287,21 @@ function share_facebook(){
 <div id="fb-root"></div>
 <script type="text/javascript">
 
+function openFacebookModal(photo_id){
+  $.ajax({
+      url: "/social/facebook/share/"+photo_id,
+      type: "GET",
+      success: function(resp){ $('#facebook_share').html(resp); },
+      error:   function(resp){ console.log(resp); }
+  });
+}
+
 function alertFacebookPost(post_id){
   setTimeout(function() { 
     var post_data = post_id.split('_'); 
     var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
     pushFlash({message: 'Facebook share success. <a href="'+link+'"> View post here.', state:'success'});
   } , 500);
-
 }
 
 function shareToFacebook(reference){
@@ -344,6 +355,27 @@ function shareToFacebook(reference){
       });
 
     <% end %>
+
+    <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v3' %>
+    
+      //v3
+      FB.api( 
+        '/me/photos', 'post', 
+        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"}, 
+      function(response){
+        if(!response.id){
+          console.log("Error");
+        } 
+        console.log(response);
+
+        $('#facebookModal').modal('hide');
+        alertFacebookPost(response.post_id);
+        share_facebook();
+
+      });
+
+    <% end %>
+
 
   }, {scope: 'publish_actions'});
 }

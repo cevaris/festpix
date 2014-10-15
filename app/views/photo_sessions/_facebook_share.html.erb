@@ -1,0 +1,38 @@
+
+<div class="modal fade bs-example-modal-large" id="facebookModal" tabindex="-1" role="dialog" aria-labelledby="facebookModal" aria-hidden="true">
+  <div class="modal-dialog modal-large">
+    <div class="modal-content">
+
+      <div class="col-md-12 well">
+
+        <div class="row center">
+          <div class="col-md-4">
+            <a class="btn btn-default" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span></i> Close</a>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-center" style="margin-bottom: 15px;">Facebook Preview</h4>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary pull-right" onclick="shareToFacebook('<%=  @photo.image.url(:xlarge) %>');">
+              <i class="fa fa-facebook fa-fw"></i> Share
+            </button>
+          </div>
+        </div>
+          
+        
+        <textarea class="form-control" rows="3" style="margin-bottom: 15px;" placeholder="Having a greate time at this event! #festpix" ><%= @photo.photo_session.event.facebook_text %></textarea>
+        
+        <div class="thumbnail color-two">
+
+          <%= image_tag @photo.image.url(:xlarge), style: 'pointer-events:none;' %>  
+          <!-- <img alt="Nearby galaxy ngc 1569 is a hotbed of star birth activity" src="http://cdn.festpix.com.s3.amazonaws.com/photos/images/57b0/square/Nearby_galaxy_NGC_1569_is_a_hotbed_of_star_birth_activity.jpg?1410123448" style="pointer-events:none;" title="Nearby_galaxy_NGC_1569_is_a_hotbed_of_star_birth_activity.jpg" width="200px" /> -->
+        </div> <!-- .col-md-12 well -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#facebookModal').modal('show')
+</script>

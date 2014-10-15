@@ -59,6 +59,12 @@ class PhotoSessionsController < ApplicationController
     
   end
 
+  def facebook_share
+    Rails.logger.info params
+    @photo = Photo.find params[:photo_id]
+    render partial: 'facebook_share'
+  end
+
   def social_share
 
     # Make sure this key exists
