@@ -204,12 +204,12 @@
 <%#= button_to 'Edit', edit_photo_session_path(@photo_session) %>
 <%#= link_to 'Back', photo_sessions_path %>
 
-<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" id="facebookSpinner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sharing with Facebook</h4>
+        <h4 class="modal-title" id="facebookSpinner">Sharing with Facebook</h4>
       </div>
       <%= image_tag 'loading.gif' , width: '100%' %>
     </div>
@@ -217,7 +217,39 @@
 </div>
 
 
+<!-- <div class="modal fade" tabindex="-1" id="facebookStatus" role="dialog" aria-labelledby="facebookStatus" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    </div>
+  </div>
+</div> -->
+
+
+<div class="modal fade" id="facebookStatus" tabindex="-1" role="dialog" aria-labelledby="facebookStatus" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="facebookStatus">Facebook Share Successful</h4>
+      </div>
+
+      <div class="model-content text-center">
+        <br /><br />
+        <div id="facebookStatusMessage"></div>
+        <br /><br />
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div id="fb-root"></div>
 <div id="facebook_share"></div>
+
+
+
+
 
 
 
@@ -232,16 +264,15 @@ $( '.clickable' ).on( "click", function() {
 
 ///////////////////////////////////////////////////////////////////////////
 // General sharing ajax
-function share_social(social_type){
+function share_social(social){
   $.ajax({
       url: "<%= photo_session_social_share_path(@photo_session) %>",
       type: "POST",
-      data: { social_type: social_type },
+      data: { social_type: social },
       success: function(resp){ console.log('Successful share'); },
-      error:   function(resp){ console.log(resp); }
+      error:   function(resp){ console.log("Social Share Error:"); console.log(resp); }
   });
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // Custom Button Sharing
 function share_custom_button(redirect_to){
@@ -261,30 +292,27 @@ $('#share_twitter').click(function(e){
 
     window.location = href;
 });
-
-
 ///////////////////////////////////////////////////////////////////////////
 // Instagram
 function share_instagram(redirect_to){
   share_social('instagram');
   if(redirect_to.length > 0) window.location = redirect_to;
 }
-
 ///////////////////////////////////////////////////////////////////////////
 // Facebook
 function share_facebook(){
   share_social('facebook');
 }
-
-
 </script>
+<!-- ################################################## -->
 
 
 
 
-<!-- ################ -->
 
-<div id="fb-root"></div>
+
+
+<!-- ################################################## -->
 <script type="text/javascript">
 
 function openFacebookModal(photo_id){
@@ -300,252 +328,103 @@ function alertFacebookPost(post_id){
   setTimeout(function() { 
     var post_data = post_id.split('_'); 
     var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
-    pushFlash({message: 'Facebook share success. <a href="'+link+'"> View post here.', state:'success'});
-  } , 500);
-}
+    // pushFlash({message: 'Facebook share success. <a href="'+link+'"> View post here.</a>', state:'success'});
 
-function shareToFacebook(reference){
-  console.log("Sharing "+ reference);
+    $('#facebookStatus').modal('show');
+    $('#facebookStatusMessage').prepend(
+      $('<button/>')
+        .text('View post here')
+        .addClass('btn btn-primary btn-lg')
+        .click(function () { window.location = link; })
+    );
+    
+    setTimeout(function() {
+      $('#facebookStatus').modal('hide');
+    },5000);
+
+  } , 500);
 
   
-  FB.login(function(response){
+}
+
+function shareToFacebook(reference, textMessage){
+  console.log("Sharing "+ reference);
+
+  if(!textMessage)
+    textMessage = "<%= "#{@photo_session.event.facebook_text} #FestPix" %>";
+
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v1' %>
 
-      $('#myModal').modal('show');
-    
-      //v1
-      FB.api( 
-        '/me/photos', 'post', 
-        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"}, 
-      function(response){
-        if(!response.id){
-          console.log("Error");
-        } 
-        console.log(response);
+      $('#facebookSpinner').modal('show');
 
-        $('#myModal').modal('hide');
-        alertFacebookPost(response.post_id);
-        share_facebook();
+      FB.login(function(response){
+   
+        //v1
+        FB.api( 
+          '/me/photos', 'post', 
+          {url: reference,message: textMessage}, 
+          function(response){
+            if(!response.id){
+              console.log("Error");
+              alertFacebookPost(response.post_id);
+            } else {
+              share_facebook();
+            }
 
-      });
+            $('#facebookSpinner').modal('hide');
+
+        });
+      }, {scope: 'publish_actions'});
 
     <% end %>
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v2' %>
 
       //v2
-      FB.ui({
-        method: 'feed',
-        name: '<%= "#{@photo_session.event.customer} - #{@photo_session.event}" %>',
-        link: reference,
-        picture: reference,
-        caption: 'Shared via #FestPix',
-        description: '<%= "#{@photo_session.event.facebook_text} #FestPix" %>'
-      }, function(response){
-        if(response){
-          console.log('Photo posted to facebook! Thanks for using FestPix');
-          alertFacebookPost(response.post_id);
-          share_facebook();
-        } else {
-          console.log('Error!!');
-        }
-        console.log(response);
-        
-      });
+      FB.login(function(response){      
+        FB.ui({
+          method: 'feed',
+          name: '<%= "#{@photo_session.event.customer} - #{@photo_session.event}" %>',
+          link: reference,
+          picture: reference,
+          caption: 'Shared via #FestPix',
+          description: textMessage
+        }, function(response){
+          if(response){
+            share_facebook();
+            alertFacebookPost(response.post_id);
+          } else {
+            console.log('Error!!');
+          }
+        });
+      }, {scope: 'publish_actions'});
 
     <% end %>
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v3' %>
 
-      $('#facebookModal').modal('hide');
-    
       //v3
-      FB.api( 
-        '/me/photos', 'post', 
-        {url: reference,message: "<%= "#{@photo_session.event.facebook_text} #FestPix" %>"},
-      function(response){
-        if(!response.id){
-          console.log("Error");
-        } 
-        console.log(response);
+      $('#facebookModal').modal('hide');
 
-        alertFacebookPost(response.post_id);
-        share_facebook();
+      FB.login(function(response){
+      
+        FB.api( 
+          '/me/photos', 'post', 
+          {url: reference,message: textMessage },
+        function(response){
+          if(response.id){
+            share_facebook();
+            alertFacebookPost(response.post_id);
+          } else {
+            console.log("Error");
+          }
 
-      });
+        });
 
+      }, {scope: 'publish_actions'});
     <% end %>
 
-
-  }, {scope: 'publish_actions'});
 }
-//##################################################
-
-
-
-// function shareToFacebook(reference){
-
-//   // http://stackoverflow.com/questions/18831362/how-to-share-a-simple-image-on-facebook-with-callback
-//   console.log("Sharing " + reference);
-//   FB.login(function(response){
-
-//     FB.api( '/me/albums',
-//       function (response) {
-//         if (response && !response.error) {
-//           console.log(response);
-//         }
-//       }
-//     );
-
-    // FB.api( '/me/albums', "POST", {
-    //   name: 'FestPix',
-    //   // "message": "{album-description}",
-    //   // privacy: {enum: 'FRIENDS_OF_FRIENDS'},
-    // }, function (response) {
-        
-    //     // Return if album fetch fails
-    //     if(!response.id) {
-    //       console.log(response);
-    //       return false;
-    //     }
-
-    //     // FB.api('/album_id/photos', 'post', {
-    //     FB.api('/'+ response.id +'/photos', 'post', {
-    //       // message:'photo description',
-    //       url: reference        
-    //     }, function(response){
-    //       if (!response || response.error) {
-    //           console.log('Error occured');
-    //           console.log(response);
-    //       } else {
-    //           console.log('Post ID: ' + response.id);
-    //       }
-    //     });
-    // });
-
-
-    // FB.ui({
-    //   method: 'feed',
-    //   name: '<%= "#{@photo_session.event.customer} - #{@photo_session.event}" %>',
-    //   link: reference,
-    //   picture: reference,
-    //   caption: 'Shared via #FestPix',
-    //   description: '<%= "#{@photo_session.event.facebook_text} #FestPix" %>'
-    // }, function(response){
-    //   if(response){
-    //     console.log('Photo posted to facebook! Thanks for using FestPix');
-    //     console.log(response);
-    //   } else {
-    //     console.log('Error!!');
-    //   }
-      
-    // });
-
-  // }, {scope: ['publish_actions', 'user_photos']});
-
-
-  // FB.ui({
-  //   method: 'share',
-  //   href:   'reference'
-  // }, function(response){
-  //   // if(response.id){
-  //   //   console.log('Photo posted to facebook! Thanks for using FestPix');
-  //   // } else {
-  //   //   console.log('Error!!');
-  //   // }
-  //   console.log(response);
-  // });
-// }
-
-
-
-
-
-
-
-  // FB.login(function(response){
-  //   if (response.authResponse) {
-  //     var wallPost = {
-  //       message: "Shared via #FestPix",
-  //       picture: reference
-  //     };
-  //     FB.api('/me/feed', 'post', wallPost , function(response) {
-  //       if (!response || response.error) {
-  //         alert('Failure! ' + response.status + ' You may logout once and try again');
-  //       } else {
-  //         alert('Success! Post ID: ' + response);
-  //       }
-  //     });
-  //   } else {
-  //     if (!response || response.error) {
-  //       alert('Failure! ' + response.error + ' You may logout once and try again');
-  //       console(response.error)
-  //     } else {
-  //       // alert('Success! Post ID: ' + response);
-  //       console(response);
-  //     }
-  //   }
-  // }, {scope: 'publish_actions'});
-   
-
-  //  FB.ui({
-  //   method: 'feed',
-  //   name: 'Facebook Dialogs',
-  //   link: '<%= photo_session_url(@photo_session) %>',
-  //   picture: reference,
-  //   caption: 'Reference Documentation',
-  //   description: reference
-  // },function(response) {
-  //   if (response && response.post_id) {
-  //     alert('Succeeded to post');
-  //   } else {
-  //     alert('Failed to post');
-  //   }
-  // });
-
-
-  // FB.login(function(){
-  //  FB.api('/me/feed', 'post', {url: reference,message: "Shared via #FestPix"});
-  // }, {scope: 'publish_actions'});
-
-
-  // FB.login(function(response){
-  //   if (response.authResponse) {
-  //     FB.api('/me/photos', 'post', {
-  //       url: reference,
-  //       message: "Shared via #FestPix"
-  //     }, function(response){
-  //         if(response.id){
-  //           alert('Photo posted to facebook! Thanks for using FestPix');
-  //         }
-  //         else{
-  //           alert("Error");
-  //           console.log(response.error);
-  //         }
-  //     });
-  //   }
-  //   else {
-  //     alert('Could not connect to Facebook. Please try again later.');
-  //   }
-  // }, {scope: 'publish_stream'});
-// };
-
-
-// (function(d, s, id){
-//  var js, fjs = d.getElementsByTagName(s)[0];
-//  if (d.getElementById(id)) {return;}
-//  js = d.createElement(s); js.id = id;
-//// js.src = "//connect.facebook.net/en_US/sdk.js";
-//  js.src = "http://connect.facebook.net/en_US/sdk/debug.js"
-//  fjs.parentNode.insertBefore(js, fjs);
-// }(document, 'script', 'facebook-jssdk'));
-
-// window.fbAsyncInit = function() {
-//   FB.init({
-//     appId      : '1488469154715813',
-//     xfbml      : true,
-//     version    : 'v2.0'
-//   });
-// };
 </script>
+<!-- ################################################## -->

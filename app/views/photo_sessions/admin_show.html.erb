@@ -1,3 +1,5 @@
+<div class="col-xs-12">
+
 <div class="pull-right">
   <%= link_to new_photo_session_path, :class => "btn btn-default" do %>
     <i class="fa fa-plus"> Photo Session</i>
@@ -8,72 +10,67 @@
   <h1>Photo Sessions</h1>
 </div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Photo</th>
-      <th>Date</th>
-      <th>Tagging</th>
-      <th>Event</th>
-      <th>Time To Open</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <% @photo_sessions.each do |photo_session| %>
-    <% if photo_session.photos.first %>
-    <tr>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Session</th>
+        <th>Tagging</th>
+        <th>Event</th>
+        <th>Opened</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <% @photo_sessions.each do |photo_session| %>
+      <% if photo_session.photos.first %>
+      <tr>
 
-      <td>
-        <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
-      </td>
+        <td>
+          <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
+          <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
+        </td>
 
-      <td>
-        <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
-      </td>
+        <td>
+          <%= photo_session.email_list %> <%= photo_session.phone_list %>
+        </td>
 
-      <td>
-        <%= photo_session.email_list %> <%= photo_session.phone_list %>
-      </td>
+        <td>
+          <%= photo_session.event %>
+        </td>
 
-      <td>
-        <%= photo_session.event %>
-      </td>
+        <td>
+          <% if photo_session.is_opened? %>
+            <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
+          <% else %>
+            Not Opened
+          <% end %>          
+        </td>
 
-      <td>
-        <% if photo_session.is_opened? %>
-          <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
-        <% else %>
-          Not Opened
-        <% end %>          
-      </td>
+        <td>
+          <div class="btn-group" style="width:100px;">
+              <%= link_to 'Show', photo_session, type: 'buton', class: 'btn btn-default' %>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= link_to 'Show', photo_session %></li>
+                <!-- <li><%= link_to 'Edit', edit_photo_session_path(photo_session) %></li> -->
+                <li class="divider"></li>
+                <li><%= link_to 'Destroy', photo_session, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
+            </div>
+        </td>
 
-  <!--     <td>
-        <%#= link_to "Delete", photo_session,  data: {confirm: "Are you sure you want to delete Photo Session #{photo_session.slug}?"}, :method => :delete, class: 'btn btn-danger' %>
-      </td>
- -->
-      <td>
-        <div class="btn-group" style="width:100px;">
-            <%= link_to 'Show', photo_session, type: 'buton', class: 'btn btn-default' %>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><%= link_to 'Show', photo_session %></li>
-              <!-- <li><%= link_to 'Edit', edit_photo_session_path(photo_session) %></li> -->
-              <li class="divider"></li>
-              <li><%= link_to 'Destroy', photo_session, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-            </ul>
-          </div>
-      </td>
-
-    </tr>
+      </tr>
+      <% end %>
     <% end %>
-  <% end %>
-</table>
+  </table>
+
+  <%= will_paginate @photo_sessions %>
+</div>  
 
 
-<%= will_paginate @photo_sessions %>
+
 
 
 
