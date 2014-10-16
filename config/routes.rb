@@ -47,6 +47,7 @@ Rq::Application.routes.draw do
   match '/test/timeout' => 'home#render_timeout', via: [:get]
 
 
+  match ':event_url/photos/:photo_id' => 'photo#event_photo', via: [:get], as: 'event_photo'
   match '/:event_url/:id' => 'photo_sessions#show', via: [:get], as: 'event_photo_session'
 
   

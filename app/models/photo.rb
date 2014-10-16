@@ -52,9 +52,13 @@ class Photo < ActiveRecord::Base
     Rails.application.routes.url_helpers.photo_short_url(self, host: ENV['SHORT_URL'])[7..-1]
   end
 
-  # For Photo Session
+  # # For Photo Session
+  # def customer_url
+  #   Rails.application.routes.url_helpers.event_photo_session_url(self.photo_session.event.slug, self.photo_session.slug, host: ENV['SHORT_URL'])
+  # end
+  # For Photo
   def customer_url
-    Rails.application.routes.url_helpers.event_photo_session_url(self.photo_session.event.slug, self.photo_session.slug, host: ENV['SHORT_URL'])
+    Rails.application.routes.url_helpers.event_photo_url(self.photo_session.event.slug, self.slug, host: ENV['SHORT_URL'])
   end
 
   def watermark_path
