@@ -29,6 +29,8 @@ class Event < ActiveRecord::Base
 
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
+
+  accepts_nested_attributes_for :event_feature
   
 
   #############################
