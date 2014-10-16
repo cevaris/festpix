@@ -16,40 +16,8 @@
 
 </style>
 
-<!-- <div class="row">
-  <ol class="breadcrumb col-md-12">
-    <li><%= link_to 'Sessions', photo_sessions_path %></li>
-    <li class="active"><%= @photo_session.id %></li>
-  </ol>
-</div>
- -->
 
-<!-- <p>
-  <strong>Name:</strong>
-  <%= @photo_session.name %>
-</p> -->
 
-<!-- <p>
-  <strong>Photo user:</strong>
-  <%= @photo_session.photo_user_id %>
-</p>
- -->
-<!-- <p>
-  <strong>Event:</strong>
-  <%= @photo_session.event_id %>
-</p> -->
-<!-- 
-<p>
-  <strong>Phone Numbers:</strong>
-  <%= label_tag :phone_list, @photo_session.phone_list.join(', ') %>  
-</p> -->
-<!-- 
-<p>
-  <strong>Emails:</strong>
-  <%= label_tag :email_list, @photo_session.email_list.join(', ') %>  
-</p>
- -->
-<!-- <div> -->
 <% if !@photo_session.photos.empty? %>
 
   
@@ -67,6 +35,9 @@
   
   <hr/>
 
+
+
+  <!-- Photos and Sharing/Download Buttons -->
   <div class="row">
   
   <% @photo_session.photos.each do |photo| %>
@@ -112,7 +83,9 @@
   </div>
 
 
-  <div class="row center">
+
+  <!-- Start Custom Button -->
+  <div class="row text-center">
 
     <div class="col-sm-4 col-md-4"></div>
     
@@ -126,8 +99,14 @@
 
     <div class="col-sm-4 col-md-4"></div>
   </div>
-  
-  <div class="row center">
+  <!-- End Custom Button -->
+
+
+
+
+
+  <!-- Start Custom Twitter/Twitter Button -->
+  <div class="row text-center">
 
     <div class="col-sm-3 col-md-3"></div>
     
@@ -148,61 +127,67 @@
 
     <div class="col-sm-3 col-md-3"></div>
   </div>
+  <!-- End Custom Twitter/Facebook Button -->
 
-  <div class="row center">
+
+
+
+
+  <!-- Start FestPix  Button -->
+  <div class="row text-center">
 
     <div class="col-sm-4 col-md-4"></div>
     
     <div class="col-sm-4 col-md-4">
-      <% unless @photo_session.event.festpix? %>
-        <div class="row center">
+      <%# unless @photo_session.event.festpix? %>
+        <div class="row text-center">
           <%= link_to 'http://festpix.com/', type: 'button', class: 'btn btn-lg btn-block color-one color-three' do %>
             FestPix
           <% end %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
 
     <div class="col-sm-4 col-md-4"></div>
   </div>
-
+  <!-- End FestPix  Button -->
   
 
-<!--   
-  <hr/>
-  <div class="col-md-12 well">
-    <h3>Thanks so much for your support!</h3>
-    <h4>In the mean time, subscribe to our email list if you'd like to stay up to date:</h4>
-    <form action="http://festpix.us8.list-manage.com/subscribe/post?u=793783d1eb67229d5b27248ac&amp;id=2f2c08dbaa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+  <% if false %>
+    <!-- Start Email Form -->
+    <!-- <hr/>
+    <div class="col-md-12 well">
+      <h3>Thanks so much for your support!</h3>
+      <h4>In the mean time, subscribe to our email list if you'd like to stay up to date:</h4>
+      <form action="http://festpix.us8.list-manage.com/subscribe/post?u=793783d1eb67229d5b27248ac&amp;id=2f2c08dbaa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+          
+        <div class="mc-field-group">
+          <input value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL" type="email">
+          <input value="Subscribe for Updates" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary" type="submit">
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    
+
+          <div style="position: absolute; left: -5000px;"><input name="b_793783d1eb67229d5b27248ac_2f2c08dbaa" value="" type="text"></div>
         
-      <div class="mc-field-group">
-        <input value="" name="EMAIL" class="required email form-control" placeholder="Email" id="mce-EMAIL" type="email">
-        <input value="Subscribe for Updates" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary" type="submit">
-        <div id="mce-responses" class="clear">
-          <div class="response" id="mce-error-response" style="display:none"></div>
-          <div class="response" id="mce-success-response" style="display:none"></div>
-        </div>    
+          <h5 class="pull-right">Inquiries: <a href="mailto:info@festpix.com">info@FestPix.com</a></h5><br>
+        </div>
+      </form>
+    </div>  -->
+    <!-- End Email Form -->
+  <% end %>
 
-        <div style="position: absolute; left: -5000px;"><input name="b_793783d1eb67229d5b27248ac_2f2c08dbaa" value="" type="text"></div>
-      
-        <h5 class="pull-right">Inquiries: <a href="mailto:info@festpix.com">info@FestPix.com</a></h5><br>
-      </div>
-    </form>
-  </div> 
--->
-
-
-
+</div>
 <% else %>
   No Images Found
 <% end %>
 
 
-</div>
 
-
-<%#= button_to 'Edit', edit_photo_session_path(@photo_session) %>
-<%#= link_to 'Back', photo_sessions_path %>
+<!-- Start Facebook Modal's and API HTML -->
+<div id="fb-root"></div>
+<div id="facebook_share"></div>
 
 <div class="modal fade bs-example-modal-sm" id="facebookSpinner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -215,15 +200,6 @@
     </div>
   </div>
 </div>
-
-
-<!-- <div class="modal fade" tabindex="-1" id="facebookStatus" role="dialog" aria-labelledby="facebookStatus" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-    </div>
-  </div>
-</div> -->
-
 
 <div class="modal fade" id="facebookStatus" tabindex="-1" role="dialog" aria-labelledby="facebookStatus" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -242,10 +218,7 @@
     </div>
   </div>
 </div>
-
-
-<div id="fb-root"></div>
-<div id="facebook_share"></div>
+<!-- End Facebook Modal's and API HTML -->
 
 
 
@@ -253,7 +226,9 @@
 
 
 
-<!-- ################ -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Custom Javascript -->
 <script type="text/javascript">
 
 ///////////////////////////////////////////////////////////////////////////
@@ -304,7 +279,8 @@ function share_facebook(){
   share_social('facebook');
 }
 </script>
-<!-- ################################################## -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 
 
@@ -312,7 +288,9 @@ function share_facebook(){
 
 
 
-<!-- ################################################## -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Facebook Javascript -->
 <script type="text/javascript">
 
 function openFacebookModal(photo_id){
@@ -427,4 +405,5 @@ function shareToFacebook(reference, textMessage){
 
 }
 </script>
-<!-- ################################################## -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
