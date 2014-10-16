@@ -48,15 +48,15 @@
 
           <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
           
-          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
+          <!-- <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
             <i class="fa fa-facebook"></i> Share to Facebook
           </button>
-
-          <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
+ -->
+         <!--  <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
             <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
               <i class="fa fa-twitter"></i> Share to Twitter
             </button>
-          </a>
+          </a> -->
 
           <% if ENV['INSTAGRAM_ENABLED'].downcase == 'true' %>
             <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="share_instagram('<%= photo.image.url(:medium) %>');">
