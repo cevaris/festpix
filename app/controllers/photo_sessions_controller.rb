@@ -4,7 +4,7 @@ class PhotoSessionsController < ApplicationController
 
   protect_from_forgery :except => [:create]
   before_action :set_event_cookie
-  before_action :set_photo_session, only: [:show, :edit, :update, :destroy, :social_share]
+  before_action :set_photo_session, only: [:show, :edit, :update, :destroy, :counter]
   before_action :require_session, only: [:index, :claim]
 
 
@@ -65,7 +65,7 @@ class PhotoSessionsController < ApplicationController
     render partial: 'facebook_share'
   end
 
-  def social_share
+  def counter
 
     # Make sure this key exists
     params[:social_type] ||= ''
@@ -81,6 +81,8 @@ class PhotoSessionsController < ApplicationController
       @photo_session.instagram_shares = @photo_session.instagram_shares + 1
     when 'custom_button'
       @photo_session.custom_button_shares = @photo_session.custom_button_shares + 1
+    when 'downloads'
+      @photo_session.downloads = @photo_session.downloads + 1
     else
       # Do nothing, did not match any social type
     end

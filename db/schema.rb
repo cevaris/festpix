@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012223533) do
+ActiveRecord::Schema.define(version: 20141016032554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20141012223533) do
     t.integer  "facebook_shares",      default: 0
     t.integer  "instagram_shares",     default: 0
     t.integer  "custom_button_shares", default: 0
+    t.integer  "downloads",            default: 0
   end
 
   add_index "photo_sessions", ["slug"], name: "index_photo_sessions_on_slug", using: :btree

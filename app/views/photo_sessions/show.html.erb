@@ -63,7 +63,7 @@
               <i class="fa fa-instagram"></i> Download for Instagram
             </button>
           <% else %>
-            <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location = '<%= photo.image.url(:xlarge) %>';">
+            <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="share_downloads(); window.location = '<%= photo.image.url(:xlarge) %>';">
               <i class="fa fa-floppy-o"></i> High-Res Download
             </button>
           <% end %>
@@ -256,7 +256,7 @@ $( '.clickable' ).on( "click", function() {
 // General sharing ajax
 function share_social(social){
   $.ajax({
-      url: "<%= photo_session_social_share_path(@photo_session) %>",
+      url: "<%= photo_session_counter_path(@photo_session) %>",
       type: "POST",
       data: { social_type: social },
       success: function(resp){ console.log('Successful share'); },
@@ -292,6 +292,11 @@ function share_instagram(redirect_to){
 // Facebook
 function share_facebook(){
   share_social('facebook');
+}
+///////////////////////////////////////////////////////////////////////////
+// Downloads
+function share_downloads(){
+  share_social('downloads');
 }
 </script>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

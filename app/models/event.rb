@@ -50,8 +50,8 @@ class Event < ActiveRecord::Base
 
   def shares
     Rails.cache.fetch("event_shares_#{self.id}", expires_in: 10.minutes) do
-      s = PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares, :custom_button_shares).transpose.map {|a| a.inject(:+)}
-      {twitter: s[0], facebook: s[1], instagram: s[2], custom_button: s[3]}
+      s = PhotoSession.where(event_id: self.id).pluck(:twitter_shares, :facebook_shares, :instagram_shares, :custom_button_shares, :downloads).transpose.map {|a| a.inject(:+)}
+      {twitter: s[0], facebook: s[1], instagram: s[2], custom_button: s[3], downloads: s[4]}
     end
   end
 
