@@ -19,7 +19,7 @@
           </div>
         </div>
         
-        <textarea class="form-control" rows="3" style="margin: 15px auto;" placeholder="Write something about your pic!" ><%= @photo.photo_session.event.facebook_text %></textarea>
+        <textarea id="facebookPostText" class="form-control" rows="3" style="margin: 15px auto;" placeholder="Write something about your pic!" ><%= @photo.photo_session.event.facebook_text %></textarea>
         
         <div class="thumbnail color-two">
           <%= image_tag @photo.image.url(:xlarge), style: 'pointer-events:none;' %>  

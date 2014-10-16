@@ -45,15 +45,14 @@
        
 
        <div class="thumbnail color-two">
-          <!-- <a href="<%= photo.url %>" target="_blank" title="<%= photo.image_file_name %>"> -->
-            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
-          <!-- </a> -->
+
+          <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
           
           <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
             <i class="fa fa-facebook"></i> Share to Facebook
           </button>
 
-          <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" target="_blank" title="Shared via @FestPix">
+          <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
             <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
               <i class="fa fa-twitter"></i> Share to Twitter
             </button>
@@ -68,12 +67,6 @@
               <i class="fa fa-floppy-o"></i> High-Res Download
             </button>
           <% end %>
-
-         <!-- <a href="http://www.popsockets.com/pages/designer" target="_blank" title="PopSockets Store">
-            <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<#%  photo.image.url(:xlarge) %>">
-              PopSockets Store
-            </button>
-          </a>-->
        </div>
 
 
@@ -185,6 +178,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Start Facebook Modal's and API HTML -->
 <div id="fb-root"></div>
 <div id="facebook_share"></div>
@@ -219,6 +226,14 @@
   </div>
 </div>
 <!-- End Facebook Modal's and API HTML -->
+
+
+
+
+
+
+
+
 
 
 
@@ -288,10 +303,36 @@ function share_facebook(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- Facebook Javascript -->
 <script type="text/javascript">
+
+/**
+ * Determine the mobile operating system.
+ * This function either returns 'iOS', 'Android' or 'unknown'
+ *
+ * @returns {String}
+ */
+function isMobile() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return ( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) || userAgent.match( /Android/i ) )
+}
 
 function openFacebookModal(photo_id){
   $.ajax({
@@ -305,8 +346,16 @@ function openFacebookModal(photo_id){
 function alertFacebookPost(post_id){
   setTimeout(function() { 
     var post_data = post_id.split('_'); 
-    var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
-    // pushFlash({message: 'Facebook share success. <a href="'+link+'"> View post here.</a>', state:'success'});
+
+    if (isMobile())
+               // https://m.facebook.com/photo.php?fbid=355775384571088&id=381155535366406
+               // https://m.facebook.com/photo.php?fbid=381157265366233&id=100004158871410
+      var link = 'https://m.facebook.com/photo.php?fbid='+post_data[0]+'&id='+post_data[1];
+    else
+      var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
+
+      
+
 
     $('#facebookStatus').modal('show');
     $('#facebookStatusMessage').prepend(
@@ -316,20 +365,20 @@ function alertFacebookPost(post_id){
         .click(function () { window.location = link; })
     );
     
-    setTimeout(function() {
-      $('#facebookStatus').modal('hide');
-    },5000);
+    // setTimeout(function() {
+    //   $('#facebookStatus').modal('hide');
+    // },5000);
 
   } , 500);
 
   
 }
 
-function shareToFacebook(reference, textMessage){
+function shareToFacebook(reference){
   console.log("Sharing "+ reference);
 
-  if(!textMessage)
-    textMessage = "<%= "#{@photo_session.event.facebook_text} #FestPix" %>";
+
+  var textMessage = "<%= "#{@photo_session.event.facebook_text} #FestPix" %>";
 
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v1' %>
@@ -385,6 +434,9 @@ function shareToFacebook(reference, textMessage){
       //v3
       $('#facebookModal').modal('hide');
 
+      if ($.trim($('textarea#facebookPostText').val()))
+        textMessage = $('textarea#facebookPostText').val() + " #FestPix";
+
       FB.login(function(response){
       
         FB.api( 
@@ -402,6 +454,8 @@ function shareToFacebook(reference, textMessage){
 
       }, {scope: 'publish_actions'});
     <% end %>
+
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
 
 }
 </script>
