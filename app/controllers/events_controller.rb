@@ -19,6 +19,13 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @event.event_feature = EventFeature.new
+
+    # Have to assign defaults here because "before_save" was not working
+    @event.event_feature.facebook_share_button   = true
+    @event.event_feature.twitter_share_button    = true
+    @event.event_feature.instagram_share_button  = false
+    @event.event_feature.download_button         = true
+    @event.event_feature.download_clicked_image  = false
   end
 
   # GET /events/1/edit

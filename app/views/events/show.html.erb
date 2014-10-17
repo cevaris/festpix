@@ -87,7 +87,7 @@
 <div class="field">
     <%= label_tag :logo %> </br>
     <% if @event.logo.file? %>
-      <%= image_tag @event.logo.url(:original) , class:'img-thumbnail', width: '200px' %>
+      <%= image_tag @event.logo.url(:original) , class:'img-thumbnail img-logo', width: '200px' %>
     <% else %>
       None found
     <% end %>
@@ -96,7 +96,7 @@
 <div class="field">
     <%= label_tag :watermark %> </br>
     <% if @event.watermark.file? %>
-      <%= image_tag @event.watermark.url(:original) , class:'img-thumbnail', width: '200px' %>
+      <%= image_tag @event.watermark.url(:original) , class:'img-thumbnail img-logo', width: '200px' %>
     <% end %>
 </div>
 

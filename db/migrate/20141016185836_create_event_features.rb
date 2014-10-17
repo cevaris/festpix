@@ -13,7 +13,13 @@ class CreateEventFeatures < ActiveRecord::Migration
     add_column :events, :event_feature_id, :integer
 
     Event.all.each do |e|
-      e.event_feature = EventFeature.create
+      e.event_feature = EventFeature.new
+      e.event_feature.facebook_share_button   = true
+      e.event_feature.twitter_share_button    = true
+      e.event_feature.instagram_share_button  = false
+      e.event_feature.download_button         = true
+      e.event_feature.download_clicked_image  = false
+      e.event_feature.save
       e.save
     end
   end
