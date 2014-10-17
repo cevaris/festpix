@@ -109,11 +109,11 @@
 <div class="field">
   <%= label_tag :facebook_share_button, "Facebook Share Button " %> </br>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= @event.event_feature.facebook_share_button ? 'active' : '' %>">
-      <%= radio_button_tag :facebook_share_button, 'Show' %>Show
+    <label class="btn btn-primary <%= @event.event_feature.facebook_share_button_active? %>">
+      <%= radio_button_tag :facebook_share_button, true, '', disabled: true %>Show
     </label>
-    <label class="btn btn-primary <%= @event.event_feature.facebook_share_button ? '' : 'active' %>">
-      <%= radio_button_tag :facebook_share_button, 'Hide' %>Hide
+    <label class="btn btn-primary <%= @event.event_feature.facebook_share_button_inactive? %>">
+      <%= radio_button_tag :facebook_share_button, false, '', disabled: true %>Hide
     </label>
   </div>
 </div>
@@ -122,11 +122,11 @@
 <div class="field">
    <%= label_tag :twitter_share_button, "Twitter Share Button " %> </br>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= @event.event_feature.twitter_share_button ? 'active' : '' %>">
-      <%= radio_button_tag :twitter_share_button, 'Show' %>Show
+    <label class="btn btn-primary <%= @event.event_feature.twitter_share_button_active? %>">
+      <%= radio_button_tag :twitter_share_button, true, '', disabled: true %>Show
     </label>
-    <label class="btn btn-primary <%= @event.event_feature.twitter_share_button ? '' : 'active' %>">
-      <%= radio_button_tag :twitter_share_button, 'Hide' %>Hide
+    <label class="btn btn-primary <%= @event.event_feature.twitter_share_button_inactive? %>">
+      <%= radio_button_tag :twitter_share_button, false, '', disabled: true %>Hide
     </label>
   </div>
 </div>
@@ -135,11 +135,11 @@
 <div class="field">
   <%= label_tag :instagram_share_button, "Instagram Share Button " %> </br>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= @event.event_feature.instagram_share_button ? 'active' : '' %>">
-      <%= radio_button_tag :instagram_share_button, 'Show' %>Show
+    <label class="btn btn-primary <%= @event.event_feature.instagram_share_button_active? %>">
+      <%= radio_button_tag :instagram_share_button, true, '', disabled: true %>Show
     </label>
-    <label class="btn btn-primary <%= @event.event_feature.instagram_share_button ? '' : 'active' %>">
-      <%= radio_button_tag :instagram_share_button, 'Hide' %>Hide
+    <label class="btn btn-primary <%= @event.event_feature.instagram_share_button_inactive? %>">
+      <%= radio_button_tag :instagram_share_button, false, '', disabled: true %>Hide
     </label>
   </div>
 </div>
@@ -148,11 +148,11 @@
 <div class="field">
   <%= label_tag :download_button, "Download High Resolution Button" %> </br>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= @event.event_feature.download_button ? 'active' : '' %>">
-      <%= radio_button_tag :download_button, 'Show' %>Show
+    <label class="btn btn-primary <%= @event.event_feature.download_button_active? %>">
+      <%= radio_button_tag :download_button, true, '', disabled: true %>Show
     </label>
-    <label class="btn btn-primary <%= @event.event_feature.download_button ? '' : 'active' %>">
-      <%= radio_button_tag :download_button, 'Hide' %>Hide
+    <label class="btn btn-primary <%= @event.event_feature.download_button_inactive? %>">
+      <%= radio_button_tag :download_button, false, '', disabled: true %>Hide
     </label>
   </div>
 </div>
@@ -161,11 +161,11 @@
 <div class="field">
   <%= label_tag :download_clicked_image, "Click Image to View Session Photo" %> </br>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= @event.event_feature.download_clicked_image ? 'active' : '' %>">
-      <%= radio_button_tag :download_clicked_image, 'On' %>On
+    <label class="btn btn-primary <%= @event.event_feature.download_clicked_image_active? %>">
+      <%= radio_button_tag :download_clicked_image, true, '', disabled: true %>On
     </label>
-    <label class="btn btn-primary <%= @event.event_feature.download_clicked_image ? '' : 'active' %>">
-      <%= radio_button_tag :download_clicked_image, 'Off' %>Off
+    <label class="btn btn-primary <%= @event.event_feature.download_clicked_image_inactive? %>">
+      <%= radio_button_tag :download_clicked_image, false, '', disabled: true %>Off
     </label>
   </div>
 </div>

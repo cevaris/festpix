@@ -10,7 +10,7 @@ Rq::Application.routes.draw do
   match '/s/:id' => 'photo_sessions#show', via: [:get], as: 'photo_session_short'
 
   # match '/photo_sessions/:id/share' => 'photo_sessions#social_share', via: [:post], as: 'photo_session_social_share'
-  match 'events/:event_id/toggle/' => 'events#toggle_feature', via: [:post], as: 'toggle_event_feature'
+  # match 'events/:event_id/toggle/' => 'events#toggle_feature', via: [:post], as: 'toggle_event_feature'
   match '/photo_sessions/:id/count' => 'photo_sessions#counter', via: [:post], as: 'photo_session_counter'
   match 'social/facebook/share/:photo_id' => 'photo_sessions#facebook_share', via: [:get], as: 'photo_session_facebook_share'
 

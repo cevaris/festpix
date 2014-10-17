@@ -118,11 +118,11 @@
     <div class="field">
       <%= ff.label :facebook_share_button, "Facebook Share Button " %> </br>
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary <%= @event.event_feature.facebook_share_button ? 'active' : '' %>">
-          <%= ff.radio_button :facebook_share_button, 'Show' %>Show
+        <label class="btn btn-primary <%= @event.event_feature.facebook_share_button_active? %>">
+          <%= ff.radio_button :facebook_share_button, true %>Show
         </label>
-        <label class="btn btn-primary <%= @event.event_feature.facebook_share_button ? '' : 'active' %>">
-          <%= ff.radio_button :facebook_share_button, 'Hide' %>Hide
+        <label class="btn btn-primary <%= @event.event_feature.facebook_share_button_inactive? %>">
+          <%= ff.radio_button :facebook_share_button, false %>Hide
         </label>
       </div>
     </div>
@@ -131,11 +131,11 @@
     <div class="field">
        <%= ff.label :twitter_share_button, "Twitter Share Button " %> </br>
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary <%= @event.event_feature.twitter_share_button ? 'active' : '' %>">
-          <%= ff.radio_button :twitter_share_button, 'Show' %>Show
+        <label class="btn btn-primary <%= @event.event_feature.twitter_share_button_active? %>">
+          <%= ff.radio_button :twitter_share_button, true %>Show
         </label>
-        <label class="btn btn-primary <%= @event.event_feature.twitter_share_button ? '' : 'active' %>">
-          <%= ff.radio_button :twitter_share_button, 'Hide' %>Hide
+        <label class="btn btn-primary <%= @event.event_feature.twitter_share_button_inactive? %>">
+          <%= ff.radio_button :twitter_share_button, false %>Hide
         </label>
       </div>
     </div>
@@ -144,11 +144,11 @@
     <div class="field">
       <%= ff.label :instagram_share_button, "Instagram Share Button " %> </br>
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary <%= @event.event_feature.instagram_share_button ? 'active' : '' %>">
-          <%= ff.radio_button :instagram_share_button, 'Show' %>Show
+        <label class="btn btn-primary <%= @event.event_feature.instagram_share_button_active? %>">
+          <%= ff.radio_button :instagram_share_button, true %>Show
         </label>
-        <label class="btn btn-primary <%= @event.event_feature.instagram_share_button ? '' : 'active' %>">
-          <%= ff.radio_button :instagram_share_button, 'Hide' %>Hide
+        <label class="btn btn-primary <%= @event.event_feature.instagram_share_button_inactive? %>">
+          <%= ff.radio_button :instagram_share_button, false %>Hide
         </label>
       </div>
     </div>
@@ -157,11 +157,11 @@
     <div class="field">
       <%= ff.label :download_button, "Download High Resolution Button" %> </br>
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary <%= @event.event_feature.download_button ? 'active' : '' %>">
-          <%= ff.radio_button :download_button, 'Show' %>Show
+        <label class="btn btn-primary <%= @event.event_feature.download_button_active? %>">
+          <%= ff.radio_button :download_button, true %>Show
         </label>
-        <label class="btn btn-primary <%= @event.event_feature.download_button ? '' : 'active' %>">
-          <%= ff.radio_button :download_button, 'Hide' %>Hide
+        <label class="btn btn-primary <%= @event.event_feature.download_button_inactive? %>">
+          <%= ff.radio_button :download_button, false %>Hide
         </label>
       </div>
     </div>
@@ -170,11 +170,11 @@
     <div class="field">
       <%= ff.label :download_clicked_image, "Click Image to View Session Photo" %> </br>
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary <%= @event.event_feature.download_clicked_image ? 'active' : '' %>">
-          <%= radio_button_tag :download_clicked_image, 'On' %>On
+        <label class="btn btn-primary <%= @event.event_feature.download_clicked_image_active? %>">
+          <%= ff.radio_button :download_clicked_image, true %>On
         </label>
-        <label class="btn btn-primary <%= @event.event_feature.download_clicked_image ? '' : 'active' %>">
-          <%= radio_button_tag :download_clicked_image, 'Off' %>Off
+        <label class="btn btn-primary <%= @event.event_feature.download_clicked_image_inactive? %>">
+          <%= ff.radio_button :download_clicked_image, false %>Off
         </label>
       </div>
     </div>
@@ -204,29 +204,3 @@
 <script>
 $('#event_customer_id').select2();
 </script>
-
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- Custom Javascript -->
-<script type="text/javascript">
-///////////////////////////////////////////////////////////////////////////
-// General sharing ajax
-function toggleFeature(feature, value){
-
-  $('#loading-example-btn').click(function () {
-    var btn = $(this);
-    btn.button('loading');
-    
-    $.ajax({
-        url: "<%= toggle_event_feature_path(@event) %>",
-        type: "POST",
-        data: { feature_feature: feature, feature_value: value },
-        success: function(resp){ console.log('Successful feature toggle'); },
-        error:   function(resp){ console.log("Error on feature toggle"); console.log(resp); }
-    });
-  });
-  
-}
-</script>
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
