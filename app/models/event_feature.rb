@@ -1,18 +1,5 @@
 class EventFeature < ActiveRecord::Base
 
-  # before_save :default_values
-  after_initialize :default_values
-  def default_values
-    if self.new_record?
-      # self.facebook_share_button  = true
-      # self.twitter_share_button   = true
-      # self.instagram_share_button = false
-      # self.download_clicked_image = false
-      # self.download_button        = true
-    end
-  end
-
-
   def facebook_share_button_active?
     self.facebook_share_button ? 'active' : ''
   end
