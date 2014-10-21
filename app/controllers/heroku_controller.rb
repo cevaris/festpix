@@ -37,7 +37,7 @@ class HerokuController < ApplicationController
             @current_config = ConfigVariable.set ENV['APP_NAME'], config_vars_on
           when 'DOWN'
             # top = [Dyno.new(Worker, 1), Dyno.new(Web, 1)]
-            top = [Dyno.new(Worker, 0), Dyno.new(Web, 1)]
+            top = [Dyno.new(Worker, 1), Dyno.new(Web, 2)]
             @current_scale = Topology.scale ENV['APP_NAME'], top
             @current_config = ConfigVariable.set ENV['APP_NAME'], config_vars_off
           end
