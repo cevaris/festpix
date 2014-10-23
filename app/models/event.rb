@@ -3,6 +3,7 @@ require 'securerandom'
 class Event < ActiveRecord::Base
 
   belongs_to :customer
+  belongs_to :event_feature,  :dependent => :destroy
   has_many   :photo_sessions, :dependent => :destroy
 
   has_attached_file :logo, styles: { 
@@ -28,6 +29,8 @@ class Event < ActiveRecord::Base
 
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
+
+  accepts_nested_attributes_for :event_feature
   
 
   #############################
@@ -46,6 +49,9 @@ class Event < ActiveRecord::Base
     self.sms_text      = self.sms_text.squish      if self.sms_text
     self.twitter_text  = self.twitter_text.squish  if self.twitter_text
     self.facebook_text = self.facebook_text.squish if self.facebook_text
+
+    self.event_feature ||= EventFeature.create
+    # self.event_feature ||= EventFeature.find_or_create_by_event_id(self.id)
   end
 
   def shares

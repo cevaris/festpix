@@ -45,24 +45,33 @@
        
 
        <div class="thumbnail color-two">
-
-          <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
+          <% if @photo_session.event.event_feature.download_clicked_image %>
+            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, onclick: "window.location='#{photo.customer_url}';")  %>
+          <% else %>
+            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
+          <% end %>
           
-          <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
-            <i class="fa fa-facebook"></i> Share to Facebook
-          </button>
-
-          <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
-            <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
-              <i class="fa fa-twitter"></i> Share to Twitter
+          <% if @photo_session.event.event_feature.facebook_share_button %>
+            <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-facebook btn-lg btn-block" onclick="openFacebookModal('<%=  photo.id %>');">
+              <i class="fa fa-facebook"></i> Share to Facebook
             </button>
-          </a>
+          <% end %>
 
-          <% if ENV['INSTAGRAM_ENABLED'].downcase == 'true' %>
+          <% if @photo_session.event.event_feature.twitter_share_button %>
+            <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
+              <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
+                <i class="fa fa-twitter"></i> Share to Twitter
+              </button>
+            </a>
+          <% end %>
+
+          <% if @photo_session.event.event_feature.instagram_share_button %>
             <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="share_instagram('<%= photo.image.url(:medium) %>');">
               <i class="fa fa-instagram"></i> Download for Instagram
             </button>
-          <% else %>
+          <% end %>
+          
+          <% if @photo_session.event.event_feature.download_button %>
             <button style="margin-top:5px;" type="button" class="btn btn-primary btn-lg btn-block" onclick="share_downloads(); window.location = '<%= photo.image.url(:xlarge) %>';">
               <i class="fa fa-floppy-o"></i> High-Res Download
             </button>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016032554) do
+ActiveRecord::Schema.define(version: 20141016185836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20141016032554) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "event_features", force: true do |t|
+    t.boolean  "facebook_share_button"
+    t.boolean  "twitter_share_button"
+    t.boolean  "instagram_share_button"
+    t.boolean  "download_button"
+    t.boolean  "download_clicked_image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -66,6 +76,7 @@ ActiveRecord::Schema.define(version: 20141016032554) do
     t.string   "watermark_content_type"
     t.integer  "watermark_file_size"
     t.datetime "watermark_updated_at"
+    t.integer  "event_feature_id"
   end
 
   add_index "events", ["slug"], name: "index_events_on_slug", using: :btree

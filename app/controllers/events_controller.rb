@@ -18,6 +18,14 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @event.event_feature = EventFeature.new
+
+    # Have to assign defaults here because "before_save" was not working
+    @event.event_feature.facebook_share_button   = true
+    @event.event_feature.twitter_share_button    = true
+    @event.event_feature.instagram_share_button  = false
+    @event.event_feature.download_button         = true
+    @event.event_feature.download_clicked_image  = false
   end
 
   # GET /events/1/edit
@@ -51,7 +59,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     respond_to do |format|
-      if @event.update(event_params)
+      Rails.logger.info "Args #{event_params[:event_feature_attributes]}"
+      if @event.update(event_params) and @event.event_feature.update(event_params[:event_feature_attributes])
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :no_content }
       else
@@ -93,6 +102,8 @@ class EventsController < ApplicationController
         :logo, :watermark, 
         :facebook_url, :facebook_text, 
         :twitter_url, :twitter_text,
-        :button_url, :button_text)
+        :button_url, :button_text,
+        event_feature_attributes: [:id, :facebook_share_button, :twitter_share_button, :instagram_share_button, :download_button, :download_clicked_image ])
+      # params.require(:event).permit!
     end
 end
