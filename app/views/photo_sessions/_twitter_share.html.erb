@@ -1,4 +1,3 @@
-
 <div class="modal fade bs-example-modal-large" id="twitterModal" tabindex="-1" role="dialog" aria-labelledby="twitterModal" aria-hidden="true">
   <div class="modal-dialog modal-large">
     <div class="modal-content">
@@ -6,14 +5,15 @@
       <div class="col-md-12 well">
 
         <div class="row center">
+         
           <div class="col-md-4">
-            <a class="btn btn-default pull-left" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span></i> Close</a>
+            <a class="btn btn-default pull-left" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span> Close</a>
           </div>
+          
+          <div class="col-md-4">    </div>
+
           <div class="col-md-4">
-            
-          </div>
-          <div class="col-md-4">
-            <button type="button" class="btn btn-primary pull-right" onclick="shareTotwitter('<%=  @photo.image.url(:xlarge) %>');">
+            <button type="button" class="btn btn-primary pull-right" onclick="shareToTwitter('<%=  @photo.id %>');">
               <i class="fa fa-twitter fa-fw"></i> Share
             </button>
           </div>
@@ -31,5 +31,5 @@
 </div>
 
 <script type="text/javascript">
-  $('#twitterModal').modal('show')
+  $('#twitterModal').modal('show');
 </script>

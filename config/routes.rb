@@ -13,6 +13,7 @@ Rq::Application.routes.draw do
   # match 'events/:event_id/toggle/' => 'events#toggle_feature', via: [:post], as: 'toggle_event_feature'
   match '/photo_sessions/:id/count' => 'photo_sessions#counter', via: [:post], as: 'photo_session_counter'
   match 'social/facebook/share/:photo_id' => 'photo_sessions#facebook_share', via: [:get], as: 'photo_session_facebook_share'
+  match 'social/twitter/share/:photo_id' => 'photo_sessions#twitter_share', via: [:get], as: 'photo_session_twitter_share'
 
 
   # match '/photo_sessions/d52efba0-c73f-11e3-9c1a-0800200c9a66' => 'photo_sessions#admin_show', via: [:get]
@@ -36,6 +37,7 @@ Rq::Application.routes.draw do
   match '/twitter/auth', to: 'twitter#auth', via: [:get]
   match '/auth/twitter/callback', to: 'twitter#callback', via: [:get]
   match '/twitter/oauth/failure',  to: 'twitter#failure', via: [:get]
+  match '/twitter/post/:photo_id',  to: 'twitter#post', via: [:post]
   
 
 

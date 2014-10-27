@@ -1,4 +1,5 @@
 class TwitterController < ApplicationController
+  include TwitterHelper 
 
   def auth
     redirect_to '/auth/twitter'
@@ -8,7 +9,7 @@ class TwitterController < ApplicationController
   end
   
   def callback
-    cookies[:tc] = {
+    session[:tc] = {
       oauth_token:        request.env['omniauth.auth']['credentials']['token'],
       oauth_token_secret: request.env['omniauth.auth']['credentials']['secret']
     }.to_json
@@ -16,8 +17,12 @@ class TwitterController < ApplicationController
     redirect_to_back
   end
 
-  def create
-    # Create Image or Text
+  def post
+    
+    @photo = Photo.find params[:photo_id]
+    resposne = post_image(params[:text], @photo, JSON.parse(cookies[:tc], {:symbolize_names => true}))
+    render json: resposne.to_json
+
   end
 
 end

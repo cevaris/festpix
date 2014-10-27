@@ -24,12 +24,12 @@ module TwitterHelper
     client.update(text).inspect
   end
 
-  def post_image(url, creds)
-    puts "Got URL #{url}"
+  def post_image(text, url, creds)
+    puts "Got Params #{params.inspect}"
 
     client = twitter_client(creds)
-    image = download_image(url)
+    image = download_image(@photo.image.url(:xlarge))
     
-    client.update_with_media("Photo post #{Time.now.utc.to_i}", image).inspect
+    client.update_with_media(text, image).uri
   end
 end

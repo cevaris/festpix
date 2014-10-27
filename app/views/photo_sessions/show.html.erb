@@ -58,11 +58,17 @@
           <% end %>
 
           <% if @photo_session.event.event_feature.twitter_share_button %>
-            <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
+            <!-- <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%#=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
               <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
                 <i class="fa fa-twitter"></i> Share to Twitter
               </button>
-            </a>
+            </a> -->
+
+            <button style="margin-top:5px;margin-bottom:5px;" type="button" class="btn btn-twitter btn-lg btn-block" onclick="openTwitterModal('<%= photo.id %>');">
+              <i class="fa fa-twitter"></i> Share to Twitter
+            </button>
+
+            
           <% end %>
 
           <% if @photo_session.event.event_feature.instagram_share_button %>
@@ -194,13 +200,6 @@
 
 
 
-
-
-
-
-
-
-
 <!-- Start Facebook Modal's and API HTML -->
 <div id="fb-root"></div>
 <div id="facebook_share"></div>
@@ -237,6 +236,42 @@
 <!-- End Facebook Modal's and API HTML -->
 
 
+
+
+
+<!-- Start Twitter Modal's and API HTML -->
+<div id="twitter_share"></div>
+
+<div class="modal fade bs-example-modal-sm" id="twitterSpinner" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="twitterSpinner">Sharing with twitter</h4>
+      </div>
+      <%= image_tag 'loading.gif' , width: '100%' %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="twitterStatus" tabindex="-1" role="dialog" aria-labelledby="twitterStatus" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="twitterStatus">Twitter Share Successful</h4>
+      </div>
+
+      <div class="model-content text-center">
+        <br /><br />
+        <div id="twitterStatusMessage"></div>
+        <br /><br />
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- End Twitter Modal's and API HTML -->
 
 
 
@@ -327,6 +362,69 @@ function share_downloads(){
 
 
 
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Facebook Javascript -->
+<script type="text/javascript">
+
+
+function openTwitterModal(photo_id){
+
+  console.log($.cookie('tc'));
+
+  if ($.cookie('tc') === null || $.cookie('tc') === ""  || $.cookie('tc') === undefined)
+    window.location = "<%= twitter_auth_path %>";
+  else {
+    $.ajax({
+        url: "/social/twitter/share/"+photo_id,
+        type: "GET",
+        success: function(resp){ $('#twitter_share').html(resp); },
+        error:   function(resp){ console.log(resp); }
+    });
+  }
+}
+
+function shareToTwitter(photo_id){
+  console.log("Sharing Twitter "+ photo_id);
+
+  $('#twitterModal').modal('hide');
+
+  var textMessage = "<%= "#{@photo_session.event.twitter_text} #FestPix" %>";
+
+  if ($.trim($('textarea#twitterPostText').val()))
+    textMessage = $('textarea#twitterPostText').val() + " #FestPix";
+
+
+ $.ajax({
+      url: "/twitter/post/"+photo_id,
+      type: "POST",
+      dataType: 'JSON',
+      data: { text: textMessage },
+      error:   function(resp){ console.log("Social Share Error:"); console.log(resp); },
+      success: function(resp){ 
+        console.log(resp);
+        console.log('Successful share');
+        $('#twitterStatus').modal('show');
+        $('#twitterStatusMessage').html('');
+        $('#twitterStatusMessage').prepend(
+          $('<button/>')
+            .text('View post here')
+            .addClass('btn btn-primary btn-lg')
+            .click(function () { window.location = "https://twitter.com/"+resp['path']; })
+        );
+      }
+  });
+
+}
+
+
+</script>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+
+
 
 
 
@@ -337,12 +435,7 @@ function share_downloads(){
 <!-- Facebook Javascript -->
 <script type="text/javascript">
 
-/**
- * Determine the mobile operating system.
- * This function either returns 'iOS', 'Android' or 'unknown'
- *
- * @returns {String}
- */
+
 function isMobile() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
   return ( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) || userAgent.match( /Android/i ) )
@@ -369,9 +462,7 @@ function alertFacebookPost(post_id){
     else
       var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
 
-      
-
-
+  
     $('#facebookStatus').modal('show');
     $('#facebookStatusMessage').html('');
     $('#facebookStatusMessage').prepend(

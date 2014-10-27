@@ -65,6 +65,12 @@ class PhotoSessionsController < ApplicationController
     render partial: 'facebook_share'
   end
 
+  def twitter_share
+    Rails.logger.info params
+    @photo = Photo.find params[:photo_id]
+    render partial: 'twitter_share'
+  end
+
   def counter
 
     # Make sure this key exists
@@ -129,6 +135,10 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show
+    # Hack to make sure Twitter Creds get processed
+    cookies[:tc] = session[:tc] if session.has_key?(:tc)
+    Rails.logger.info "Writing cookies #{cookies[:tc]}"
+
     if current_user
       @claimed = @photo_session.attendee_list.include? current_user.id.to_s
     else
