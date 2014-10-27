@@ -401,7 +401,7 @@ function shareToTwitter(photo_id){
       dataType: 'JSON',
       data: { text: textMessage },
       error:   function(resp){ console.log("Social Share Error:"); console.log(resp); },
-      success: function(resp){ 
+      success: function(resp){
         console.log(resp);
         console.log('Successful share');
         $('#twitterStatus').modal('show');
@@ -410,8 +410,9 @@ function shareToTwitter(photo_id){
           $('<button/>')
             .text('View post here')
             .addClass('btn btn-primary btn-lg')
-            .click(function () { window.location = "https://twitter.com/"+resp['path']; })
+            .click(function () { window.location = "https://twitter.com"+resp['path']; })
         );
+        share_social('twitter');
       }
   });
 
