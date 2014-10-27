@@ -1,0 +1,35 @@
+
+<div class="modal fade bs-example-modal-large" id="twitterModal" tabindex="-1" role="dialog" aria-labelledby="twitterModal" aria-hidden="true">
+  <div class="modal-dialog modal-large">
+    <div class="modal-content">
+
+      <div class="col-md-12 well">
+
+        <div class="row center">
+          <div class="col-md-4">
+            <a class="btn btn-default pull-left" data-dismiss="modal" href="#"><span aria-hidden="true">&times;</span></i> Close</a>
+          </div>
+          <div class="col-md-4">
+            
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary pull-right" onclick="shareTotwitter('<%=  @photo.image.url(:xlarge) %>');">
+              <i class="fa fa-twitter fa-fw"></i> Share
+            </button>
+          </div>
+        </div>
+        
+        <textarea id="twitterPostText" class="form-control" rows="3" style="margin: 15px auto;" placeholder="Write something about your pic!" ><%= @photo.photo_session.event.twitter_text %></textarea>
+        
+        <div class="thumbnail color-two">
+          <%= image_tag @photo.image.url(:xlarge), style: 'pointer-events:none;' %>  
+        </div> 
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#twitterModal').modal('show')
+</script>

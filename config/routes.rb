@@ -32,6 +32,12 @@ Rq::Application.routes.draw do
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
 
+  
+  match '/twitter/auth', to: 'twitter#auth', via: [:get]
+  match '/auth/twitter/callback', to: 'twitter#callback', via: [:get]
+  match '/twitter/oauth/failure',  to: 'twitter#failure', via: [:get]
+  
+
 
   resources :events do
     collection do
