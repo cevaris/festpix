@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     user_path(resource) || session[:referer] || root_path
   end
 
+  def after_sign_out_path_for(resource_or_scope)
+    session[:tc] = nil
+    cookies[:tc] = nil
+    root_path
+  end
+
   def update_devise_parameter_sanitizer
     devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:slug,:role,:customer,:customer_name)
     devise_parameter_sanitizer.for(:account_update).push(:phone_number,:slug,:avatar,:role,:customer,:customer_name)

@@ -10,15 +10,14 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-
-
-
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag '/assets/favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
   </head>
+
+
   <body class="color-one color-three">
     <% unless "#{params[:action]}:#{params[:controller]}" == 'show:photo_sessions' %>
         <%= render 'layouts/header' %>
@@ -27,8 +26,11 @@
     <div class="container" id="main-container">
       <div class="row">
           <%= render 'layouts/flash' %>
-          <%= yield %>
       </div><!--/row-->
+
+      <div class="row">
+        <%= yield %>
+      </div>
         
       <hr/>
 
@@ -38,7 +40,6 @@
       </footer>
 
     </div> <!-- /container -->
-
   </body>
 
 
@@ -56,15 +57,4 @@
   <% end %>
   </script>
 
-
-
-  <script>
-  // (function(d, s, id) {
-  //   var js, fjs = d.getElementsByTagName(s)[0];
-  //   if (d.getElementById(id)) return;
-  //   js = d.createElement(s); js.id = id;
-  //   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=533513193419621&version=v2.0";
-  //   fjs.parentNode.insertBefore(js, fjs);
-  // }(document, 'script', 'facebook-jssdk'));
-  </script>
 </html>

@@ -135,9 +135,10 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
   def show
+    flash[:notice] = 'You are now authorized by Twitter. Please click "Share to Twitter" again to share your photos.'
+    
     # Hack to make sure Twitter Creds get processed
     cookies[:tc] = session[:tc] if session.has_key?(:tc)
-    Rails.logger.info "Writing cookies #{cookies[:tc]}"
 
     if current_user
       @claimed = @photo_session.attendee_list.include? current_user.id.to_s

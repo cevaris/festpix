@@ -14,6 +14,8 @@ class TwitterController < ApplicationController
       oauth_token_secret: request.env['omniauth.auth']['credentials']['secret']
     }.to_json
 
+    flash[:notice] = 'You are now authorized by Twitter. Please click "Share to Twitter" again to share your photos.'
+
     redirect_to_back
   end
 
