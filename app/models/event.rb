@@ -24,7 +24,7 @@ class Event < ActiveRecord::Base
   
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
   validates_length_of :facebook_text, :minimum => 0, :maximum => 250, :allow_blank => true
-  validates_length_of :twitter_text,  :minimum => 0, :maximum => 125, :allow_blank => true
+  validates_length_of :twitter_text,  :minimum => 0, :maximum => 130, :allow_blank => true
   validates_length_of :button_text,   :minimum => 0, :maximum => 20,  :allow_blank => true
 
   validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
