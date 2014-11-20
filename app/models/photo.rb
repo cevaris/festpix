@@ -72,7 +72,7 @@ class Photo < ActiveRecord::Base
 
   def watermark_path
     # self.photo_session.event.watermark.url(:medium)
-    self.photo_session.event.watermark.url(:medium)
+    self.photo_session.event.event_feature.is_watermark_or_frame ? self.photo_session.event.watermark.url(:medium) : self.photo_session.event.watermark.url(:xlarge)
   end
 
   before_save :default_values

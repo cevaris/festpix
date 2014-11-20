@@ -5,6 +5,7 @@
 ## Reprocess a specific image style
 
     Photo.find_each {|x| puts x.id; x.image.reprocess!(:medium) if x.photo_session and x.photo_session.event and x.photo_session.event.save }
+    Event.all.each {|e| puts e.id; e.watermark.reprocess!(:xlarge); e.save}
 
 ## Metrics
 
@@ -31,4 +32,4 @@
 
 ## Frame watermarking
 
-    Paperclip.run('convert','-define jpeg:size=670x670 /tmp/rsz_frame.png /tmp/test.jpg -gravity center -compose DstOver -composite /tmp/example3.jpg')
+    Paperclip.run('convert',' /tmp/xframe.png /tmp/original.jpg -gravity center -compose DstOver -composite /tmp/example1.jpg')

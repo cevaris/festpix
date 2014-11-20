@@ -62,7 +62,7 @@ gem 'acts-as-taggable-on', '~> 3.0.2'
 gem 'twilio-ruby', '~> 3.11.5'
 gem 'delayed_job_active_record', '~> 4.0.0'
 gem 'gibbon', '~> 1.1.3'
-gem 'paperclip-watermark', '1.1.0', :github => 'cevaris/paperclip-watermark'
+gem 'paperclip-watermark', '1.1.4', :github => 'cevaris/paperclip-watermark'
 gem 'delayed_paperclip', '~> 2.8.0'
 # gem 'paperclip-watermark', :path => "/Users/cevaris/Documents/workspace/paperclip-watermark"
 gem 'will_paginate', '~> 3.0.7'

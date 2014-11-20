@@ -15,7 +15,8 @@ class Event < ActiveRecord::Base
   has_attached_file :watermark, styles: { 
     thumb:  '100x100#',
     medium: '250x250>',
-    large:  '500x500>'
+    large:  '500x500>',
+    xlarge:  '1600x1600>'
   }
   
   validates_attachment_content_type :logo, :content_type => %w(image/jpeg image/jpg image/png)
