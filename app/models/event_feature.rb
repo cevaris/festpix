@@ -35,7 +35,12 @@ class EventFeature < ActiveRecord::Base
     self.download_clicked_image ? '' : 'active'
   end
 
-  
+  def is_watermark?
+    self.is_watermark_or_frame ? 'active' : ''
+  end
+  def is_frame?
+    self.is_watermark_or_frame ? '' : 'active'
+  end
 
 
 end

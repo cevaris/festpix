@@ -169,3 +169,15 @@
     </label>
   </div>
 </div>
+
+<div class="field">
+  <%= label_tag :is_watermark_or_frame, "Is the watermark a logo or a picutre frame?" %> </br> 
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-primary <%= @event.event_feature.is_watermark? %>">
+      <%= radio_button_tag :is_watermark_or_frame, true, '', disabled: true %>Logo
+    </label>
+    <label class="btn btn-primary <%= @event.event_feature.is_frame? %>">
+      <%= radio_button_tag :is_watermark_or_frame, false, '', disabled: true %>Frame
+    </label>
+  </div>
+</div>

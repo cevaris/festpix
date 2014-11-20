@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016185836) do
+ActiveRecord::Schema.define(version: 20141120031349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141016185836) do
     t.boolean  "download_clicked_image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_watermark_or_frame"
   end
 
   create_table "events", force: true do |t|

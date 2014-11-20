@@ -178,15 +178,23 @@
         </label>
       </div>
     </div>
+
+
+    <div class="field">
+      <%= ff.label :is_watermark_or_frame, "Is the watermark a logo or a picutre frame?" %> </br>
+      <div class="btn-group" data-toggle="buttons">
+	<label class="btn btn-primary <%= @event.event_feature.is_watermark? %>">
+	  <%= ff.radio_button :is_watermark_or_frame, true %>Logo
+	</label>
+	<label class="btn btn-primary <%= @event.event_feature.is_frame? %>">
+	  <%= ff.radio_button :is_watermark_or_frame, false %>Frame
+	</label>
+      </div>
+    </div>
   <% end %>
 
 
   
-
-  
-
-
-
 
   <div class="actions pull-right">
     <%= f.submit  class: 'btn btn-primary' %>

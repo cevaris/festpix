@@ -26,6 +26,7 @@ class EventsController < ApplicationController
     @event.event_feature.instagram_share_button  = false
     @event.event_feature.download_button         = true
     @event.event_feature.download_clicked_image  = false
+    @event.event_feature.is_watermark_or_frame   = true
   end
 
   # GET /events/1/edit
@@ -41,8 +42,8 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
 
-        # Provide default watermark if not included
-        # @event.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.logo.exists?
+        # Provide default watermark if not included 
+       # @event.logo = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.logo.exists?
         @event.watermark = File.new("#{Rails.root}/public/watermarks/festpix.png") unless @event.watermark.exists?
         @event.save
 
@@ -103,7 +104,7 @@ class EventsController < ApplicationController
         :facebook_url, :facebook_text, 
         :twitter_url, :twitter_text,
         :button_url, :button_text,
-        event_feature_attributes: [:id, :facebook_share_button, :twitter_share_button, :instagram_share_button, :download_button, :download_clicked_image ])
+        event_feature_attributes: [:id, :facebook_share_button, :twitter_share_button, :instagram_share_button, :download_button, :download_clicked_image, :is_watermark_or_frame ])
       # params.require(:event).permit!
     end
 end
