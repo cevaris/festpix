@@ -9,6 +9,15 @@ class Photo < ActiveRecord::Base
   ## Another hopeful
   # http://stackoverflow.com/questions/14305018/ruby-on-rails-paperclip-and-dynamic-parameters?rq=1
 
+  PROCESSORS = lambda { |attachment|
+    if attachment.photo_session.event.event_feature.is_watermark_or_frame
+      Rails.logger.info "PROCESSOR: watermark"
+      [:watermark]
+    else
+      Rails.logger.info "PROCESSOR: frame"
+      [:frame]
+    end
+  }
   STYLES = lambda { |attachment| {
       thumb: '100x100#', 
       square: '200x200#', 
@@ -27,7 +36,7 @@ class Photo < ActiveRecord::Base
   if ENV['BACKGROUND_PROCESSING']=='true'
     Rails.logger.info "Background Processing Enabled: #{ENV['BACKGROUND_PROCESSING']}"
     has_attached_file :image, 
-    :processors => [:watermark],
+    :processors => PROCESSORS,
     :styles => STYLES, 
     :only_process => [:square, :xlarge]
 
@@ -35,7 +44,7 @@ class Photo < ActiveRecord::Base
   else
     Rails.logger.info "Background Processing Disabled: #{ENV['BACKGROUND_PROCESSING']}"
     has_attached_file :image, 
-    :processors => [:watermark],
+    :processors => PROCESSORS,
     :styles => STYLES
   end
 

@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/cevaris/paperclip-watermark.git
-  revision: 400d2cb5e386e77f06f046713c40b33e14a343c6
+  revision: 7d4aa7bb2352e822b02878af06d2d05fa4b08bea
   specs:
-    paperclip-watermark (1.0.0)
+    paperclip-watermark (1.1.0)
       minitest
       minitest-reporters
       paperclip (>= 2.3.8)
@@ -275,7 +275,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-twitter
   paperclip (~> 4.1.1)
-  paperclip-watermark!
+  paperclip-watermark (= 1.1.0)!
   pg (~> 0.17.1)
   platform-api!
   rack-timeout
