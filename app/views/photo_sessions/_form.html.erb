@@ -40,17 +40,19 @@
     <%= f.fields_for :photos do |asset_fields| %>
       <% if asset_fields.object.new_record? %>
 
-        <div class="fileinput fileinput-new col-xs-12 col-sm-10 col-md-4" data-provides="fileinput">
 
-          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width:100%;height:100%;">
-            <%= image_tag 'default.png', width: '100%' %>
-          </div>
-          <div>
-            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
-            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-          </div>
+      <div class="fileinput fileinput-new col-xs-12 col-sm-10 col-md-4 col-xs-4" data-provides="fileinput">
 
+        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width:100%;height:100%;">
+          <%= image_tag 'default.png', width: '100%' %>
         </div>
+        <div>
+          <span class="btn btn-default btn-file"><span class="fileinput-new">Select</span><span class="fileinput-exists">Change</span><%= asset_fields.file_field :image, capture: 'camera' %></span>
+          <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        </div>
+
+      </div>
+
 
         
       <% end %>
