@@ -27,7 +27,7 @@ class Photo < ActiveRecord::Base
       },
       large: '800x800>',
       xlarge: {
-        :geometry => '1600x1400>',
+        :geometry => attachment.instance.photo_session.event.event_feature.is_watermark_or_frame ? '1600x1400>' : '1600x1600#',
         :watermark_path => attachment.instance.watermark_path,
       }
     }
