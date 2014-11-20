@@ -29,3 +29,6 @@
 
     PhotoSession.where(event_id: (Event.all.ids - [1])).select {|x| x.is_opened?}.count
 
+## Frame watermarking
+
+    Paperclip.run('convert','-define jpeg:size=670x670 /tmp/rsz_frame.png /tmp/test.jpg -gravity center -compose DstOver -composite /tmp/example3.jpg')
