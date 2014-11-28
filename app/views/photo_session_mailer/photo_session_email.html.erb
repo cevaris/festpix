@@ -5,7 +5,11 @@
   </head>
   <body>
 
-    <h2>FestPix</h2>
+    <h2><%= "#{@photo_session.event.customer.name} -#{ @photo_session.event.name}" %></h2>
+
+    <p>
+      <%= @photo_session.event.sms_text %>
+    </p>
 
     Your images are ready, click the link to retrieve them. 
     <%= link_to photo_session_short_url(@photo_session), photo_session_short_url(@photo_session) %> 

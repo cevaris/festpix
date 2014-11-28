@@ -44,25 +44,26 @@ module Rq
       phone: ENV['TW_PHONE']
     }
 
-    config.action_mailer.smtp_settings = {
-      :address              => "smtp.gmail.com",
-      :port                 => 587,
-      :user_name            => 'festpixmedia@gmail.com',
-      :password             => 'startupPOWER1',
-      :authentication       => 'plain',
-      :enable_starttls_auto => true  
-    }
-
-    # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = {
-    #   :address              => "host11.registrar-servers.com",
-    #   :port                 => 465,
-    #   :user_name            => 'photos@festpix.com',
-    #   :password             => '9l4V2DT7h!dB',
-    #   :domain               => 'festpix.com',
-    #   :authentication       => :plain,
-    #   # :enable_starttls_auto => true  
+    #   :address              => "smtp.gmail.com",
+    #   :port                 => 587,
+    #   :user_name            => 'festpixmedia@gmail.com',
+    #   :password             => 'startupPOWER1',
+    #   :authentication       => 'plain',
+    #   :enable_starttls_auto => true  
     # }
+
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address              => "host11.registrar-servers.com",
+      :port                 => 465,
+      :user_name            => 'photos@festpix.com',
+      :password             => '9l4V2DT7h!dB',
+      :domain               => 'festpix.com',
+      :authentication       => :plain,
+      # :enable_starttls_auto => true  
+    }
 
 
   end

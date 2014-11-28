@@ -27,6 +27,9 @@
       <%= f.label :phone_list %> (format should be '3031234567', not '303-123-4567')
       <%= f.hidden_field :phone_list, placeholder:'Enter Phone Numbers', class: 'form-control' %>
       <br/>
+      <div><%= f.label :emails %><br />
+	<%= f.hidden_field :email_list, placeholder:'Enter Emails', class: 'form-control' %>
+      </div>
     </div>
 
   </div>
@@ -138,12 +141,12 @@
     tokenizer: defaultTokenizer,
   });
 
-  // $("#photo_session_email_list").select2({ 
-  //   tags: [],
-  //   placeholder: "Enter Emails",
-  //   tokenSeparators: [",", " "],
-  //   minimumInputLength: 1
-  // });
+  $("#photo_session_email_list").select2({
+    tags: [],
+    placeholder: "Enter Emails",
+    tokenSeparators: [",", " "],
+    minimumInputLength: 1
+  });
 
 
   $('#s2id_autogen1').attr('type', 'tel');

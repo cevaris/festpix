@@ -22,7 +22,7 @@ class PhotoSessionMailer < ActionMailer::Base
     # @message = "FestPix! Your images are ready, click the link to see them. #{@photo_session}"
     email_list.each do |email|
       mail(
-        :from => "festpix.mail@gmail.com",
+        :from => "photos@festpix.com",
         :to => email,
         :subject => "FestPix! Your images are ready")
     end

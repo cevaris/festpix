@@ -210,9 +210,9 @@ class PhotoSessionsController < ApplicationController
     if params[:photo_session].has_key?(:email_list)
       @photo_session.email_list = params[:photo_session][:email_list]
     end
-    # if params.has_key?(:photo_session) and params[:photo_session].has_key?(:emails)
-    #   @photo_session.email_list = params[:photo_session][:emails]
-    # end
+    if params.has_key?(:photo_session) and params[:photo_session].has_key?(:emails)
+      @photo_session.email_list = params[:photo_session][:emails]
+    end
 
     save_status = @photo_session.save
       
@@ -236,7 +236,7 @@ class PhotoSessionsController < ApplicationController
       if save_status
         
         queue_sms(@photo_session)
-        # PhotoSessionMailer.photo_session_email(@photo_session).deliver
+        PhotoSessionMailer.photo_session_email(@photo_session).deliver
 
         response = {  result: "success", path: @photo_session.short_url,
             id: @photo_session.id.to_s, slug: @photo_session.slug, 

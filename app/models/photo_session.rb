@@ -32,7 +32,8 @@ class PhotoSession < ActiveRecord::Base
     # Rails.logger.info "Phones #{self.phone_list.inspect}"
 
     if self.phone_list.empty? or self.phone_list == ['']
-      errors.add(:phone_list, "is missing.")
+      # Disabling now since enabling emails
+      #errors.add(:phone_list, "is missing.")
     elsif self.phone_list
       phone_list.each do |phone_number|
         errors.add(:phone_list, "has invalid phone format.") unless phone_number =~ User::PHONE_FORMAT
