@@ -24,7 +24,7 @@ class PhotoSessionMailer < ActionMailer::Base
       mail(
         :from => "photos@festpix.com",
         :to => email,
-        :subject => "FestPix! Your images are ready").deliver!
+        :subject => "FestPix! Your images are ready").deliver
     end
 
     return true
