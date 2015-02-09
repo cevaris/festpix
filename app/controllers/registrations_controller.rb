@@ -16,21 +16,32 @@ class RegistrationsController < Devise::RegistrationsController
     #   resource_saved = false
     #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken"
     # end
+    # customer_saved = false
+    # resource_saved = false
+    # customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
+    # if customer.valid? and resource.valid?
+    #   customer_saved = customer.save
+    #   resource.customer = Customer.find_by_slug(resource.slug)
+    #   resource_saved = resource.save
+    # else 
+    #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken" unless customer.valid?
+    # end
     customer_saved = false
     resource_saved = false
-    customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
+    customer = Customer.new( name: params[:customer_name] )
     if customer.valid? and resource.valid?
       customer_saved = customer.save
-      resource.customer = Customer.find_by_slug(resource.slug)
+      resource.customer = customer
       resource_saved = resource.save
-    else 
-      resource.errors[:base] << "Customer URL '#{resource.slug}' already taken" unless customer.valid?
+    else
+      
+      Rails.logger.error customer.errors.inspect
     end
     #################################################
 
-    Rails.logger.info resource.inspect
-    Rails.logger.info resource.errors.inspect
-    Rails.logger.info resource_saved
+    # Rails.logger.info resource.inspect
+    # Rails.logger.info resource.errors.inspect
+    # Rails.logger.info resource_saved
 
     yield resource if block_given?
     if customer and resource_saved
@@ -51,6 +62,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 
+  def new
+    super
+  end
+
+  
   def update
     @user = User.find(current_user.id)
 

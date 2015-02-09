@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  belongs_to :customer, :dependent => :destroy
+  has_one :customer, :dependent => :destroy
   accepts_nested_attributes_for :customer
 
    # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
@@ -29,10 +29,9 @@ class User < ActiveRecord::Base
   before_save :default_values
   def default_values
     self.slug ||= loop do
-      token = SecureRandom.hex[0..3]
+      token = SecureRandom.hex[0..5]
       break token unless User.exists?(slug: token)
     end
-    # self.role ||= User::ROLES[:admin]
     self.role ||= User::ROLES[:customer]
   end
 
