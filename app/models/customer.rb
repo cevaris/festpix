@@ -3,6 +3,7 @@ require 'securerandom'
 class Customer < ActiveRecord::Base
 
   belongs_to :user
+  # has_one :user
   validates_presence_of :user
   
   has_many :events, :dependent => :destroy
