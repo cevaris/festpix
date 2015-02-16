@@ -1,11 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController  
-
-  # def new
-  #   super
-  #   resource.build_customer
-  #   Rails.logger.info resource.customer.inspect
-  # end
-
   
   def update
     @user = User.find(current_user.id)
