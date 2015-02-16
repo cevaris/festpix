@@ -1,10 +1,19 @@
 Rq::Application.routes.draw do
 
+
+  devise_for :users, :controllers => { :registrations => "registrations", :passwords => "passwords"} do
+    resources :password
+  end
+  # resources :password
+  
+  
   resources :customers do
     collection do
       get 'autocomplete'
     end
   end
+
+  
 
   match '/p/:id' => 'photo#show', via: [:get], as: 'photo_short'
   match '/s/:id' => 'photo_sessions#show', via: [:get], as: 'photo_session_short'
@@ -40,7 +49,6 @@ Rq::Application.routes.draw do
   match '/twitter/post/:photo_id',  to: 'twitter#post', via: [:post]
   
 
-
   resources :events do
     collection do
       get 'autocomplete'
@@ -48,9 +56,7 @@ Rq::Application.routes.draw do
   end
   
   resources :event_images
-
   
-  devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users, :only => [:show, :index]
   root :to => "home#index"
 
