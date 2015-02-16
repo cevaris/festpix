@@ -21,7 +21,7 @@
 
 
   <div class="field">
-    <% if @event and @event.customer %>
+    <% if @event and @event.customer and current_user.admin? %>
     <%= f.label :customer_id, 'Customer' %><br>
     <%= f.select :customer_id, Customer.accessible_by(current_ability, :update).collect {|e| [ e.name, e.id ] }, {selected: @event.customer.id}, {class: 'form-control'} %>
     
