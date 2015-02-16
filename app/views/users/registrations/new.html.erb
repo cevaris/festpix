@@ -1,15 +1,22 @@
 <meta name="format-detection" content="telephone=no">
 <h2>Sign up</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= form_for([resource, resource.with_customer], :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div><%= f.label :email %><br />
     <%= f.email_field :email, :autofocus => true%></div><br />
 
+  <%= resource.inspect %> <br/>
+  <%= resource.customer.inspect %>
+  
+
   <%= f.fields_for :customer do |customer_form| %>
-  <div><%= customer_form.label :name %><br />
-    <%= customer_form.text_field :name, :autofocus => true %></div>
+  HELLOW WORLD
+  <div>
+    <%= customer_form.label :name %><br />
+    <%= customer_form.text_field :name, :autofocus => true %>
+  </div>
   <% end %>
 
   <!-- <div class="field"> -->

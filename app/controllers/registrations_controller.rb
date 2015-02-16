@@ -26,17 +26,19 @@ class RegistrationsController < Devise::RegistrationsController
     # else 
     #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken" unless customer.valid?
     # end
-    customer_saved = false
-    resource_saved = false
-    customer = Customer.new( name: params[:customer_name] )
-    if customer.valid? and resource.valid?
-      customer_saved = customer.save
-      resource.customer = customer
-      resource_saved = resource.save
-    else
+    
+    # customer_saved = false
+    # resource_saved = false
+    # customer = Customer.new( name: params[:customer_name] )
+    # if customer.valid? and resource.valid?
+    #   customer_saved = customer.save
+    #   resource.customer = customer
+    #   resource_saved = resource.save
+    # else
       
-      Rails.logger.error customer.errors.inspect
-    end
+    #   Rails.logger.error customer.errors.inspect
+    # end
+    
     #################################################
 
     # Rails.logger.info resource.inspect
@@ -44,7 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
     # Rails.logger.info resource_saved
 
     yield resource if block_given?
-    if customer and resource_saved
+    # if customer and resource_saved
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
@@ -54,16 +56,20 @@ class RegistrationsController < Devise::RegistrationsController
         expire_data_after_sign_in!
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
-    else
-      clean_up_passwords resource
-      respond_with resource
-    end
+  #   else
+  #     clean_up_passwords resource
+  #     respond_with resource
+  #   end
 
   end
 
 
   def new
     super
+    # resource.customer.build
+    resource.build_customer
+    # resource.customer = Customer.new
+    Rails.logger.info resource.customer.inspect
   end
 
   
