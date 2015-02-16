@@ -15,7 +15,7 @@ module PhotoSessionsHelper
       # data[:link] = photo_session_short_url(photo_session, host: ENV['SHORT_URL'])[7..-1]
       # data[:link] = photo_session.short_url
       # data[:link] = photo_session.event.customer_url
-      data[:body] = "#{photo_session.event.sms_text} #{photo_session.customer_url}"
+      data[:body] = "#{photo_session.event.sms_text} #{photo_session.short_url}"
       # photo = photo_session.photos.last
       # data[:media_url] = photo.image.url(:medium)
       send_sms(data)

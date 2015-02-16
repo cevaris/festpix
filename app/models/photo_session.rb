@@ -47,10 +47,10 @@ class PhotoSession < ActiveRecord::Base
   def short_url
     Rails.application.routes.url_helpers.photo_session_short_url(self, host: ENV['SHORT_URL'])[7..-1]
   end
-  def customer_url
-    # Rails.application.routes.url_helpers.event_photo_session_url(self, host: ENV['SHORT_URL'])
-    Rails.application.routes.url_helpers.event_photo_session_url(self.event.slug, self.slug, host: ENV['SHORT_URL'])
-  end
+  # def customer_url
+  #   # Rails.application.routes.url_helpers.event_photo_session_url(self, host: ENV['SHORT_URL'])
+  #   Rails.application.routes.url_helpers.event_photo_session_url(self.event.slug, self.slug, host: ENV['SHORT_URL'])
+  # end
   
   def is_opened?
     self.opened_at ? true : false

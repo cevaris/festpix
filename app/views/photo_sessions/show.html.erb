@@ -46,7 +46,7 @@
 
        <div class="thumbnail color-two">
           <% if @photo_session.event.event_feature.download_clicked_image %>
-            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, onclick: "window.location='#{photo.customer_url}';")  %>
+            <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, onclick: "window.location='#{photo.short_url}';")  %>
           <% else %>
             <%= image_tag(photo.image.url(:square), :width => '100%',  title: photo.image_file_name, style: 'pointer-events:none;')  %>
           <% end %>
@@ -58,7 +58,7 @@
           <% end %>
 
           <% if @photo_session.event.event_feature.twitter_share_button %>
-            <!-- <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%#=u "#{@photo_session.event.twitter_text} #{photo.customer_url}" %>" title="Shared via @FestPix">
+            <!-- <a id="share_twitter" href="https://twitter.com/intent/tweet?button_hashtag=FestPix&text=<%#=u "#{@photo_session.event.twitter_text} #{photo.short_url}" %>" title="Shared via @FestPix">
               <button style="margin-top:5px;" type="button" class="btn btn-twitter btn-lg btn-block" data-related="festpix" data-url="<%=  photo.image.url(:xlarge) %>">
                 <i class="fa fa-twitter"></i> Share to Twitter
               </button>

@@ -66,18 +66,17 @@ class Photo < ActiveRecord::Base
   #   Rails.application.routes.url_helpers.event_photo_session_url(self.photo_session.event.slug, self.photo_session.slug, host: ENV['SHORT_URL'])
   # end
   # For Photo
-  def customer_url
-    Rails.application.routes.url_helpers.event_photo_url(self.photo_session.event.slug, self.slug, host: ENV['SHORT_URL'])
-  end
+  # def customer_url
+  #   Rails.application.routes.url_helpers.event_photo_url(self.photo_session.event.slug, self.slug, host: ENV['SHORT_URL'])
+  # end
 
   def watermark_path
     # self.photo_session.event.watermark.url(:medium)
     self.photo_session.event.event_feature.is_watermark_or_frame ? self.photo_session.event.watermark.url(:medium) : self.photo_session.event.watermark.url(:xlarge)
   end
 
-  before_save :default_values
+  before_validation :default_values
   def default_values
-    # self.slug ||= SecureRandom.hex[0..10]
     self.slug ||= loop do
       token = SecureRandom.hex[0..5]
       break token unless Photo.exists?(slug: token)

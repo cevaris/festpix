@@ -244,7 +244,7 @@ class PhotoSessionsController < ApplicationController
 
         Rails.logger.info "Response Message: #{response.inspect}"
 
-        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.customer_url }".html_safe
+        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.short_url }".html_safe
         format.html { redirect_to action: "new" }
         format.json { render json: response }
       else
