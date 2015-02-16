@@ -9,24 +9,22 @@
 ## Add default Festpix Event/Customer to all previous photo sessions
 super_admin_email = 'admin@festpix.com'
 fp_customer_name = 'Festpix'
-fp_customer_slug = 'festpix'
 admins = [
   'mark@festpix.com',
   'alex@festpix.com',
   'colton@festpix.com',
 ]
 
-def create_admin(email, customer_slug)
+def create_admin(email, customer_name)
   puts email, User.find_or_initialize_by_email(email).update_attributes({
     email: email,
     password: ENV['ADMIN_PASS'],
     role: User::ROLES[:admin],
-    customer_id: Customer.find_by_slug(customer_slug).id,
+    customer_id: Customer.find_by_name(customer_name).id,
   })
 end
 
-puts Customer.find_or_initialize_by_slug(fp_customer_slug).update_attributes({
-  name:        fp_customer_name,
+puts Customer.find_or_initialize_by_name(fp_customer_name).update_attributes({
   color_one:   '#1b1b24',
   color_two:   '#333333',
   color_three: '#428bca',
@@ -37,10 +35,10 @@ puts super_admin_email, User.find_or_initialize_by_email(super_admin_email).upda
   password: ENV['SUPER_ADMIN_PASS'],
   phone_number: '5594516126',
   role: User::ROLES[:super_admin],
-  customer_id: Customer.find_by_slug(fp_customer_slug).id,
+  customer_id: Customer.find_by_name(fp_customer_name).id,
 })
 
-puts Event.find_or_initialize_by_slug(fp_customer_slug).update_attributes({
+puts Event.find_or_initialize_by_name(fp_customer_name).update_attributes({
   name:          fp_customer_name,
   logo:          File.new("#{Rails.root}/public/watermarks/festpix.png"),
   sms_text:      'FestPix! Your images are ready, click the link to see them.',
@@ -48,8 +46,8 @@ puts Event.find_or_initialize_by_slug(fp_customer_slug).update_attributes({
   facebook_text: 'Shared via',
   twitter_url:   'https://twitter.com/festpix',
   twitter_text:  'Shared via',
-  customer_id:   Customer.find_by_slug(fp_customer_slug).id,
+  customer_id:   Customer.find_by_name(fp_customer_name).id,
 })
 
-admins.each {|a| create_admin(a, fp_customer_slug)}
+admins.each {|a| create_admin(a, fp_customer_name)}
 

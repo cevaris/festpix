@@ -21,14 +21,15 @@ class Event < ActiveRecord::Base
   
   validates_attachment_content_type :logo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_attachment_content_type :watermark, :content_type => %w(image/jpeg image/jpg image/png)
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :name
+  # validates_uniqueness_of :slug
   
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
   validates_length_of :facebook_text, :minimum => 0, :maximum => 250, :allow_blank => true
   validates_length_of :twitter_text,  :minimum => 0, :maximum => 130, :allow_blank => true
   validates_length_of :button_text,   :minimum => 0, :maximum => 20,  :allow_blank => true
 
-  validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
+  # validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
   validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
 
   accepts_nested_attributes_for :event_feature
