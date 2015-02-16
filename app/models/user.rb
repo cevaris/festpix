@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   validates_format_of :phone_number, with: PHONE_FORMAT, message: "has an invalid format.", :allow_blank => true
 
 
-  before_save :default_values
+  before_validation :default_values
   def default_values
     self.slug ||= loop do
       token = SecureRandom.hex[0..5]

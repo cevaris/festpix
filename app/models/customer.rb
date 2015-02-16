@@ -15,7 +15,7 @@ class Customer < ActiveRecord::Base
   # validates_length_of :slug, :minimum => 3, :maximum => 50, :allow_blank => false
   # validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
 
-  before_save :default_values
+  before_validation :default_values
   def default_values
     self.color_one   ||= '#1b1b24'
     self.color_two   ||= '#333333'

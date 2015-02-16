@@ -1,5 +1,7 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="col-sm-3 col-md-3"></div>
 
+<div class="col-sm-6 col-md-6">
 <%= form_for(resource,
     :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
@@ -18,17 +20,25 @@
   </div> -->
 
   <meta name="format-detection" content="telephone=no">
-  <div><%= f.label :phone_number %> (format should be '3031234567', not '303-123-4567')<br/>
-  <%= f.text_field :phone_number %></div>
+  <div class="field">
+    <%= f.label :phone_number %> (format should be '3031234567', not '303-123-4567')<br/>
+    <%= f.text_field :phone_number, class: 'form-control'%>
+  </div>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, :autocomplete => "off", class: 'form-control' %>
+  </div>
 
-  <div><%= f.label :password_confirmation %><br/>
-  <%= f.password_field :password_confirmation %></div>
+  <div class="field">
+    <%= f.label :password_confirmation %><br/>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password, required: true %></div>
+  <div class="field">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, required: true, class: 'form-control'%>
+  </div>
 
   <div class="field">
     <%= f.label :avatar %><br />
@@ -36,8 +46,23 @@
   </div>
 
   <%= f.fields_for :customer do |customer_form| %>
-  <div><%= customer_form.label :name %><br />
-    <%= customer_form.text_field :name, :autofocus => true %></div>
+
+  <div class="field">
+    <%= customer_form.label :name %> <br/>
+    <%= customer_form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <h3>Click to Edit Colors</h3>
+
+  <div class="field">
+    <%= customer_form.label :color_one, 'Background Color' %>: <%= customer_form.text_field :color_one, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= customer_form.label :color_two, 'Outline Color' %>: <%= customer_form.text_field :color_two, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= customer_form.label :color_three, 'Text Color' %>: <%= customer_form.text_field :color_three, class: 'form-control'  %>
+  </div>
   <% end %>
 
   <div>
@@ -45,3 +70,38 @@
     <%= f.submit "Update", class: 'btn' %>
   </div>
 <% end %>
+</div>
+
+<div class="col-sm-3 col-md-3"></div>
+
+<script>
+
+  var settings = {
+    // control: $(this).attr('data-control') || 'hue',
+    // defaultValue: $(this).attr('data-defaultValue') || '',
+    // inline: $(this).attr('data-inline') === 'true',
+    // letterCase: $(this).attr('data-letterCase') || 'lowercase',
+    // opacity: $(this).attr('data-opacity'),
+    // position: $(this).attr('data-position') || 'bottom left',
+    // change: function(hex, opacity) {
+    //   if( !hex ) return;
+    //   if( opacity ) hex += ', ' + opacity;
+    //   try {
+    //     console.log(hex);
+    //   } catch(e) {}
+    //   },
+    theme: 'bootstrap'
+  };
+
+  $('#user_customer_attributes_color_one').minicolors(settings);
+  $('#user_customer_attributes_color_two').minicolors(settings);
+  $('#user_customer_attributes_color_three').minicolors(settings);
+
+
+  // $('#customer_color_one').minicolors();
+    // $('.simple_color_custom_chooser_css').simpleColor({ chooserCSS: { 'background-color': 'black', 'opacity': '0.9' } });    
+    // $('#customer_color_one').simpleColor();
+    // $('#customer_color_two').simpleColor();
+    // $('#customer_color_three').simpleColor();
+    // $('.simple_color_one').simpleColor({ chooserCSS: { 'background-color': 'black', 'opacity': '0.9' } });    
+</script>

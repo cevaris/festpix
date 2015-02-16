@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  photo_user_id: 1
-  event_id: 1
+# one:
+#   name: MyString
+#   photo_user_id: 1
+#   event_id: 1
 
-two:
-  name: MyString
-  photo_user_id: 1
-  event_id: 1
+# two:
+#   name: MyString
+#   photo_user_id: 1
+#   event_id: 1

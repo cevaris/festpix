@@ -194,7 +194,7 @@ class PhotoSessionsController < ApplicationController
     ## Remove the photos from rest of the params
     ps_params.delete 'photos_attributes'
     ## Create a photo session without the photos (to be saved later)
-    Rails.logger.info "PS params #{@ps_params.inspect}"
+    Rails.logger.info "PS params #{ps_params.inspect}"
     @photo_session = PhotoSession.new(ps_params)
     Rails.logger.info "PS w/out Photos #{@photo_session.inspect}"
     ###############################################################
@@ -310,6 +310,7 @@ class PhotoSessionsController < ApplicationController
       end
 
       @event = @photo_session.event if @photo_session
+      Rails.logger.info @photo_session.inspect
 
     end
 

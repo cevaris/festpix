@@ -29,7 +29,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up).push(
       :phone_number,:avatar,:slug,:role,customer_attributes: [:name])
     devise_parameter_sanitizer.for(:account_update).push(
-      :phone_number,:slug,:avatar,:role,customer_attributes: [:name])
+      :phone_number,:slug,:avatar,:role,customer_attributes: [:name,
+                                                              :color_one,
+                                                              :color_two,
+                                                              :color_three,
+                                                              :id])
   end
 
   def redirect_to_back

@@ -1,5 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController  
-  
+
+  def create
+    super
+    Rails.logger.info params.inspect
+  end
   def update
     @user = User.find(current_user.id)
 

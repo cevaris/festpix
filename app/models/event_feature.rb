@@ -1,5 +1,16 @@
 class EventFeature < ActiveRecord::Base
 
+  before_validation :default_values
+  def default_values
+    self.facebook_share_button = true if self.facebook_share_button.nil?
+    self.twitter_share_button = true if self.twitter_share_button.nil?
+    self.instagram_share_button = false if self.instagram_share_button.nil?
+    self.download_button = true if self.download_button.nil?
+    self.download_clicked_image = false if self.download_clicked_image.nil?
+    self.is_watermark_or_frame = true if self.is_watermark_or_frame.nil?
+    true
+  end
+
   def facebook_share_button_active?
     self.facebook_share_button ? 'active' : ''
   end

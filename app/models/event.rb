@@ -34,19 +34,28 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :event_feature
 
-  before_save :default_values
-  def default_values
+  before_validation :default_values
+  def default_values 
+    self.facebook_url ||= '' 
+    self.facebook_text ||= '' 
+    self.twitter_url ||= '' 
+    self.twitter_text ||= '' 
+    self.button_text ||= '' 
+    self.button_url ||= '' 
+    
     # Remove any new lines
-    self.sms_text      = self.sms_text.squish      if self.sms_text
-    self.twitter_text  = self.twitter_text.squish  if self.twitter_text
-    self.facebook_text = self.facebook_text.squish if self.facebook_text
+    self.sms_text      = self.sms_text.squish
+    self.twitter_text  = self.twitter_text.squish
+    self.facebook_text = self.facebook_text.squish
 
-    self.event_feature ||= EventFeature.create
+    self.event_feature ||= EventFeature.new
+    
     self.slug ||= loop do
       token = SecureRandom.hex[0..5]
       break token unless Event.exists?(slug: token)
     end
-    # self.event_feature ||= EventFeature.find_or_create_by_event_id(self.id)
+
+    self.watermark ||= File.new("#{Rails.root}/public/watermarks/festpix.png")
   end
 
   def shares
