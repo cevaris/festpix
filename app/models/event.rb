@@ -41,7 +41,8 @@ class Event < ActiveRecord::Base
     self.twitter_url ||= '' 
     self.twitter_text ||= '' 
     self.button_text ||= '' 
-    self.button_url ||= '' 
+    self.button_url ||= ''
+    self.sms_text ||= ''
     
     # Remove any new lines
     self.sms_text      = self.sms_text.squish
