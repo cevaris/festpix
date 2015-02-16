@@ -32,10 +32,25 @@
     <% end %>
   </div>
 
-  <%= f.hidden_field :slug, class: 'form-control', readonly: true%>
+  <%= f.hidden_field :slug, class: 'form-control', readonly: true %>
+
+  <br>
+  <h3>Customize Content</h3>
+  <div class="field">
+    <%= f.label :sms_text, 'SMS' %><br>
+    <%= text_area(:event, :sms_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter_text %><br>
+    <%= text_area(:event, :twitter_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook_text %><br>
+    <%= text_area(:event, :facebook_text, cols: 50, rows: 5, class: 'form-control') %>
+  </div>
 
   <br> 
-  <h3>Custom Button</h3>
+  <h3>Customize Button</h3>
   <div class="field">
     <%= f.label :button_url %> <br/>
     <%= f.text_field :button_url, class: 'form-control' %>
@@ -45,41 +60,23 @@
     <%= f.text_field :button_text, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%#= f.label :description %><!-- <br> -->
-    <%#= text_area(:event, :description, cols: 50, rows: 5, class: 'form-control') %>
-    <%= f.hidden_field :description, class: 'form-control' %>
-  </div>
+
+  <!-- <div class="field"> -->
+  <!--   <%#= f.label :description %><\!-- <br> -\-> -->
+  <!--   <%#= text_area(:event, :description, cols: 50, rows: 5, class: 'form-control') %> -->
+  <!--   <%= f.hidden_field :description, class: 'form-control' %> -->
+  <!-- </div> -->
 
   <br>
-  <h3>SMS</h3>
-  <div class="field">
-    <%= f.label :sms_text %><br>
-    <%= text_area(:event, :sms_text, cols: 50, rows: 5, class: 'form-control') %>
-  </div>
-
-  <br>
-  <h3>Twitter</h3>
+  <h3>Customize Links</h3>
   <div class="field">
     <%= f.label :twitter_url %> <br/>
     <%= f.text_field :twitter_url, class: 'form-control' %>
   </div>
   <div class="field">
-    <%= f.label :twitter_text %><br>
-    <%= text_area(:event, :twitter_text, cols: 50, rows: 5, class: 'form-control') %>
-  </div>
-
-  <br> 
-  <h3>Facebook</h3>
-  <div class="field">
     <%= f.label :facebook_url %> <br/>
     <%= f.text_field :facebook_url, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :facebook_text %><br>
-    <%= text_area(:event, :facebook_text, cols: 50, rows: 5, class: 'form-control') %>
-  </div>
-
   
 
   <br>
