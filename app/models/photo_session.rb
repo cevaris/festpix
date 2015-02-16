@@ -92,7 +92,7 @@ class PhotoSession < ActiveRecord::Base
   before_save :default_values
   def default_values
     self.slug ||= loop do
-      token = SecureRandom.hex[0..3]
+      token = SecureRandom.hex[0..5]
       break token unless PhotoSession.exists?(slug: token)
     end
   end

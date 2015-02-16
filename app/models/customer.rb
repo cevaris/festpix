@@ -20,10 +20,9 @@ class Customer < ActiveRecord::Base
     self.color_one   ||= '#1b1b24'
     self.color_two   ||= '#333333'
     self.color_three ||= '#428bca'
-    # self.slug ||= loop do
-    #   token = SecureRandom.hex[0..5]
-    #   break token unless Customer.exists?(slug: token)
-    # end
+    if self.events.empty?
+      self.events << Event.new(name:'Default Event')
+    end
   end
 
 

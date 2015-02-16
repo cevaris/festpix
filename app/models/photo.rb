@@ -79,7 +79,7 @@ class Photo < ActiveRecord::Base
   def default_values
     # self.slug ||= SecureRandom.hex[0..10]
     self.slug ||= loop do
-      token = SecureRandom.hex[0..3]
+      token = SecureRandom.hex[0..5]
       break token unless Photo.exists?(slug: token)
     end
   end

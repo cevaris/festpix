@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   
-  load_and_authorize_resource :find_by => :slug
+  load_and_authorize_resource :find_by => :id
   # before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers

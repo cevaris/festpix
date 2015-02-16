@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     else
       redirect_to current_user    
     end
-    
   end
   
   def show

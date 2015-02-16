@@ -21,8 +21,8 @@ class Event < ActiveRecord::Base
   
   validates_attachment_content_type :logo, :content_type => %w(image/jpeg image/jpg image/png)
   validates_attachment_content_type :watermark, :content_type => %w(image/jpeg image/jpg image/png)
-  validates_uniqueness_of :name
-  # validates_uniqueness_of :slug
+  # validates_uniqueness_of :name
+  validates_uniqueness_of :slug
   
   validates_length_of :sms_text,      :minimum => 0, :maximum => 100, :allow_blank => true
   validates_length_of :facebook_text, :minimum => 0, :maximum => 250, :allow_blank => true
@@ -30,20 +30,9 @@ class Event < ActiveRecord::Base
   validates_length_of :button_text,   :minimum => 0, :maximum => 20,  :allow_blank => true
 
   # validates_length_of :slug, :minimum => 3, :maximum => 40, :allow_blank => false
-  validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
+  # validates_format_of :slug, with: /\A(^[\w]+)$\Z/, message: 'Invalid Characters in URL Route/Name. Possible characters [A-Z, a-b, 0-9].', multiline: false
 
   accepts_nested_attributes_for :event_feature
-  
-
-  #############################
-  ## Logic to disable change of slug
-  # attr_readonly :slug
-  # validate :validate_slug_change
-  # def validate_slug_change
-  #   self.errors.add(:base, "Url/Name Route '#{self.slug_was}' cannot be changed") if self.slug_changed?
-  # end
-  #############################
-
 
   before_save :default_values
   def default_values
@@ -53,6 +42,10 @@ class Event < ActiveRecord::Base
     self.facebook_text = self.facebook_text.squish if self.facebook_text
 
     self.event_feature ||= EventFeature.create
+    self.slug ||= loop do
+      token = SecureRandom.hex[0..5]
+      break token unless Event.exists?(slug: token)
+    end
     # self.event_feature ||= EventFeature.find_or_create_by_event_id(self.id)
   end
 
