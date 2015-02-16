@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   def update_devise_parameter_sanitizer
-    # devise_parameter_sanitizer.for(:sign_up).push(:phone_number,:avatar,:slug,:role,:customer,:customer_name)
     devise_parameter_sanitizer.for(:sign_up).push(
       :phone_number,:avatar,:slug,:role, customer_attributes: [:name])
     devise_parameter_sanitizer.for(:account_update).push(:phone_number,:slug,:avatar,:role,:customer,:customer_name)

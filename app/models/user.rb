@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :customer, :dependent => :destroy
-  validates_associated :customer
   accepts_nested_attributes_for :customer
 
    # attr_accessor :password, :password_confirmation, :current_password, :encrypted_password, :phone_number
@@ -49,14 +48,6 @@ class User < ActiveRecord::Base
     [User::ROLES[:customer]].include? self.role and self.customer
     # [User::ROLES[:customer]].include? self.role
   end
-
-  # def customer
-  #   @customer
-  # end
-
-  # def customer_attributes=(attributes)
-  #   Rails.logger.info "Attributes: #{attributes}"
-  # end
 
   def with_customer
     self.build_customer

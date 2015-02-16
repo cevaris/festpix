@@ -1,76 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController  
 
-  def create
-    build_resource(sign_up_params)
-    Rails.logger.info params
-
-    
-
-    #################################################
-    # customer = false
-    # if not Customer.exists?(slug: resource.slug)
-    #   customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
-    #   resource.customer = Customer.find_by_slug(params[:customer_slug]) if customer.save
-    #   resource_saved = resource.save
-    # else 
-    #   resource_saved = false
-    #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken"
-    # end
-    # customer_saved = false
-    # resource_saved = false
-    # customer = Customer.new( slug: resource.slug, name: params[:customer_name] )
-    # if customer.valid? and resource.valid?
-    #   customer_saved = customer.save
-    #   resource.customer = Customer.find_by_slug(resource.slug)
-    #   resource_saved = resource.save
-    # else 
-    #   resource.errors[:base] << "Customer URL '#{resource.slug}' already taken" unless customer.valid?
-    # end
-    
-    # customer_saved = false
-    # resource_saved = false
-    # customer = Customer.new( name: params[:customer_name] )
-    # if customer.valid? and resource.valid?
-    #   customer_saved = customer.save
-    #   resource.customer = customer
-    #   resource_saved = resource.save
-    # else
-      
-    #   Rails.logger.error customer.errors.inspect
-    # end
-    
-    #################################################
-
-    # Rails.logger.info resource.inspect
-    # Rails.logger.info resource.errors.inspect
-    # Rails.logger.info resource_saved
-
-    yield resource if block_given?
-    # if customer and resource_saved
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_flashing_format?
-        sign_up(resource_name, resource)
-        respond_with resource, location: after_sign_up_path_for(resource)
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
-        expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
-      end
-  #   else
-  #     clean_up_passwords resource
-  #     respond_with resource
-  #   end
-
-  end
-
-
-  def new
-    super
-    # resource.customer.build
-    resource.build_customer
-    # resource.customer = Customer.new
-    Rails.logger.info resource.customer.inspect
-  end
+  # def new
+  #   super
+  #   resource.build_customer
+  #   Rails.logger.info resource.customer.inspect
+  # end
 
   
   def update
