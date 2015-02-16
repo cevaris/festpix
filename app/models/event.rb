@@ -56,7 +56,9 @@ class Event < ActiveRecord::Base
       break token unless Event.exists?(slug: token)
     end
 
-    self.watermark ||= File.new("#{Rails.root}/public/watermarks/festpix.png")
+    if self.new_record?
+      self.watermark = File.new("#{Rails.root}/public/watermarks/festpix.png")
+    end
   end
 
   def shares
