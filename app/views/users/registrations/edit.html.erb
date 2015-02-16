@@ -1,6 +1,7 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= form_for(resource,
+    :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
   <div class="bs-callout bs-callout-danger">
   <%= devise_error_messages! %>
@@ -33,6 +34,11 @@
     <%= f.label :avatar %><br />
     <%= f.file_field :avatar %>
   </div>
+
+  <%= f.fields_for :customer do |customer_form| %>
+  <div><%= customer_form.label :name %><br />
+    <%= customer_form.text_field :name, :autofocus => true %></div>
+  <% end %>
 
   <div>
     <%= link_to "Cancel", current_user, data: { confirm: "Cancel update?" }, class: 'btn btn-danger' %>
