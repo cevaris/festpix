@@ -51,3 +51,23 @@
     <%= label_tag :created_at, "Created" %>: <%= @customer.created_at %> <br/>
     <%= label_tag :updated_at, "Last Updated" %>: <%= @customer.updated_at %>
 </div>
+
+<div class="field">
+  <table class="table">
+    <thead>
+      <tr>
+	<th>Events</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @customer.events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+

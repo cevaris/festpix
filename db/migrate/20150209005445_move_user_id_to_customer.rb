@@ -2,16 +2,16 @@
 class MoveUserIdToCustomer < ActiveRecord::Migration
   def self.up
     add_column :customers, :user_id, :integer
+
     # Backfill user_id into Customer
-    Customer.all.each do |c|
-      # Find User
-      u = User.find_by(customer_id: c.id)
-      if u
-        # If this customer has a user,
-        # update the user_id field
-        c.user = u
-        c.save
-      end
+    User.all.each do |u|
+      c = Customer.find(u.customer_id)
+      c.user_id = u.id
+      c.save
+    end
+    Customer.where(user_id: nil).each do |c|
+      c.user = User.find_by_email('admin@festpix.com')
+      c.save
     end
   end
 
