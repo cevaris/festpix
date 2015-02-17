@@ -9,10 +9,6 @@ class MoveUserIdToCustomer < ActiveRecord::Migration
       c.user_id = u.id
       c.save
     end
-    Customer.where(user_id: nil).each do |c|
-      c.user = User.find_by_email('admin@festpix.com')
-      c.save
-    end
   end
 
   def self.down
