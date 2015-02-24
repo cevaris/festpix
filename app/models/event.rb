@@ -49,9 +49,8 @@ class Event < ActiveRecord::Base
     self.twitter_text  = self.twitter_text.squish
     self.facebook_text = self.facebook_text.squish
 
-    self.event_feature = EventFeature.new
-
     if self.new_record?
+      self.event_feature = EventFeature.new
       self.slug = loop do
         token = SecureRandom.hex[0..5]
         break token unless Event.exists?(slug: token)
