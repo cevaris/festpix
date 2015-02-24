@@ -105,30 +105,6 @@ class PhotoSessionsController < ApplicationController
     render 'email/new'
   end
 
-  # # GET /photo_session/1/email
-  # def email_create
-
-  #   @photo_session = PhotoSession.find params[:photo_session_id]
-  #   Rails.logger.info params
-
-  #   return render nothing: true, status: 500 unless params.has_key? 'email'
-
-  #   Rails.logger.info params
-  #   list_id = get_mailing_list()
-
-  #   if params[:subscribe] == 'on' and list_id and subscribe_to_list( list_id, params[:email] )
-
-  #     @photo_session.email_list.add( params[:email] )
-  #     @photo_session.save
-
-  #     redirect_to @photo_session
-  #   else
-  #     redirect_to photo_session_url(@photo_session)
-  #   end
-
-
-  # end
-
 
   # GET /photo_sessions/1
   # GET /photo_sessions/1.json
@@ -242,7 +218,7 @@ class PhotoSessionsController < ApplicationController
 
         Rails.logger.info "Response Message: #{response.inspect}"
 
-        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.short_url }".html_safe
+        flash.notice = "Photo Session was successfully created. #{view_context.link_to 'Click here to View.', @photo_session.url }".html_safe
         format.html { redirect_to action: "new" }
         format.json { render json: response }
       else
