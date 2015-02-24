@@ -1,6 +1,8 @@
+<div class="col-xs-12">
+
 <div class="pull-right">
   <%= link_to new_photo_session_path, :class => "btn btn-default" do %>
-    <i class="fa fa-plus"> Event</i>
+    <i class="fa fa-plus"> Photo Session</i>
   <% end %>
 </div>
 
@@ -8,28 +10,67 @@
   <h1>Photo Sessions</h1>
 </div>
 
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Session</th>
+        <th>Tagging</th>
+        <th>Event</th>
+        <th>Opened</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <% @photo_sessions.each do |photo_session| %>
+      <% if photo_session.photos.first %>
+      <tr>
 
-<div class="row">
-  <% @photo_sessions.each do |photo_session| %>
+        <td>
+          <%= image_tag(photo_session.photos.sample.image.url(:square), size: '50x50') %>
+          <%= l(photo_session.created_at, format: :photo_session) %> - <%= photo_session.photos.count %> Photo<%= 's' if photo_session.photos.count > 1 %>
+        </td>
 
-    <% if photo_session.photos.first %>
+        <td>
+          <%= photo_session.email_list %> <%= photo_session.phone_list %>
+        </td>
 
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <%= link_to image_tag(photo_session.photos.first.image.url(:square), size: '325x325'), photo_session, title: photo_session.photos.first.image_file_name %>
-          <div class="caption">
-            <div class="pull-right">
-              <h3><%= photo_session.name %><br/><small><%= l(photo_session.created_at, format: :reminder) %></small></h3>
-              <p>Photographer: <%= photo_session.photographer.email %> </p>
+        <td>
+          <%= photo_session.event %>
+        </td>
+
+        <td>
+          <% if photo_session.is_opened? %>
+            <span class="label label-success"><i class="icon-ok"></i> <%= photo_session.time_to_open %></span>
+          <% else %>
+            Not Opened
+          <% end %>          
+        </td>
+
+        <td>
+          <div class="btn-group" style="width:100px;">
+              <%= link_to 'Show', photo_session, type: 'buton', class: 'btn btn-default' %>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= link_to 'Show', photo_session %></li>
+                <!-- <li><%= link_to 'Edit', edit_photo_session_path(photo_session) %></li> -->
+                <li class="divider"></li>
+                <li><%= link_to 'Destroy', photo_session, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
             </div>
-            <p><%= link_to 'Claim', photo_session_claim_path(photo_session), class:'btn btn-primary' %>  <%= link_to 'Delete', photo_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %> <span class="badge"><%= photo_session.photos.count %></span></p>
-          </div>
-        </div>
-      </div>
+        </td>
 
+      </tr>
+      <% end %>
     <% end %>
+  </table>
 
-  <% end %>
-</div>
+  <%= will_paginate @photo_sessions %>
+</div>  
+
+
+
+
 
 

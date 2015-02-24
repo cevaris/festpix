@@ -11,24 +11,22 @@ class PhotoSessionsController < ApplicationController
   # GET /photo_sessions
   # GET /photo_sessions.json
   def index
-    
-    # if params[:email_list]
-    #   emails = PhotoSession.tagged_with(params[:email_list].split, :match_all => true)
-    # else
-    #   emails = []
-    # end
-    
-    # if params[:phone_list]
-    #   phones = PhotoSession.tagged_with(params[:phone_list].split, :match_all => true)
-    # else
-    #   phones = []
-    # end
 
-    # @photo_sessions = emails | phones
+    @event_filter = Event.find_by_slug(params[:event])
+    
     if current_user
-      @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
-      # @photo_sessions = PhotoSession.accessible_by(current_ability, :create).paginate(:page => params[:page], :per_page => 20).order('id DESC')
-      render 'admin_show'
+      @photo_sessions = PhotoSession.accessible_by(current_ability, :create)
+
+      if @event_filter
+        @photo_sessions = @photo_sessions.where(event: @event_filter)
+      elsif params.has_key? 'event'
+        flash[:error] = "Invalid Event \"#{params[:event]}\""
+      end
+
+      @photo_sessions = @photo_sessions.
+                        paginate(:page => params[:page], :per_page => 20).
+                        order('id DESC')
+      
     else
       redirect_to action: "new"
     end
