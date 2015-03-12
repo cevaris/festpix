@@ -1,0 +1,37 @@
+<div class="jumbotron header min800 bg-dark">
+  <div class="container-fluid">
+    <nav>
+      <%= link_to "Sign Up", new_user_registration_path %>
+      <%= link_to "Log in", new_user_session_path %>
+    </nav>
+
+    <div class="col-xs-12 col-md-5 col-md-offset-6 callout">
+      <h1 class="shadow" id="headline">FestPix</h1>
+      <h3 class="shadow">Deliver professional photos in real time.</h3>
+      <%= link_to "Learn More", new_user_registration_path, class: 'btn btn-xl btn-default' %>
+      <%= link_to "Try It Now", new_user_registration_path, class: 'btn btn-xl btn-green' %>
+    </div>
+  </div>
+  <div id="videoBg">
+    <video loop="loop" preload="auto" id="video" autoplay="">
+      <source src="https://s3.amazonaws.com/cdn.festpix.com/videos/festpix-wallpaper.mp4" type="video/mp4">
+	<source src="https://s3.amazonaws.com/cdn.festpix.com/videos/festpix-wallpaper.webm" type="video/webm">
+    </video>
+    <div class="dark">
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid descriptor clearfix">
+  <div class="col-xs-12 col-md-5 crossHatch">
+    <%= image_tag 'mockup1.png', {id: 'mockup1'} %>
+  </div>
+
+  <div class="col-md-5 col-md-offset-1 description">
+    <h2>Set Your Photos Free.</h2>
+    <h3>Instantly put your customer's photos in their phones to encourage social sharing and interactivity.</h3>
+  </div>
+</div>
+
+
+

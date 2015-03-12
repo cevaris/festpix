@@ -1,13 +1,13 @@
-@font-face {
-  font-family: 'agency_fbbold';
-  src: url('/assets/agencyb-webfont.eot');
-  src: url('/assets/agencyb-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/assets/agencyb-webfont.woff') format('woff'),
-       url('/assets/agencyb-webfont.ttf') format('truetype'),
-       url('/assets/agencyb-webfont.svg#agency_fbbold') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+/* @font-face { */
+/*   font-family: 'agency_fbbold'; */
+/*   src: url('/assets/agencyb-webfont.eot'); */
+/*   src: url('/assets/agencyb-webfont.eot?#iefix') format('embedded-opentype'), */
+/*        url('/assets/agencyb-webfont.woff') format('woff'), */
+/*        url('/assets/agencyb-webfont.ttf') format('truetype'), */
+/*        url('/assets/agencyb-webfont.svg#agency_fbbold') format('svg'); */
+/*   font-weight: normal; */
+/*   font-style: normal; */
+/* } */
 
 .item {
   width: 300px;
@@ -15,28 +15,28 @@
   float: left;
 }
 
-body{
-  /*background: #111111;*/
-  background: #1b1b24;
-  color: #428bca;
-}
+/* body{ */
+/*   /\*background: #111111;*\/ */
+/*   background: #1b1b24; */
+/*   color: #428bca; */
+/* } */
 
-h1, h2, h3 {
-  font-family: 'agency_fbbold';
-}
-.navbar-inverse .navbar-brand{
-  font-family: 'agency_fbbold';
-  font-size: 3em;
-  color: #428bca;
-}
+/* h1, h2, h3 { */
+/*   font-family: 'agency_fbbold'; */
+/* } */
+/* .navbar-inverse .navbar-brand{ */
+/*   font-family: 'agency_fbbold'; */
+/*   font-size: 3em; */
+/*   color: #428bca; */
+/* } */
 
-.jumbotron{
-  color: #000;
-}
+/* .jumbotron{ */
+/*   color: #000; */
+/* } */
 
-.color-one   {background-color: #1b1b24;} 
-.color-two   {background-color: #333333;} 
-.color-three {color: #428bca;} 
+/* .color-one   {background-color: #1b1b24;}  */
+/* .color-two   {background-color: #333333;}  */
+/* .color-three {color: #428bca;}  */
 
 img.img-logo.img-thumbnail {
   background: transparent !important;

@@ -47,17 +47,19 @@ class ApplicationController < ActionController::Base
       flash[:error] = 'Please log in'
       redirect_to user_session_path
     end
-  end 
+  end
 
   before_filter do
+    @action_controller = "#{params[:action]}:#{params[:controller]}"
+    Rails.logger.info @action_controller
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
-  rescue_from CanCan::AccessDenied do |exception|  
+  rescue_from CanCan::AccessDenied do |exception|
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
-    flash[:error] = "Access denied!"  
+    flash[:error] = "Access denied!"
     redirect_to_back
-  end 
+  end
 
 end
