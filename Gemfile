@@ -8,6 +8,7 @@ gem 'rails','~> 4.0.0'
 gem 'sqlite3', '~> 1.3.10', group: [:test]
 
 # Use SCSS for stylesheets
+gem 'sass', '~> 3.2.19'
 gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
@@ -53,7 +54,7 @@ gem 'rails_12factor', group: :production
 # gem "twitter-bootstrap-rails"
 gem 'foreman' ,'~> 0.63.0'
 gem 'devise', '~> 3.2.2'
-gem "font-awesome-rails", '~> 4.0.3.1'
+gem "font-awesome-rails", '~> 4.3.0.0'
 gem 'activerecord-session_store', '~> 0.1.0'
 gem 'pg', '~> 0.17.1'
 gem 'paperclip', '~> 4.1.1'

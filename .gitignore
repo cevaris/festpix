@@ -37,5 +37,7 @@ Thumbs.db
 .environment.*
 env.*
 
+public/assets
+
 *[#]*[#]
 *[#]*
