@@ -11,51 +11,49 @@
 
       <% if user_signed_in? %>
 
-        <% if current_user.admin? %>
-          <a class="navbar-brand" href="http://www.festpix.com/">
-          <% if is_production? %>
-            FestPix
-          <% else %>
-            FestPix Dev
-          <% end %>
-          </a>
-        <% elsif current_user.customer? %>
-          <a class="navbar-brand" href="#">
-          <% if is_production? %>
-            <%= current_user.customer.name %>
-          <% else %>
-            <%= current_user.customer.name %> Dev
-          <% end %>
-          </a>
+      <% if current_user.admin? %>
+      <a class="navbar-brand" href="http://www.festpix.com/">
+        <% if is_production? %>
+        FestPix
+        <% else %>
+        FestPix Dev
         <% end %>
-
+      </a>
+      <% elsif current_user.customer? %>
+      <a class="navbar-brand" href="#">
+        <% if is_production? %>
+        <%= current_user.customer.name %>
+        <% else %>
+        <%= current_user.customer.name %> Dev
+        <% end %>
+      </a>
       <% end %>
 
-
+      <% end %>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
 
-          <% if current_user %>
-            <li><%= link_to 'New Photo Session', new_photo_session_path %></li>
-            <li><%= link_to 'Photo Sessions', photo_sessions_path %></li>
-            <li><%= link_to 'Events', events_path %></li>
+        <% if current_user %>
+        <li><%= link_to 'New Photo Session', new_photo_session_path %></li>
+        <li><%= link_to 'Photo Sessions', photo_sessions_path %></li>
+        <li><%= link_to 'Events', events_path %></li>
 
-            <% if current_user.admin? %>
-              <li><%= link_to 'Customers', customers_path %></li>
-            <% end %>
+        <% if current_user.admin? %>
+        <li><%= link_to 'Customers', customers_path %></li>
+        <% end %>
 
-	    <li><%= link_to 'Settings', edit_user_registration_path %></li>
+	<li><%= link_to 'Settings', edit_user_registration_path %></li>
 
-          <% end %>
+        <% end %>
 
-          <li class="divider"></li>
-          <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+        <li class="divider"></li>
+        <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
-          <li><%= link_to "Sign in", new_user_session_path %></li>
-          <li><%= link_to "Create Account", new_user_registration_path %></li>
+        <li><%= link_to "Sign in", new_user_session_path %></li>
+        <li><%= link_to "Create Account", new_user_registration_path %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

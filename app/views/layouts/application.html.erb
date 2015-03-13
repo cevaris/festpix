@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
     <title><%= content_for?(:title) ? yield(:title) : "FestPix" %></title>
@@ -19,21 +18,24 @@
 
   <body class="color-one color-three">
 
-    <% unless ['show:photo_sessions', 'index:home'].include?(@action_controller) %>
+    <% if not ['show:photo_sessions', 'index:home', 'survey:home'].include?(@action_controller) %>
     <%= render 'layouts/header' %>
+    <% else  %>
 
-    <% else 'index:home' == @action_controller %>
+    <% if 'index:home' == @action_controller %>
     <%= render 'layouts/wallpaper' %>
     <% end %>
 
-    <div class="container" id="main-container">
-      <!-- <div class="row"> -->
-      <!--     <%= render 'layouts/flash' %> -->
-      <!-- </div><\!--/row-\-> -->
+    <% end %>
 
-      <!-- <div class="row"> -->
+    <div class="container" id="main-container">
+      <div class="row">
+          <%= render 'layouts/flash' %>
+      </div><!--/row-->
+
+      <div class="row">
         <%= yield %>
-      <!-- </div> -->
+      </div>
     </div>
 
     <div class="container">
@@ -42,7 +44,7 @@
 	<div class="fb-like" data-href="https://www.facebook.com/festpix" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 	<div>© FestPix 2014-<%= Time.new.year %></div>
       </footer>
-    </div> <!-- /container -->        
+    </div> <!-- /container -->
 
   </body>
 
