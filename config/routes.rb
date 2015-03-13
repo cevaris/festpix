@@ -5,15 +5,13 @@ Rq::Application.routes.draw do
     resources :password
   end
   # resources :password
-  
-  
+
+
   resources :customers do
     collection do
       get 'autocomplete'
     end
   end
-
-  
 
   match '/p/:id' => 'photo#show', via: [:get], as: 'photo_short'
   match '/s/:id' => 'photo_sessions#show', via: [:get], as: 'photo_session_short'
@@ -42,21 +40,23 @@ Rq::Application.routes.draw do
     # match 'pics', to: 'photo_sessions#email_create', via: [:post]
   end
 
-  
+
   match '/twitter/auth', to: 'twitter#auth', via: [:get]
   match '/auth/twitter/callback', to: 'twitter#callback', via: [:get]
   match '/twitter/oauth/failure',  to: 'twitter#failure', via: [:get]
   match '/twitter/post/:photo_id',  to: 'twitter#post', via: [:post]
-  
+
+  match '/survey',  to: 'home#survey', via: [:get]
+  match '/complete-survey',  to: 'home#complete_survey', via: [:post]
 
   resources :events do
     collection do
       get 'autocomplete'
     end
   end
-  
+
   resources :event_images
-  
+
   resources :users, :only => [:show, :index]
   root :to => "home#index"
 
@@ -66,7 +66,7 @@ Rq::Application.routes.draw do
   match ':event_url/photos/:photo_id' => 'photo#event_photo', via: [:get], as: 'event_photo'
   match '/:event_url/:id' => 'photo_sessions#show', via: [:get], as: 'event_photo_session'
 
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
