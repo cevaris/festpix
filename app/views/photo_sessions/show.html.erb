@@ -404,7 +404,7 @@ function shareToTwitter(photo_id){
       success: function(resp){
         console.log(resp);
         console.log('Successful share');
-        $('#twitterStatus').modal('show');
+        $('#twitterStatus').modal({'show': true, 'backdrop': false});
         $('#twitterStatusMessage').html('');
         $('#twitterStatusMessage').prepend(
           $('<button/>')
@@ -464,7 +464,7 @@ function alertFacebookPost(post_id){
       var link = 'https://www.facebook.com/'+post_data[0]+'/posts/'+post_data[1];
 
   
-    $('#facebookStatus').modal('show');
+    $('#facebookStatus').modal({'show': true, 'backdrop': false});
     $('#facebookStatusMessage').html('');
     $('#facebookStatusMessage').prepend(
       $('<button/>')
@@ -491,7 +491,7 @@ function shareToFacebook(reference){
 
     <% if ENV['FACEBOOK_POST_VERSION'].downcase == 'v1' %>
 
-      $('#facebookSpinner').modal('show');
+      $('#facebookSpinner').modal({'show': true, 'backdrop': false});
 
       FB.login(function(response){
    
