@@ -3,7 +3,7 @@ class SurveyMailer < Devise::Mailer
 
   def survey_email (params)
     @params = params
-    mailto = ['cevaris@gmail.com','mark@festpix.com']
+    mailto = ['admin@gmail.com']
     mailto.each do |e|
       mail(
         :from => "photos@festpix.com",

@@ -10,9 +10,7 @@
 super_admin_email = 'admin@festpix.com'
 fp_customer_name = 'Festpix'
 admins = [
-  'mark@festpix.com',
-  'alex@festpix.com',
-  'colton@festpix.com',
+  'other@festpix.com',
 ]
 
 def create_admin(email, customer_name)
@@ -33,7 +31,7 @@ puts Customer.find_or_initialize_by_name(fp_customer_name).update_attributes({
 puts super_admin_email, User.find_or_initialize_by_email(super_admin_email).update_attributes({
   email: super_admin_email,
   password: ENV['SUPER_ADMIN_PASS'],
-  phone_number: '5594516126',
+  phone_number: '111-111-1111',
   role: User::ROLES[:super_admin],
   customer_id: Customer.find_by_name(fp_customer_name).id,
 })
